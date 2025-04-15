@@ -1,5 +1,6 @@
 'use client';
 
+import Input from "@/app/components/Input/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -34,33 +35,21 @@ export default function Home() {
         onSubmit={handleSubmit(handleFormSubmit)} 
         className="w-80 flex flex-col justify-center bg-gray-300 p-8 gap-4 rounded-sm" 
       >
-        <div className="flex flex-col">
-          <label className="font-bold text-black">E-mail</label>
-          <input 
-            className={`bg-stone-50 rounded-sm h-10 px-2 border ${
-              errors.email ? 'border-red-500' : 'border-transparent'
-            }`} 
-            type="email" 
-            {...register('email')} 
-          />
-          {errors.email && (
-            <span className="text-red-500 text-sm mt-1">{errors.email.message}</span>
-          )}
-        </div>
+        <Input<LoginSchema>
+          label="Email"
+          name="email"
+          register={register}
+          errors={errors}
+          placeholder="Digite seu email"
+        />
 
-        <div className="flex flex-col">
-          <label className="font-bold text-black">Senha</label>
-          <input 
-            className={`bg-stone-50 rounded-sm h-10 px-2 border ${
-              errors.password ? 'border-red-500' : 'border-transparent'
-            }`} 
-            type="password" 
-            {...register('password')} 
-          />
-          {errors.password && (
-            <span className="text-red-500 text-sm mt-1">{errors.password.message}</span>
-          )}
-        </div>
+        <Input<LoginSchema>
+          label="Senha"
+          name="password"
+          register={register}
+          errors={errors}
+          placeholder="Digite sua senha"
+        />
 
         <button 
           className="bg-emerald-900 text-stone-50 rounded-sm h-10 font-bold hover:bg-emerald-800 transition-colors" 
