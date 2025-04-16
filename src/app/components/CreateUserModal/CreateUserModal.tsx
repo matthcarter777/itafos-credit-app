@@ -10,6 +10,7 @@ import { getRoles } from '@/app/services/hooks/getRegras';
 import { getRTV } from '@/app/services/hooks/getRTV';
 import { getClientes } from '@/app/services/hooks/getClientes';
 import { api } from '@/app/services/apiClient';
+import { Toast } from '../Toast/Toast';
 
 
 type CreateUserModalProps = {
@@ -31,6 +32,7 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
   const [roles, setRoles] = useState([]);
   const [rtvs, setRTVS] = useState([]);
   const [clientes, setClientes] = useState([]);
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     getData();
@@ -63,6 +65,9 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
       rtvId: data.rtvId !== "" ? data.rtvId : null, 
       clienteId: data.clienteId !== "" ? data.clienteId : null, 
     });
+
+    setShowToast(true)
+
 
     getData();
 
@@ -150,6 +155,13 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
               Fechar
             </button>
           </form>
+
+          {showToast && (
+            <Toast
+              message="Usuario salvos com sucesso!"
+              onClose={() => setShowToast(false)}
+            />
+          )}
         </div>
       )}
     </div>

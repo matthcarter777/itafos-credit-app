@@ -1,4 +1,4 @@
-import { Home, Info, Mail, Users } from 'lucide-react';
+import { Home, Info, LockKeyhole, Mail, Users } from 'lucide-react';
 import Link from 'next/link'; // Remova se não estiver usando Next.js
 
 const Navbar = () => {
@@ -20,8 +20,8 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/contato" className="flex items-center gap-2 hover:text-green-600 transition">
-            <Mail size={20} /> Contato
+          <Link href="/regras" className="flex items-center gap-2 hover:text-green-600 transition">
+            <LockKeyhole size={20} /> Regras
           </Link>
         </li>
       </ul>

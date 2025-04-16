@@ -1,6 +1,6 @@
 "use client";
 
-import CreateUserModal from "@/app/components/CreateUserModal/CreateUserModal";
+import CreateRegraModal from "@/app/components/CreateRegraModal/CreateRegraModal";
 import UserTable from "@/app/components/UserTable/UserTable";
 import { getUsuarios } from "@/app/services/hooks/getUsuarios";
 import { useEffect, useState } from "react";
@@ -31,8 +31,8 @@ export default function User() {
   return (
     <div className="p-10">
       <div className="flex flex-row justify-between">
-        <h1 className="font-bold text-xl">Usuarios</h1>
-        <CreateUserModal title="+ Novo Usuário"/>
+        <h1 className="font-bold text-xl">Regras</h1>
+        <CreateRegraModal title="+ Nova Regra"/>
       </div>
       <div className="p-6">
         <UserTable data={usuarios} onEdit={handleEdit} onToggleAtivo={handleToggleAtivo} />
