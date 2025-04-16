@@ -9,7 +9,7 @@ type SelectProps<TFormValues extends Record<string, any>> = {
   name: FieldPath<TFormValues>;
   register: UseFormRegister<TFormValues>;
   errors?: FieldErrors<TFormValues>;
-  options: { label: string; value: string }[];
+  options: { id: string; nome: string }[];
 } & React.SelectHTMLAttributes<HTMLSelectElement>;
 
 export default function Select<TFormValues extends Record<string, any>>({
@@ -37,8 +37,8 @@ export default function Select<TFormValues extends Record<string, any>>({
       >
         <option value="">Selecione</option>
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
+          <option key={option.id} value={option.id}>
+            {option.nome}
           </option>
         ))}
       </select>

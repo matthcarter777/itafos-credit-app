@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
 import Select from '../Select/Select';
-
+import { useEffect, useState } from 'react'
+import { getRoles } from '@/app/services/hooks/getRegras';
+import { getRTV } from '@/app/services/hooks/getRTV';
+import { getClientes } from '@/app/services/hooks/getClientes';
 
 
 type CreateUserModalProps = {
@@ -14,7 +16,7 @@ type CreateUserModalProps = {
 }
 
 const createUserSchema = z.object({
-  nome: z.string().nonempty('Senha não pode ser em branco.'),
+  nome: z.string().nonempty('Nome não pode ser em branco.'),
   email: z.string().email("E-mail inválido"),
   senha: z.string().nonempty('Senha não pode ser em branco.'),
   rtvId: z.string(),
@@ -25,6 +27,24 @@ const createUserSchema = z.object({
 type CreateUserSchema = z.infer<typeof createUserSchema>;
 export default function CreateUserModal({ title }: CreateUserModalProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [roles, setRoles] = useState([]);
+  const [rtvs, setRTVS] = useState([]);
+  const [clientes, setClientes] = useState([]);
+
+  useEffect(() => {
+    getData()
+  }, [])
+
+  async function getData() {
+    const roles = await getRoles();
+    const rtvs = await getRTV();
+    const clientes = await getClientes();
+
+
+    setRoles(roles as any);
+    setRTVS(rtvs as any);
+    setClientes(clientes as any);
+  }
 
   const { register, handleSubmit, formState: { errors } } = useForm<CreateUserSchema>({
     resolver: zodResolver(createUserSchema),
@@ -57,8 +77,10 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-50 z-50">
-          <form className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md" onSubmit={handleSubmit(handleFormSubmit)} >
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <form 
+            className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md flex flex-col gap-3" 
+            onSubmit={handleSubmit(handleFormSubmit)} >
             <h2 className="text-xl font-bold mb-4">Criar usuario</h2>
               <Input<CreateUserSchema>
                 label="Nome"
@@ -86,31 +108,21 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
                 name="regraId"
                 register={register}
                 errors={errors}
-                options={[
-                  { label: 'Adminstrador', value: 'asdasd' },
-                  { label: 'Financeiro', value: 'b' },
-                  { label: 'RTV', value: 'b' },
-                ]}
+                options={roles}
               />
               <Select<CreateUserSchema>
                 label="Cliente"
                 name="clienteId"
                 register={register}
                 errors={errors}
-                options={[
-                  { label: 'Cliente A', value: 'a' },
-                  { label: 'Cliente B', value: 'b' },
-                ]}
+                options={clientes}
               />
               <Select<CreateUserSchema>
                 label="RTV"
                 name="rtvId"
                 register={register}
                 errors={errors}
-                options={[
-                  { label: 'Cliente A', value: 'a' },
-                  { label: 'Cliente B', value: 'b' },
-                ]}
+                options={rtvs}
               />
             <button
               className="px-4 py-2 bg-emerald-700  text-white rounded hover:bg-emerald-800 transition"
