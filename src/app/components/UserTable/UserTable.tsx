@@ -44,7 +44,7 @@ const UserTable: React.FC<UserTableProps> = ({ data, onEdit, onToggleAtivo }) =>
               <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
                 <button
                   onClick={() => onEdit?.(user)}
-                  className="px-3 py-1 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded"
+                  className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
                 >
                   Editar
                 </button>

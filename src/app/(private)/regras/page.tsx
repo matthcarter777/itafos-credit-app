@@ -1,21 +1,21 @@
 "use client";
 
 import CreateRegraModal from "@/app/components/CreateRegraModal/CreateRegraModal";
-import UserTable from "@/app/components/UserTable/UserTable";
-import { getUsuarios } from "@/app/services/hooks/getUsuarios";
+import RoleTable from "@/app/components/RolesTable/RoleTable";
+import { getRoles } from "@/app/services/hooks/getRegras";
 import { useEffect, useState } from "react";
 
-export default function User() {
-  const [usuarios, setUsuarios] = useState([]);
+export default function Roles() {
+  const [roles, setRoles] = useState([]);
 
   useEffect(() => {
       getData()
   }, [])
 
   async function getData() {
-    const usuarios = await getUsuarios();
+    const roles = await getRoles();
 
-    setUsuarios(usuarios as any)
+    setRoles(roles as any)
   }
 
   const handleEdit = (user: any) => {
@@ -35,7 +35,7 @@ export default function User() {
         <CreateRegraModal title="+ Nova Regra"/>
       </div>
       <div className="p-6">
-        <UserTable data={usuarios} onEdit={handleEdit} onToggleAtivo={handleToggleAtivo} />
+        <RoleTable data={roles} onEdit={handleEdit} onDelete={handleToggleAtivo} />
       </div>
     </div>
   );
