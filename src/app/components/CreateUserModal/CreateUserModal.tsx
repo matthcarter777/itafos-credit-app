@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { getRoles } from '@/app/services/hooks/getRegras';
 import { getRTV } from '@/app/services/hooks/getRTV';
 import { getClientes } from '@/app/services/hooks/getClientes';
+import { api } from '@/app/services/apiClient';
 
 
 type CreateUserModalProps = {
@@ -32,7 +33,7 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
   const [clientes, setClientes] = useState([]);
 
   useEffect(() => {
-    getData()
+    getData();
   }, [])
 
   async function getData() {
@@ -50,9 +51,21 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
     resolver: zodResolver(createUserSchema),
   });
 
-  function handleFormSubmit(data: CreateUserSchema) {
-    console.log(data)
-    setIsOpen(false)
+  async function handleFormSubmit(data: CreateUserSchema) {
+    setIsOpen(false);
+
+    const response = await api.post('admin/usuario', {
+      nome: data.nome,
+      email: data.email,
+      senha: data.senha,
+      ativo: true,
+      regraId: data.regraId,
+      rtvId: data.rtvId !== "" ? data.rtvId : null, 
+      clienteId: data.clienteId !== "" ? data.clienteId : null, 
+    });
+
+    getData();
+
   }
 
   return (

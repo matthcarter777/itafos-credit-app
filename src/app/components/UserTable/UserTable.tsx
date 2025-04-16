@@ -54,7 +54,7 @@ const UserTable: React.FC<UserTableProps> = ({ data, onEdit, onToggleAtivo }) =>
                     user.ativo ? "bg-red-600 hover:bg-red-700" : "bg-green-600 hover:bg-green-700"
                   } rounded`}
                 >
-                  {user.ativo ? "Desat" : "Ativar"}
+                  {user.ativo ? "Desativar" : "Ativar"}
                 </button>
               </td>
             </tr>
