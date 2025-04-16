@@ -5,23 +5,23 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
 import { useEffect, useState } from 'react'
-import { getRoles } from '@/app/services/hooks/getRegras';
 import { api } from '@/app/services/apiClient';
 import { Toast } from '../Toast/Toast';
+import { getProdutos } from '@/app/services/hooks/getProdutos';
 
 
-type CreateUserModalProps = {
+type CreateProdutoModalProps = {
   title: string;
 }
 
-const createRegraSchema = z.object({
+const createProdutoSchema = z.object({
   nome: z.string().nonempty('Nome da regra não pode ser em branco.')
 });
 
-type CreateRegraSchema = z.infer<typeof createRegraSchema>;
-export default function CreateUserModal({ title }: CreateUserModalProps) {
+type CreateProdutoSchema = z.infer<typeof createProdutoSchema>;
+export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [roles, setRoles] = useState([]);
+  const [produtos, setProdutos] = useState([]);
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
@@ -29,19 +29,19 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
   }, [])
 
   async function getData() {
-    const roles = await getRoles();
+    const produtos = await getProdutos();
 
-    setRoles(roles as any);
+    setProdutos(produtos as any);
   }
 
-  const { register, handleSubmit, formState: { errors } } = useForm<CreateRegraSchema>({
-    resolver: zodResolver(createRegraSchema),
+  const { register, handleSubmit, formState: { errors } } = useForm<CreateProdutoSchema>({
+    resolver: zodResolver(createProdutoSchema),
   });
 
-  async function handleFormSubmit(data: CreateRegraSchema) {
+  async function handleFormSubmit(data: CreateProdutoSchema) {
     setIsOpen(false);
 
-    const response = await api.post('admin/regra', data);
+    const response = await api.post('admin/produto', data);
 
     setShowToast(true)
 
@@ -74,13 +74,13 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
           <form 
             className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md flex flex-col gap-3" 
             onSubmit={handleSubmit(handleFormSubmit)} >
-            <h2 className="text-xl font-bold mb-4">Criar Regra</h2>
-              <Input<CreateRegraSchema>
+            <h2 className="text-xl font-bold mb-4">Criar Produto</h2>
+              <Input<CreateProdutoSchema>
                 label="Nome"
                 name="nome"
                 register={register}
                 errors={errors}
-                placeholder="Digite o nome da regra"
+                placeholder="Digite o nome do produto"
               />
             <button
               className="px-4 py-2 bg-emerald-700  text-white rounded hover:bg-emerald-800 transition"
