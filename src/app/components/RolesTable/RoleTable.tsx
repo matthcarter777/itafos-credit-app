@@ -1,5 +1,6 @@
 "use client";
 
+import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
 
 type Role = {
@@ -34,13 +35,13 @@ const RoleTable: React.FC<RoleTableProps> = ({ data, onEdit, onDelete }) => {
                   onClick={() => onEdit?.(role)}
                   className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
                 >
-                  Editar
+                  <Pencil size="20px" />
                 </button>
                 <button
                   onClick={() => onDelete?.(role)}
                   className="px-3 py-1 text-sm text-white bg-red-600 hover:bg-red-700 rounded"
                 >
-                  Excluir
+                  <Trash2 size="20px" />
                 </button>
               </td>
             </tr>
