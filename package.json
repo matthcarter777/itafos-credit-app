@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
+    "@tanstack/react-query": "^5.74.4",
+    "@tanstack/react-query-next-experimental": "^5.74.4",
     "axios": "^1.8.4",
     "itafos-credit": "file:",
     "lucide": "^0.488.0",

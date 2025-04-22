@@ -1,11 +1,6 @@
 import { api } from '../apiClient';
 import { parseCookies } from 'nookies';
-
-type RTV = {
-  id: string;
-  nome: string;
-  matricula: number;
-}
+import { RTV } from '../../types/RTV';
 
 export async function getRTV(): Promise<RTV[]> {
   let cookies = parseCookies();
