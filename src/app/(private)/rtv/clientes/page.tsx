@@ -1,12 +1,12 @@
 "use client";
 
-import CreateProdutoModal from "@/app/components/CreateProdutoModal";
+import CreateClienteModal from "@/app/components/CreateClienteModal";
 import ProductsTable from "@/app/components/ProductsTable";
 import { getProdutos } from "@/app/services/hooks/getProdutos";
 import { Produto } from "@/app/types/Produto";
 import { useQuery } from "@tanstack/react-query";
 
-export default function Produtos() {
+export default function ClientesPage() {
   const { data, isLoading } = useQuery<Produto[]>({ queryKey: ['produtos'], queryFn: getProdutos });
 
   const handleEdit = (user: any) => {
@@ -22,8 +22,8 @@ export default function Produtos() {
   return (
     <div className="p-10">
       <div className="flex flex-row justify-between">
-        <h1 className="font-bold text-xl">Produtos</h1>
-        <CreateProdutoModal title="+ Novo Produto"/>
+        <h1 className="font-bold text-xl">Clientes</h1>
+        <CreateClienteModal title="+ Novo Cliente"/>
       </div>
       <div className="p-6">
         <ProductsTable data={data} onEdit={handleEdit} onDelete={handleToggleAtivo} />
