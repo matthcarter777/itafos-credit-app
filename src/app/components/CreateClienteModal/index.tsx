@@ -49,7 +49,7 @@ export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
     },
   });
 
-  const { register, handleSubmit, formState: { errors } } = useForm<CreateClienteSchema>({
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<CreateClienteSchema>({
     resolver: zodResolver(createClienteSchema),
   });
 
@@ -67,8 +67,6 @@ export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
     await mutation.mutateAsync(transformedData);
   };
   
-  
-
   const tipoClienteOptions = [
     {id: "1", nome: "Pessoa Fisica"},
     {id: "2", nome: "Pessoa Juridica"},
@@ -78,6 +76,9 @@ export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
     {id: "1", nome: "Casado(a)"},
     {id: "2", nome: "Solteiro(a)"},
   ]
+
+  const tipoCliente = watch("tipoCliente");
+  const isPessoaFisica = tipoCliente === "1";
 
   return (
     <div className="">
@@ -156,21 +157,26 @@ export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
                 errors={errors}
                 placeholder="Digite o nome do produto"
               />
-              <Input<CreateClienteSchema>
-                label="Data Nascimento"
-                name="dataNascimento"
-                type="date"
-                register={register}
-                errors={errors}
-                placeholder="Digite o nome do produto"
-              />
-              <Select<CreateClienteSchema>
-                label="Estado Civil"
-                name="estadoCivil"
-                register={register}
-                errors={errors}
-                options={estadoCivilOptions}
-              />
+              { isPessoaFisica && (
+                  <Input<CreateClienteSchema>
+                  label="Data Nascimento"
+                  name="dataNascimento"
+                  type="date"
+                  register={register}
+                  errors={errors}
+                  placeholder="Digite o nome do produto"
+                />
+              )}
+
+              { isPessoaFisica && (
+                  <Select<CreateClienteSchema>
+                  label="Estado Civil"
+                  name="estadoCivil"
+                  register={register}
+                  errors={errors}
+                  options={estadoCivilOptions}
+                />
+              )}
 
               <Input<CreateClienteSchema>
                 label="RTV"
