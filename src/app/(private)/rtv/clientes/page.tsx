@@ -1,13 +1,13 @@
 "use client";
 
+import ClienteTable from "@/app/components/ClienteTable";
 import CreateClienteModal from "@/app/components/CreateClienteModal";
-import ProductsTable from "@/app/components/ProductsTable";
-import { getProdutos } from "@/app/services/hooks/getProdutos";
-import { Produto } from "@/app/types/Produto";
+import { getClientes } from "@/app/services/hooks/getClientesRTV";
+import { Cliente } from "@/app/types/Cliente";
 import { useQuery } from "@tanstack/react-query";
 
 export default function ClientesPage() {
-  const { data, isLoading } = useQuery<Produto[]>({ queryKey: ['produtos'], queryFn: getProdutos });
+  const { data, isLoading } = useQuery<Cliente[]>({ queryKey: ['clientes'], queryFn: getClientes });
 
   const handleEdit = (user: any) => {
     alert(`Editar usuário: ${user.nome}`);
@@ -26,7 +26,7 @@ export default function ClientesPage() {
         <CreateClienteModal title="+ Novo Cliente"/>
       </div>
       <div className="p-6">
-        <ProductsTable data={data} onEdit={handleEdit} onDelete={handleToggleAtivo} />
+        <ClienteTable data={data} onEdit={handleEdit} onDelete={handleToggleAtivo} />
       </div>
     </div>
   );
