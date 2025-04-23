@@ -77,6 +77,14 @@ export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
     {id: "2", nome: "Solteiro(a)"},
   ]
 
+  const regTributOptions = [
+    {id: "1", nome: "Simples Nacional"},
+    {id: "2", nome: "Lucro Presumido"},
+    {id: "3", nome: "Lucro Real"},
+    {id: "4", nome: "Produtor Rural (Com IE)"},
+    {id: "5", nome: "Produtor Rural (Sem IE)"},
+  ]
+
   const tipoCliente = watch("tipoCliente");
   const isPessoaFisica = tipoCliente === "1";
 
@@ -143,12 +151,12 @@ export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
                 errors={errors}
                 placeholder="Digite o nome do produto"
               />
-              <Input<CreateClienteSchema>
-                label="Regime Tributario"
-                name="regTrib"
-                register={register}
-                errors={errors}
-                placeholder="Digite o nome do produto"
+              <Select<CreateClienteSchema>
+                  label="Regime Tributario"
+                  name="regTrib"
+                  register={register}
+                  errors={errors}
+                  options={regTributOptions}
               />
               <Input<CreateClienteSchema>
                 label="Telefone"
