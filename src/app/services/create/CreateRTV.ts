@@ -1,4 +1,4 @@
-import { api } from "./apiClient";
+import { api } from "../apiClient";
 
 export const createRTV = async (data: { nome: string; matricula: number }) => {
   try {

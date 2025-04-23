@@ -4,7 +4,7 @@ import CreateRTVModal from "@/app/components/CreateRTVModal";
 import RTVTable from "@/app/components/RTVTable";
 import { getRTV } from "@/app/services/hooks/getRTV";
 import { useQuery } from "@tanstack/react-query";
-import { RTV } from '../../types/RTV';
+import { RTV } from '@/app/types/RTV';
 
 export default function RTVComponent() {
   const { data, isLoading } = useQuery<RTV[]>({ queryKey: ['rtvs'], queryFn: getRTV });

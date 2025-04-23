@@ -7,7 +7,7 @@ import Input from '../Input/Input';
 import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createProduto } from '@/app/services/CreateProduto';
+import { createProduto } from '@/app/services/create/CreateProduto';
 
 
 type CreateProdutoModalProps = {

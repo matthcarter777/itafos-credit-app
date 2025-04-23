@@ -7,7 +7,7 @@ import Input from '../Input/Input';
 import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createRTV } from '@/app/services/CreateRTV';
+import { createRTV } from '@/app/services/create/CreateRTV';
 
 
 type CreateRTVModalProps = {
