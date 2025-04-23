@@ -1,22 +1,13 @@
 "use client";
 
-import CreateRegraModal from "@/app/components/CreateRegraModal/CreateRegraModal";
-import RoleTable from "@/app/components/RolesTable/RoleTable";
+import CreateRegraModal from "@/app/components/CreateRegraModal";
+import RoleTable from "@/app/components/RolesTable";
 import { getRoles } from "@/app/services/hooks/getRegras";
-import { useEffect, useState } from "react";
+import { Role } from "@/app/types/Regra";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Roles() {
-  const [roles, setRoles] = useState([]);
-
-  useEffect(() => {
-      getData()
-  }, [])
-
-  async function getData() {
-    const roles = await getRoles();
-
-    setRoles(roles as any)
-  }
+  const { data, isLoading } = useQuery<Role[]>({ queryKey: ['roles'], queryFn: getRoles });
 
   const handleEdit = (user: any) => {
     alert(`Editar usuário: ${user.nome}`);
@@ -35,7 +26,7 @@ export default function Roles() {
         <CreateRegraModal title="+ Nova Regra"/>
       </div>
       <div className="p-6">
-        <RoleTable data={roles} onEdit={handleEdit} onDelete={handleToggleAtivo} />
+        <RoleTable data={data} onEdit={handleEdit} onDelete={handleToggleAtivo} />
       </div>
     </div>
   );

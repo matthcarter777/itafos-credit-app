@@ -1,10 +1,6 @@
+import { Role } from '@/app/types/Regra';
 import { api } from '../apiClient';
 import { parseCookies } from 'nookies';
-
-type Role = {
-  id: string;
-  nome: string;
-}
 
 export async function getRoles(): Promise<Role[]> {
   let cookies = parseCookies();

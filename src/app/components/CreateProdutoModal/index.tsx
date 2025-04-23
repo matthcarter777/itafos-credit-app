@@ -4,49 +4,49 @@ import { z } from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
-import { useEffect, useState } from 'react'
-import { getRoles } from '@/app/services/hooks/getRegras';
-import { api } from '@/app/services/apiClient';
+import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createProduto } from '@/app/services/CreateProduto';
 
 
-type CreateUserModalProps = {
+type CreateProdutoModalProps = {
   title: string;
 }
 
-const createRegraSchema = z.object({
+const createProdutoSchema = z.object({
   nome: z.string().nonempty('Nome da regra não pode ser em branco.')
 });
 
-type CreateRegraSchema = z.infer<typeof createRegraSchema>;
-export default function CreateUserModal({ title }: CreateUserModalProps) {
+type CreateProdutoSchema = z.infer<typeof createProdutoSchema>;
+export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [roles, setRoles] = useState([]);
   const [showToast, setShowToast] = useState(false);
 
-  useEffect(() => {
-    getData();
-  }, [])
+  const queryClient = useQueryClient();
 
-  async function getData() {
-    const roles = await getRoles();
-
-    setRoles(roles as any);
-  }
-
-  const { register, handleSubmit, formState: { errors } } = useForm<CreateRegraSchema>({
-    resolver: zodResolver(createRegraSchema),
+  const mutation = useMutation({
+    mutationFn: createProduto,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['produtos'] });
+      setShowToast(true);
+      setIsOpen(false);
+    },
+    onError: (error) => {
+      console.error('Erro ao criar RTV:', error);
+    },
   });
 
-  async function handleFormSubmit(data: CreateRegraSchema) {
-    setIsOpen(false);
+  const { register, handleSubmit, formState: { errors } } = useForm<CreateProdutoSchema>({
+    resolver: zodResolver(createProdutoSchema),
+  });
 
-    const response = await api.post('admin/regra', data);
+  const handleFormSubmit = async (data: CreateProdutoSchema) => {
+    setIsOpen(false); 
 
-    setShowToast(true)
-
-    getData();
-  }
+    await mutation.mutateAsync(data);
+  };
+  
 
   return (
     <div className="">
@@ -74,13 +74,13 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
           <form 
             className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md flex flex-col gap-3" 
             onSubmit={handleSubmit(handleFormSubmit)} >
-            <h2 className="text-xl font-bold mb-4">Criar Regra</h2>
-              <Input<CreateRegraSchema>
+            <h2 className="text-xl font-bold mb-4">Criar Produto</h2>
+              <Input<CreateProdutoSchema>
                 label="Nome"
                 name="nome"
                 register={register}
                 errors={errors}
-                placeholder="Digite o nome da regra"
+                placeholder="Digite o nome do produto"
               />
             <button
               className="px-4 py-2 bg-emerald-700  text-white rounded hover:bg-emerald-800 transition"

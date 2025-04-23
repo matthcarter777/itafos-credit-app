@@ -1,7 +1,7 @@
 "use client";
 
-import CreateProdutoModal from "@/app/components/CreateProdutoModal/CreateProdutoModal";
-import ProductsTable from "@/app/components/ProductsTable/ProductsTable";
+import CreateProdutoModal from "@/app/components/CreateProdutoModal";
+import ProductsTable from "@/app/components/ProductsTable";
 import { getProdutos } from "@/app/services/hooks/getProdutos";
 import { Produto } from "@/app/types/Produto";
 import { useQuery } from "@tanstack/react-query";

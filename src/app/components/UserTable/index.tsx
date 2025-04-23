@@ -1,19 +1,11 @@
 "use client";
 
+import { User } from "@/app/types/User";
 import { Lock, LockOpen, Pencil } from "lucide-react";
 import React from "react";
 
-type User = {
-  nome: string;
-  email: string;
-  ativo: boolean;
-  regra: string;
-  rtv: string;
-  cliente: string;
-};
-
 type UserTableProps = {
-  data: User[];
+  data?: User[];
   onEdit?: (user: User) => void;
   onToggleAtivo?: (user: User) => void;
 };
@@ -34,7 +26,7 @@ const UserTable: React.FC<UserTableProps> = ({ data, onEdit, onToggleAtivo }) =>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
-          {data.map((user, index) => (
+          {data?.map((user, index) => (
             <tr key={index} className="hover:bg-gray-50">
               <td className="px-6 py-4 text-sm text-gray-900">{user.nome}</td>
               <td className="px-6 py-4 text-sm text-gray-900">{user.email}</td>

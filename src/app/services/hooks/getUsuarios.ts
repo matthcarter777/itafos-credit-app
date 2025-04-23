@@ -1,17 +1,8 @@
+import { User } from '@/app/types/User';
 import { api } from '../apiClient';
 import { parseCookies } from 'nookies';
 
-type Usuario = {
-  id: string;
-  nome: string;
-  email: string;
-  ativo: boolean;
-  regra: string;
-  rtv?: string;
-  cliente?: string;
-}
-
-export async function getUsuarios(): Promise<Usuario[]> {
+export async function getUsuarios(): Promise<User[]> {
   let cookies = parseCookies();
 
   const { data } = await api.get(`/admin/usuario`, {

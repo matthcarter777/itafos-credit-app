@@ -6,11 +6,8 @@ import { getRTV } from "@/app/services/hooks/getRTV";
 import { useQuery } from "@tanstack/react-query";
 import { RTV } from '../../types/RTV';
 
-
 export default function RTVComponent() {
   const { data, isLoading } = useQuery<RTV[]>({ queryKey: ['rtvs'], queryFn: getRTV });
-
-  console.log(data);
 
 
   const handleEdit = (user: any) => {

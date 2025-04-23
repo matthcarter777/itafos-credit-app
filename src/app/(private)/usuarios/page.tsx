@@ -1,22 +1,14 @@
 "use client";
 
-import CreateUserModal from "@/app/components/CreateUserModal/CreateUserModal";
-import UserTable from "@/app/components/UserTable/UserTable";
+import CreateUserModal from "@/app/components/CreateUserModal";
+import UserTable from "@/app/components/UserTable";
 import { getUsuarios } from "@/app/services/hooks/getUsuarios";
-import { useEffect, useState } from "react";
+import { User } from "@/app/types/User";
+import { useQuery } from "@tanstack/react-query";
 
-export default function User() {
-  const [usuarios, setUsuarios] = useState([]);
+export default function UserPage() {
 
-  useEffect(() => {
-      getData()
-  }, [])
-
-  async function getData() {
-    const usuarios = await getUsuarios();
-
-    setUsuarios(usuarios as any)
-  }
+  const { data, isLoading } = useQuery<User[]>({ queryKey: ['users'], queryFn: getUsuarios });
 
   const handleEdit = (user: any) => {
     alert(`Editar usuário: ${user.nome}`);
@@ -35,7 +27,7 @@ export default function User() {
         <CreateUserModal title="+ Novo Usuário"/>
       </div>
       <div className="p-6">
-        <UserTable data={usuarios} onEdit={handleEdit} onToggleAtivo={handleToggleAtivo} />
+        <UserTable data={data} onEdit={handleEdit} onToggleAtivo={handleToggleAtivo} />
       </div>
     </div>
   );

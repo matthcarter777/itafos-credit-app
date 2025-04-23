@@ -1,15 +1,11 @@
 "use client";
 
+import { Role } from "@/app/types/Regra";
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
 
-type Role = {
-  id: string;
-  nome: string;
-};
-
 type RoleTableProps = {
-  data: Role[];
+  data?: Role[];
   onEdit?: (user: Role) => void;
   onDelete?: (user: Role) => void;
 };
@@ -26,7 +22,7 @@ const RoleTable: React.FC<RoleTableProps> = ({ data, onEdit, onDelete }) => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
-          {data.map((role, index) => (
+          {data?.map((role, index) => (
             <tr key={index} className="hover:bg-gray-50">
               <td className="px-6 py-4 text-sm text-gray-900">{role.id}</td>
               <td className="px-6 py-4 text-sm text-gray-900">{role.nome}</td>

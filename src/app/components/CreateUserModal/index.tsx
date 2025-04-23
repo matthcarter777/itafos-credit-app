@@ -11,6 +11,9 @@ import { getRTV } from '@/app/services/hooks/getRTV';
 import { getClientes } from '@/app/services/hooks/getClientes';
 import { api } from '@/app/services/apiClient';
 import { Toast } from '../Toast/Toast';
+import { useMutation } from '@tanstack/react-query';
+import { createUser } from '@/app/services/create/CreateUser';
+import { queryClient } from '@/app/services/queryClient';
 
 
 type CreateUserModalProps = {
@@ -53,25 +56,25 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
     resolver: zodResolver(createUserSchema),
   });
 
-  async function handleFormSubmit(data: CreateUserSchema) {
-    setIsOpen(false);
 
-    const response = await api.post('admin/usuario', {
-      nome: data.nome,
-      email: data.email,
-      senha: data.senha,
-      ativo: true,
-      regraId: data.regraId,
-      rtvId: data.rtvId !== "" ? data.rtvId : null, 
-      clienteId: data.clienteId !== "" ? data.clienteId : null, 
-    });
+  const mutation = useMutation({
+    mutationFn: createUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+      setShowToast(true);
+      setIsOpen(false);
+    },
+    onError: (error) => {
+      console.error('Erro ao criar usuario:', error);
+    },
+  });
+  
 
-    setShowToast(true)
+  const handleFormSubmit = async (data: CreateUserSchema) => {
+    setIsOpen(false); 
 
-
-    getData();
-
-  }
+    await mutation.mutateAsync(data);
+  };
 
   return (
     <div className="">
