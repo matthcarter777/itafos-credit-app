@@ -4,9 +4,7 @@ import { z } from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
-import { useEffect, useState } from 'react'
-import { getRoles } from '@/app/services/hooks/getRegras';
-import { api } from '@/app/services/apiClient';
+import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createRTV } from '@/app/services/CreateRTV';
@@ -28,20 +26,9 @@ const createRTVSchema = z.object({
 type CreateRTVSchema = z.infer<typeof createRTVSchema>;
 export default function CreateUserModal({ title }: CreateRTVModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [roles, setRoles] = useState([]);
   const [showToast, setShowToast] = useState(false);
 
   const queryClient = useQueryClient();
-
-  useEffect(() => {
-    getData();
-  }, [])
-
-  async function getData() {
-    const roles = await getRoles();
-
-    setRoles(roles as any);
-  }
 
   const { register, handleSubmit, formState: { errors } } = useForm<CreateRTVSchema>({
     resolver: zodResolver(createRTVSchema),

@@ -4,10 +4,10 @@ import { z } from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
-import { useEffect, useState } from 'react'
-import { api } from '@/app/services/apiClient';
+import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
-import { getProdutos } from '@/app/services/hooks/getProdutos';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createProduto } from '@/app/services/CreateProduto';
 
 
 type CreateProdutoModalProps = {
@@ -21,32 +21,33 @@ const createProdutoSchema = z.object({
 type CreateProdutoSchema = z.infer<typeof createProdutoSchema>;
 export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [produtos, setProdutos] = useState([]);
   const [showToast, setShowToast] = useState(false);
 
-  useEffect(() => {
-    getData();
-  }, [])
+  const queryClient = useQueryClient();
 
-  async function getData() {
-    const produtos = await getProdutos();
+  const mutation = useMutation({
+    mutationFn: createProduto,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['produtos'] });
+      setShowToast(true);
+      setIsOpen(false);
+    },
+    onError: (error) => {
+      console.error('Erro ao criar RTV:', error);
+    },
+  });
 
-    setProdutos(produtos as any);
-  }
 
   const { register, handleSubmit, formState: { errors } } = useForm<CreateProdutoSchema>({
     resolver: zodResolver(createProdutoSchema),
   });
 
-  async function handleFormSubmit(data: CreateProdutoSchema) {
-    setIsOpen(false);
 
-    const response = await api.post('admin/produto', data);
+  const handleFormSubmit = async (data: CreateProdutoSchema) => {
+    setIsOpen(false); 
 
-    setShowToast(true)
-
-    getData();
-  }
+    await mutation.mutateAsync(data);
+  };
 
   return (
     <div className="">

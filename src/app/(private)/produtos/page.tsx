@@ -3,20 +3,11 @@
 import CreateProdutoModal from "@/app/components/CreateProdutoModal/CreateProdutoModal";
 import ProductsTable from "@/app/components/ProductsTable/ProductsTable";
 import { getProdutos } from "@/app/services/hooks/getProdutos";
-import { useEffect, useState } from "react";
+import { Produto } from "@/app/types/Produto";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Produtos() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-      getData()
-  }, [])
-
-  async function getData() {
-    const products = await getProdutos();
-
-    setProducts(products as any)
-  }
+  const { data, isLoading } = useQuery<Produto[]>({ queryKey: ['produtos'], queryFn: getProdutos });
 
   const handleEdit = (user: any) => {
     alert(`Editar usuário: ${user.nome}`);
@@ -35,7 +26,7 @@ export default function Produtos() {
         <CreateProdutoModal title="+ Novo Produto"/>
       </div>
       <div className="p-6">
-        <ProductsTable data={products} onEdit={handleEdit} onDelete={handleToggleAtivo} />
+        <ProductsTable data={data} onEdit={handleEdit} onDelete={handleToggleAtivo} />
       </div>
     </div>
   );

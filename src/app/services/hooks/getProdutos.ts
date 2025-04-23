@@ -1,12 +1,8 @@
+import { Produto } from '@/app/types/Produto';
 import { api } from '../apiClient';
 import { parseCookies } from 'nookies';
 
-type Produtos = {
-  id: string;
-  nome: string;
-}
-
-export async function getProdutos(): Promise<Produtos[]> {
+export async function getProdutos(): Promise<Produto[]> {
   let cookies = parseCookies();
 
   const { data } = await api.get(`/admin/produto`, {

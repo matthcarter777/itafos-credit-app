@@ -1,15 +1,11 @@
 "use client";
 
+import { Produto } from "@/app/types/Produto";
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
 
-type Produto = {
-  id: string;
-  nome: string;
-};
-
 type ProdutoTableProps = {
-  data: Produto[];
+  data?: Produto[];
   onEdit?: (user: Produto) => void;
   onDelete?: (user: Produto) => void;
 };
@@ -26,7 +22,7 @@ const ProductsTable: React.FC<ProdutoTableProps> = ({ data, onEdit, onDelete }) 
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
-          {data.map((product, index) => (
+          {data?.map((product, index) => (
             <tr key={index} className="hover:bg-gray-50">
               <td className="px-6 py-4 text-sm text-gray-900">{product.id}</td>
               <td className="px-6 py-4 text-sm text-gray-900">{product.nome}</td>
