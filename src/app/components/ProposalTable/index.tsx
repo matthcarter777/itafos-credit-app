@@ -1,10 +1,10 @@
 "use client";
 
-import { Produto } from "@/app/types/Produto";
 import { Proposta } from "@/app/types/Proposta";
 import { formatarDataBR } from "@/app/utils/formateDate";
 import { BookmarkPlus, Pencil, Trash2 } from "lucide-react";
 import React from "react";
+import { useRouter } from 'next/navigation';
 
 type ProposalTableProps = {
   data?: Proposta[];
@@ -13,6 +13,13 @@ type ProposalTableProps = {
 };
 
 const ProposalTable: React.FC<ProposalTableProps> = ({ data, onEdit, onDelete }) => {
+  const router = useRouter();
+
+
+  const handleClick = (id: string) => {
+    router.push(`propostas/${id}`);
+  };
+
   return (
     <div className="overflow-x-auto rounded-lg shadow-md">
       <table className="min-w-full divide-y divide-gray-200 bg-white">
@@ -39,21 +46,21 @@ const ProposalTable: React.FC<ProposalTableProps> = ({ data, onEdit, onDelete })
               <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
                 <button
                   onClick={() => onEdit?.(proposal)}
-                  className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
+                  className="px-3 py-1 text-sm text-white bg-yellow-700 hover:bg-yellow-800 rounded"
                 >
-                  <Pencil size="20px" />
+                  <Pencil size="15px" />
                 </button>
                 <button
-                  onClick={() => onEdit?.(proposal)}
+                  onClick={() => handleClick?.(proposal.id)}
                   className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
                 >
-                  <BookmarkPlus size="20px" />
+                  <BookmarkPlus size="15px" />
                 </button>
                 <button
                   onClick={() => onDelete?.(proposal)}
                   className="px-3 py-1 text-sm text-white bg-red-600 hover:bg-red-700 rounded"
                 >
-                  <Trash2 size="20px" />
+                  <Trash2 size="15px" />
                 </button>
               </td>
             </tr>

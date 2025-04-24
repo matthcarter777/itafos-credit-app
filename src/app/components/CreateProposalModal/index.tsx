@@ -35,6 +35,7 @@ export default function CreateProposalModal({ title }: CreateProposalModalProps)
 
   const clientes = useQuery<ClienteOptions[]>({ queryKey: ['clientes'], queryFn: getClientes });
   const rtvs = useQuery<RTV[]>({ queryKey: ['rtvs'], queryFn: getRTV });
+  
 
   const mutation = useMutation({
     mutationFn: createProposta,

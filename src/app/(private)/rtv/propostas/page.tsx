@@ -1,6 +1,5 @@
 "use client";
 
-import CreateClienteModal from "@/app/components/CreateClienteModal";
 import CreateProposalModal from "@/app/components/CreateProposalModal";
 import ProposalTable from "@/app/components/ProposalTable";
 import { getProposta } from "@/app/services/hooks/getProposta";
