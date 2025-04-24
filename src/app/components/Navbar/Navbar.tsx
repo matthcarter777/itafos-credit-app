@@ -1,4 +1,4 @@
-import { Archive, Contact, Home, Info, LockKeyhole, Mail, Users, Wallet } from 'lucide-react';
+import { Archive, CircleDollarSign, Contact, Home, Info, LockKeyhole, Mail, Users, Wallet } from 'lucide-react';
 import Link from 'next/link'; // Remova se não estiver usando Next.js
 
 const Navbar = () => {
@@ -44,6 +44,11 @@ const Navbar = () => {
         <li>
           <Link href="/rtv/clientes" className="flex items-center gap-2 hover:text-green-600 transition">
             <Wallet size={20} /> Clientes
+          </Link>
+        </li>
+        <li>
+          <Link href="/rtv/propostas" className="flex items-center gap-2 hover:text-green-600 transition">
+            <CircleDollarSign size={20} /> Propostas
           </Link>
         </li>
       </ul>
