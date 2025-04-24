@@ -1,6 +1,7 @@
 "use client";
 
 import CreateClienteModal from "@/app/components/CreateClienteModal";
+import CreateProposalModal from "@/app/components/CreateProposalModal";
 import ProposalTable from "@/app/components/ProposalTable";
 import { getProposta } from "@/app/services/hooks/getProposta";
 import { Proposta } from "@/app/types/Proposta";
@@ -23,7 +24,7 @@ export default function PropostasPage() {
     <div className="p-10">
       <div className="flex flex-row justify-between">
         <h1 className="font-bold text-xl">Propostas</h1>
-        <CreateClienteModal title="+ Nova Proposta"/>
+        <CreateProposalModal title="+ Nova Proposta"/>
       </div>
       <div className="p-6">
         <ProposalTable data={data} onEdit={handleEdit} onDelete={handleToggleAtivo} />

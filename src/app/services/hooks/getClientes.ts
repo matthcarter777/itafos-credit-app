@@ -1,12 +1,9 @@
+import { ClienteOptions } from '@/app/types/ClienteOptions';
 import { api } from '../apiClient';
 import { parseCookies } from 'nookies';
 
-type Cliente = {
-  id: string;
-  nome: string;
-}
 
-export async function getClientes(): Promise<Cliente[]> {
+export async function getClientes(): Promise<ClienteOptions[]> {
   let cookies = parseCookies();
 
   const { data } = await api.get(`/rtv/cliente`, {
