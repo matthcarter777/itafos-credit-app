@@ -8,7 +8,7 @@ export type ItemProposta = {
   freteTon: number;
   valorCredito: number;
   tipoOperacao: string;
-  vencimento: Date;
+  vencimento: string;
   produto: Produto
   propostaId: string;
   produtoId: string;

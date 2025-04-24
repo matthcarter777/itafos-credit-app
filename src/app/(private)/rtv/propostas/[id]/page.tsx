@@ -1,6 +1,7 @@
 'use client';
 
 import CreateItemPropostaModal from '@/app/components/CreateItemPropostaModal';
+import ProposalItensTable from '@/app/components/ProductsTable';
 import { getShowProposta } from '@/app/services/hooks/getShowProposta';
 import { Proposta } from '@/app/types/Proposta';
 import { formatarDataBR } from '@/app/utils/formateDate';
@@ -72,10 +73,11 @@ export default function PropostasPage() {
         </div>
 
         <div className='mb-8'>
-          <div className='flex flex-row justify-between'>
+          <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Itens da Proposta</h1>
             <CreateItemPropostaModal title="+ Item da Proposta"/>
           </div>
+          <ProposalItensTable data={data?.itensProposta} />
         </div>
       </div>
     </>
