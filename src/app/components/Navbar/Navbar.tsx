@@ -20,8 +20,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <aside className="lg:w-64 w-full lg:relative fixed top-0 left-0 z-50">
-      {/* Botão hamburguer (só em telas pequenas) */}
+    <aside className="lg:w-64 w-full lg:relative fixed lg:fixed top-[64px] lg:top-[64px] left-0 z-50 lg:h-[calc(100vh-64px)]">
       <div className="lg:hidden p-4 bg-gray-200 flex justify-between items-center">
         <span className="font-bold text-gray-800 text-xl">Menu</span>
         <button onClick={() => setIsOpen(!isOpen)} className="text-gray-800">
@@ -29,10 +28,9 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Menu lateral */}
       <nav
         className={clsx(
-          "bg-gray-200 flex flex-col p-4 h-screen lg:translate-x-0 transition-transform duration-300 ease-in-out",
+          "bg-gray-200 flex flex-col p-4 h-full lg:translate-x-0 transition-transform duration-300 ease-in-out",
           {
             "translate-x-0": isOpen,
             "-translate-x-full": !isOpen && typeof window !== 'undefined' && window.innerWidth < 1024,

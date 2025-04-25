@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import Header from "../components/Header/Header";
 import Navbar from "../components/Navbar/Navbar";
-import { QueryProvider } from "../services/QueryProvider"
+import { QueryProvider } from "../services/QueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,18 +26,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-<html lang="en">
-  <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-    <Header />
-    <QueryProvider>
-      <div className="flex h-[calc(100vh-64px)] lg:flex-row flex-col overflow-hidden">
-        <Navbar />
-        <main className="flex-1 bg-gray-100 p-4 overflow-y-scroll scrollbar-hide">
-          {children}
-        </main>
-      </div>
-    </QueryProvider>
-  </body>
-</html>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Header />
+        <QueryProvider>
+          <div className="flex h-[calc(100vh-64px)] lg:flex-row flex-col overflow-hidden">
+            <Navbar />
+            <main className="flex-1 bg-gray-100 p-4 overflow-y-scroll scrollbar-hide">
+              {children}
+            </main>
+          </div>
+        </QueryProvider>
+      </body>
+    </html>
   );
 }
