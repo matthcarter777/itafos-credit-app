@@ -6,29 +6,52 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
 import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createProduto } from '@/app/services/create/CreateProduto';
+import Select from '../Select/Select';
+import { Produto } from '@/app/types/Produto';
+import { getProdutos } from '@/app/services/hooks/getProdutos';
+import { createItemProposta } from '@/app/services/create/CreateItemProposta';
 
 
 type CreateItemPropostaModalProps = {
   title: string;
+  propostaId: string;
 }
 
 const createItemPropostaSchema = z.object({
-  nome: z.string().nonempty('Nome da regra não pode ser em branco.')
+  quantidade: z.coerce.number()
+    .min(1, "Informe uma quantidade válida (mínimo de 1)."),
+  valorTon: z.coerce.number()
+    .min(1, "Informe o valor por tonelada (mínimo de R$ 1,00)."),
+  freteTon: z.coerce.number()
+    .min(1, "Informe o valor do frete por tonelada (mínimo de R$ 1,00)."),
+  valorCredito: z.coerce.number()
+    .min(1, "Informe o valor de crédito concedido (mínimo de R$ 1,00)."),
+  tipoFrete: z.string()
+    .nonempty("Selecione o tipo de frete (CIF ou FOB)."),
+  tipoOperacao: z.string()
+    .nonempty("Selecione o tipo de operação."),
+  vencimento: z.string()
+    .nonempty("Selecione uma data de vencimento."),
+  produtoId: z.string()
+    .nonempty("Selecione o produto correspondente."),
 });
 
+
 type CreateItemPropostaSchema = z.infer<typeof createItemPropostaSchema>;
-export default function CreateItemPropostaModal({ title }: CreateItemPropostaModalProps) {
+export default function CreateItemPropostaModal({ title, propostaId }: CreateItemPropostaModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
   const queryClient = useQueryClient();
 
+  const produtos = useQuery<Produto[]>({ queryKey: ['propostas'], queryFn: getProdutos });
+
   const mutation = useMutation({
-    mutationFn: createProduto,
+    mutationFn: createItemProposta,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['produtos'] });
+      queryClient.invalidateQueries({ queryKey: ['propostas'] });
       setShowToast(true);
       setIsOpen(false);
     },
@@ -37,6 +60,16 @@ export default function CreateItemPropostaModal({ title }: CreateItemPropostaMod
     },
   });
 
+  const tipoFreteOptions = [
+    {id: "CIF", nome: "CIF"},
+    {id: "FOB", nome: "FOB"},
+  ]
+
+  const tipoOperacaoOptions = [
+    {id: "CIF", nome: "CIF"},
+    {id: "FOB", nome: "FOB"},
+  ]
+
   const { register, handleSubmit, formState: { errors } } = useForm<CreateItemPropostaSchema>({
     resolver: zodResolver(createItemPropostaSchema),
   });
@@ -44,7 +77,17 @@ export default function CreateItemPropostaModal({ title }: CreateItemPropostaMod
   const handleFormSubmit = async (data: CreateItemPropostaSchema) => {
     setIsOpen(false); 
 
-    await mutation.mutateAsync(data);
+    await mutation.mutateAsync({
+      quantidade: data.quantidade,
+      valorTon: data.valorTon,
+      valorCredito: data.valorCredito,
+      freteTon: data.freteTon,
+      tipoFrete: data.tipoFrete,
+      tipoOperacao: data.tipoOperacao,
+      vencimento: data.vencimento,
+      produtoId: data.produtoId, 
+      propostaId: propostaId, 
+    });
   };
   
 
@@ -75,12 +118,66 @@ export default function CreateItemPropostaModal({ title }: CreateItemPropostaMod
             className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md flex flex-col gap-3" 
             onSubmit={handleSubmit(handleFormSubmit)} >
             <h2 className="text-xl font-bold mb-4">{title}</h2>
-              <Input<CreateItemPropostaSchema>
-                label="Nome"
-                name="nome"
+              <Select<CreateItemPropostaSchema>
+                label="Produto"
+                name="produtoId"
                 register={register}
                 errors={errors}
-                placeholder="Digite o nome do produto"
+                options={produtos.data || []}
+              />
+              <Input<CreateItemPropostaSchema>
+                label="Quantidade"
+                name="quantidade"
+                type="number"
+                register={register}
+                errors={errors}
+                placeholder="Insira a quantidade"
+              />
+              <Input<CreateItemPropostaSchema>
+                label="Valor Por Tonelada"
+                name="valorTon"
+                type="number"
+                register={register}
+                errors={errors}
+                placeholder="Insira o valor"
+              />
+              <Select<CreateItemPropostaSchema>
+                label="Tipo de Frete"
+                name="tipoFrete"
+                register={register}
+                errors={errors}
+                options={tipoFreteOptions}
+              />
+              <Input<CreateItemPropostaSchema>
+                label="Valor Frete por Tonelada"
+                name="freteTon"
+                type="number"
+                register={register}
+                errors={errors}
+                placeholder="Insira o valor"
+              />
+              <Input<CreateItemPropostaSchema>
+                label="Valor Credito"
+                name="valorCredito"
+                type="number"
+                register={register}
+                errors={errors}
+                placeholder="Insira o valor"
+              />
+              <Select<CreateItemPropostaSchema>
+                label="Tipo de Operação"
+                name="tipoOperacao"
+                register={register}
+                errors={errors}
+                options={tipoOperacaoOptions}
+              />
+              <Input<CreateItemPropostaSchema>
+                label="Vencimento"
+                name="vencimento"
+                type="date"
+                register={register}
+                errors={errors}
+                placeholder="Insira o valor"
               />
             <button
               className="px-4 py-2 bg-emerald-700  text-white rounded hover:bg-emerald-800 transition"

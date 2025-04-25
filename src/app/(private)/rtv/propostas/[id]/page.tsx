@@ -75,7 +75,7 @@ export default function PropostasPage() {
         <div className='mb-8'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Itens da Proposta</h1>
-            <CreateItemPropostaModal title="+ Item da Proposta"/>
+            <CreateItemPropostaModal propostaId={id || ''} title="+ Item da Proposta"/>
           </div>
           <ProposalItensTable data={data?.itensProposta} />
         </div>
