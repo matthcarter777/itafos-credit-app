@@ -1,3 +1,5 @@
+import { ParecerComercial } from "./ParecerComercial";
+
 export type Cliente = {
   id: string;
   nomeCliente: string;
@@ -12,4 +14,5 @@ export type Cliente = {
   idRtv?: string;
   email?: string;
   senha?: string;
+  parecerComercial: ParecerComercial[];
 }
