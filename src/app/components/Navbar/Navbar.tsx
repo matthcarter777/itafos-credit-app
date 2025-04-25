@@ -7,7 +7,6 @@ import {
   Contact,
   Home,
   LockKeyhole,
-  Mail,
   Users,
   Wallet,
   Menu,
@@ -20,7 +19,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <aside className="lg:w-64 w-full lg:relative fixed lg:fixed top-[64px] lg:top-[64px] left-0 z-50 lg:h-[calc(100vh-64px)]">
+    <aside className="lg:w-64 w-full lg:relative fixed lg:fixed left-0 z-50 lg:h-[calc(100vh-64px)]">
       <div className="lg:hidden p-4 bg-gray-200 flex justify-between items-center">
         <span className="font-bold text-gray-800 text-xl">Menu</span>
         <button onClick={() => setIsOpen(!isOpen)} className="text-gray-800">
