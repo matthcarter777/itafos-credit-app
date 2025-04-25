@@ -1,6 +1,7 @@
 'use client';
 
 import CreateItemPropostaModal from '@/app/components/CreateItemPropostaModal';
+import CreateParecerComercialModal from '@/app/components/CreateProdutoModal';
 import ProposalItensTable from '@/app/components/ProductsTable';
 import { getShowProposta } from '@/app/services/hooks/getShowProposta';
 import { Proposta } from '@/app/types/Proposta';
@@ -72,12 +73,47 @@ export default function PropostasPage() {
           </div>
         </div>
 
-        <div className='mb-8'>
+        <div className='mb-15'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Itens da Proposta</h1>
             <CreateItemPropostaModal propostaId={id || ''} title="+ Item da Proposta"/>
           </div>
           <ProposalItensTable data={data?.itensProposta} />
+        </div>
+
+        <div className='mb-8'>
+          <div className='flex flex-row justify-between mb-9'>
+            <h1 className='font-bold text-2xl'>Parecer Comercial</h1>
+            <CreateParecerComercialModal title="+ Parecer Comercial"/>
+          </div>
+          <div>
+            <div className='grid grid-cols-3 gap-4 mt-4'>
+              <div>
+                <p className='font-bold'>Conceito Comercial</p>
+                <p className='text-gray-500 text-sm'>{data?.nome}</p>
+              </div>
+              <div>
+                <p className='font-bold'>Atividade Principal</p>
+                <p className='text-gray-500 text-sm'>{data?.validade && formatarDataBR(data.validade)}</p>
+              </div>
+              <div>
+                <p className='font-bold'>Exerce a Atividade Principal desde</p>
+                <p className='text-gray-500 text-sm'>{data?.validade && formatarDataBR(data.validade)}</p>
+              </div>
+              <div>
+                <p className='font-bold'>Evolução da Atividade nos Últimos Três Anos</p>
+                <p className='text-gray-500 text-sm'>{data?.data && formatarDataBR(data.data)}</p>
+              </div>
+              <div>
+                <p className='font-bold'>Evolução da Atividade Principal</p>
+                <p className='text-gray-500 text-sm'>{data?.data && formatarDataBR(data.data)}</p>
+              </div>
+            </div>
+            <div>
+              <p className='font-bold'>Observações da Equipe de Vendas</p>
+              <p className='text-gray-500 text-sm'>{data?.data && formatarDataBR(data.data)}</p>
+            </div>
+          </div>
         </div>
       </div>
     </>

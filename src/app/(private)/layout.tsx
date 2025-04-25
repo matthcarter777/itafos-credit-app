@@ -26,22 +26,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header />
-        <div className="flex flex-row h-screen">
-          <div className="w-[20%] bg-gray-200 p-4">
-            <Navbar />
-          </div>
-          <div className="flex-1 bg-gray-100 p-4">
-            <QueryProvider>
-              {children}
-            </QueryProvider>
-          </div>
-        </div>
-      </body>
-    </html>
+<html lang="en">
+  <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <Header />
+    <QueryProvider>
+      <div className="flex h-[calc(100vh-64px)] lg:flex-row flex-col overflow-hidden">
+        <Navbar />
+        <main className="flex-1 bg-gray-100 p-4 overflow-y-scroll scrollbar-hide">
+          {children}
+        </main>
+      </div>
+    </QueryProvider>
+  </body>
+</html>
   );
 }

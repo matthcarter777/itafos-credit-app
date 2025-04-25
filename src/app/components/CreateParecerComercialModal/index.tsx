@@ -10,7 +10,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createProduto } from '@/app/services/create/CreateProduto';
 
 
-type CreateParecerComercialModalProps = {
+type CreateProdutoModalProps = {
   title: string;
 }
 
@@ -19,7 +19,7 @@ const createProdutoSchema = z.object({
 });
 
 type CreateProdutoSchema = z.infer<typeof createProdutoSchema>;
-export default function CreateParecerComercialModal({ title }: CreateParecerComercialModalProps) {
+export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
