@@ -1,7 +1,7 @@
 "use client";
 
 import CreateProdutoModal from "@/app/components/CreateProdutoModal";
-import ProductsTable from "@/app/components/ProductsTable";
+import ProductsTable from "@/app/components/ProdutoTable";
 import { getProdutos } from "@/app/services/hooks/getProdutos";
 import { Produto } from "@/app/types/Produto";
 import { useQuery } from "@tanstack/react-query";
@@ -26,7 +26,7 @@ export default function Produtos() {
         <CreateProdutoModal title="+ Novo Produto"/>
       </div>
       <div className="p-6">
-        <ProductsTable data={data} onEdit={handleEdit} onDelete={handleToggleAtivo} />
+        <ProductsTable data={data || []} onEdit={handleEdit} onDelete={handleToggleAtivo} />
       </div>
     </div>
   );

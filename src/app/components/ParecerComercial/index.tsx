@@ -40,7 +40,7 @@ export default function ParecerComercial({ data }: ParecerComercialProps) {
               <p className='text-gray-500 text-sm'>{parecer.evoluAtivPrin}</p>
             </div>
           </div>
-          <div>
+          <div className="mt-4">
             <p className='font-bold'>Observações da Equipe de Vendas</p>
             <p className='text-gray-500 text-sm'>{parecer.observacao}</p>
           </div>

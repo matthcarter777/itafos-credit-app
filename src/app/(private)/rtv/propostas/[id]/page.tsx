@@ -3,7 +3,7 @@
 import CreateItemPropostaModal from '@/app/components/CreateItemPropostaModal';
 import CreateParecerComercialModal from '@/app/components/CreateProdutoModal';
 import ParecerComercial from '@/app/components/ParecerComercial';
-import ProposalItensTable from '@/app/components/ProductsTable';
+import ProposalItensTable from '@/app/components/ItensPropostaTable';
 import { getShowProposta } from '@/app/services/hooks/getShowProposta';
 import { Proposta } from '@/app/types/Proposta';
 import { formatarDataBR } from '@/app/utils/formateDate';
