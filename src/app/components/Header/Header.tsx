@@ -1,9 +1,16 @@
 'use client';
 
+import { useAuth } from '@/app/hooks/useAuth';
 import { LogOut } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
+
 export default function Header() {
+  const { signOut } = useAuth();
+  
+  const handleSignOut = () => {
+    signOut()
+  }
+
   return (
     <header className="w-full h-16 bg-gray-700 text-white flex items-center justify-between px-6 shadow-md">
       <div className="text-lg font-bold">
@@ -16,7 +23,10 @@ export default function Header() {
         />
       </div>
       <div className="flex items-center justify-between gap-2.5">
-        <button>
+        <button
+          className='hover:text-gray-200'
+          onClick={handleSignOut}
+        >
           <LogOut />
         </button>
         <h1>|</h1>

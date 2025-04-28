@@ -1,6 +1,7 @@
 'use client';
 
 import Input from "@/app/components/Input/Input";
+import { useAuth } from "@/app/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -8,7 +9,7 @@ import { z } from 'zod';
 
 const loginSchema = z.object({
   email: z.string().email("E-mail inválido"),
-  password: z.string().nonempty('Senha não pode ser em branco.'),
+  senha: z.string().nonempty('Senha não pode ser em branco.'),
 });
 
 type LoginSchema = z.infer<typeof loginSchema>;
@@ -18,8 +19,10 @@ export default function Home() {
     resolver: zodResolver(loginSchema),
   });
 
+  const { signIn } = useAuth();
+
   function handleFormSubmit(data: LoginSchema) {
-    console.log(data);
+    signIn(data)
   }
 
   return (
@@ -45,7 +48,7 @@ export default function Home() {
 
         <Input<LoginSchema>
           label="Senha"
-          name="password"
+          name="senha"
           register={register}
           errors={errors}
           placeholder="Digite sua senha"
