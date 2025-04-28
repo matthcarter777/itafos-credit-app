@@ -1,7 +1,7 @@
 'use client';
 
 import CreateItemPropostaModal from '@/app/components/CreateItemPropostaModal';
-import CreateParecerComercialModal from '@/app/components/CreateProdutoModal';
+import CreateParecerComercialModal from '@/app/components/CreateParecerComercialModal';
 import ParecerComercial from '@/app/components/ParecerComercial';
 import ProposalItensTable from '@/app/components/ItensPropostaTable';
 import { getShowProposta } from '@/app/services/hooks/getShowProposta';
@@ -85,7 +85,7 @@ export default function PropostasPage() {
         <div className='mb-8'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Parecer Comercial</h1>
-            <CreateParecerComercialModal title="+ Parecer Comercial"/>
+            <CreateParecerComercialModal clientId={data?.cliente.id || ''} title="+ Parecer Comercial"/>
           </div>
           <ParecerComercial data={data?.cliente.parecerComercial || []} />
         </div>
