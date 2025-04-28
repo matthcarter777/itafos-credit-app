@@ -68,25 +68,25 @@ export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
   };
   
   const tipoClienteOptions = [
-    {id: "1", nome: "Pessoa Fisica"},
-    {id: "2", nome: "Pessoa Juridica"},
+    {id: "Pessoa Fisica", nome: "Pessoa Fisica"},
+    {id: "Pessoa Juridica", nome: "Pessoa Juridica"},
   ]
 
   const estadoCivilOptions = [
-    {id: "1", nome: "Casado(a)"},
-    {id: "2", nome: "Solteiro(a)"},
+    {id: "Casado(a)", nome: "Casado(a)"},
+    {id: "Solteiro(a)", nome: "Solteiro(a)"},
   ]
 
   const regTributOptions = [
-    {id: "1", nome: "Simples Nacional"},
-    {id: "2", nome: "Lucro Presumido"},
-    {id: "3", nome: "Lucro Real"},
-    {id: "4", nome: "Produtor Rural (Com IE)"},
-    {id: "5", nome: "Produtor Rural (Sem IE)"},
+    {id: "Simples Nacional", nome: "Simples Nacional"},
+    {id: "Lucro Presumido", nome: "Lucro Presumido"},
+    {id: "Lucro Real", nome: "Lucro Real"},
+    {id: "Produtor Rural (Com IE)", nome: "Produtor Rural (Com IE)"},
+    {id: "Produtor Rural (Sem IE)", nome: "Produtor Rural (Sem IE)"},
   ]
 
   const tipoCliente = watch("tipoCliente");
-  const isPessoaFisica = tipoCliente === "1";
+  const isPessoaFisica = tipoCliente === "Pessoa Fisica";
 
   return (
     <div className="">

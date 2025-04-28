@@ -1,7 +1,7 @@
 "use client";
 
 import { Cliente } from "@/app/types/Cliente";
-import { Pencil, Trash2 } from "lucide-react";
+import { Eye, Pencil, Trash2 } from "lucide-react";
 import React from "react";
 
 type ProdutoTableProps = {
@@ -29,9 +29,15 @@ const ClienteTable: React.FC<ProdutoTableProps> = ({ data, onEdit, onDelete }) =
               <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
                 <button
                   onClick={() => onEdit?.(cliente)}
-                  className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
+                  className="px-3 py-1 text-sm text-white bg-orange-700 hover:bg-emerald-800 rounded"
                 >
                   <Pencil size="20px" />
+                </button>
+                <button
+                  onClick={() => onEdit?.(cliente)}
+                  className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
+                >
+                  <Eye size="20px" />
                 </button>
                 <button
                   onClick={() => onDelete?.(cliente)}
