@@ -1,6 +1,7 @@
 import { Conjuge } from "./Conjuge";
 import { Email } from "./Email";
 import { Endereco } from "./Endereco";
+import { Fazenda } from "./Fazenda";
 import { ParecerComercial } from "./ParecerComercial";
 import { Referencia } from "./Referencia";
 import { RTV } from "./RTV";
@@ -24,4 +25,5 @@ export type Cliente = {
   conjuge: Conjuge;
   referencias: Referencia[];
   rtv: RTV;
+  fazendas: Fazenda[];
 }

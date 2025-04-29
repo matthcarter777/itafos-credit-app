@@ -108,6 +108,24 @@ export default function ClientePage() {
           <ReferenciasTable data={data?.referencias} />
         </div>
 
+        <div className='mb-15'>
+          <div className='flex flex-row justify-between mb-9'>
+            <h1 className='font-bold text-2xl'>Fazendas</h1>
+            <CreateItemPropostaModal propostaId={id || ''} title="+ Referencia"/>
+          </div>
+
+          <div className='p-2 bg-white rounded-sm mb-4 relative'>
+            <div className='grid grid-cols-4 gap-4 mt-4 mb-6'>
+              <Textbox title='Nome' data={data?.conjuge?.nome} />
+            </div>
+            <div>
+              <h1 className='font-bold text-xl mb-3'>Atividades</h1>
+              <ReferenciasTable data={data?.referencias} />
+            </div>
+          </div>
+          
+        </div>
+
       </div>
     </>
   );
