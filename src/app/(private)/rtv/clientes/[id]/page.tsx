@@ -68,7 +68,21 @@ export default function ClientePage() {
             <Textbox isHidde={!!!data?.ie} title='Inscrição Estadual - IE' data={data?.ie} />
             <Textbox isHidde={!!!data?.regTrib} title='Regime de Tributação' data={data?.regTrib} />
             <Textbox isHidde={!!!data?.dataNascimento} title='Data de Nascimento' data={data?.regTrib} />
-            <Textbox isHidde={!!!data?.dataNascimento} title='Estado Civil' data={data?.regTrib} />
+            <Textbox isHidde={!!!data?.estadoCivil} title='Estado Civil' data={data?.estadoCivil} />
+          </div>
+        </div>
+
+        <div className='mb-8'>
+          <div className='flex flex-row justify-between mb-9'>
+            <h1 className='font-bold text-2xl'>Informações do Conjuge</h1>
+            <CreateItemPropostaModal propostaId={id || ''} title="+ Conjuge"/>
+          </div>
+          <div className='grid grid-cols-4 gap-4 mt-4' >
+            <Textbox title='Nome' data={data?.conjuge?.nome} />
+            <Textbox title='CPF' data={data?.conjuge?.cpf} />
+            <Textbox title='RG' data={data?.conjuge?.rg} />
+            <Textbox title='Orgão Expeditor' data={data?.conjuge?.orgaoExpedidor} />
+            <Textbox title='Data Nascimento' data={data?.conjuge?.dataNascimento} mask={formatarDataBR} />
           </div>
         </div>
 

@@ -1,3 +1,4 @@
+import { Conjuge } from "./Conjuge";
 import { Email } from "./Email";
 import { Endereco } from "./Endereco";
 import { ParecerComercial } from "./ParecerComercial";
@@ -18,4 +19,5 @@ export type Cliente = {
   senha?: string;
   parecerComercial: ParecerComercial[];
   enderecos?: Endereco[];
+  conjuge: Conjuge;
 }
