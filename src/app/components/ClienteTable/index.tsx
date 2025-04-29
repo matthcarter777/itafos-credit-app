@@ -2,6 +2,7 @@
 
 import { Cliente } from "@/app/types/Cliente";
 import { Eye, Pencil, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 type ProdutoTableProps = {
@@ -11,6 +12,13 @@ type ProdutoTableProps = {
 };
 
 const ClienteTable: React.FC<ProdutoTableProps> = ({ data, onEdit, onDelete }) => {
+  const router = useRouter();
+
+  const handleClick = (id: string) => {
+    router.push(`clientes/${id}`);
+  };
+
+
   return (
     <div className="overflow-x-auto rounded-lg shadow-md">
       <table className="min-w-full divide-y divide-gray-200 bg-white">
@@ -34,7 +42,7 @@ const ClienteTable: React.FC<ProdutoTableProps> = ({ data, onEdit, onDelete }) =
                   <Pencil size="20px" />
                 </button>
                 <button
-                  onClick={() => onEdit?.(cliente)}
+                  onClick={() => handleClick?.(cliente.id)}
                   className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
                 >
                   <Eye size="20px" />
