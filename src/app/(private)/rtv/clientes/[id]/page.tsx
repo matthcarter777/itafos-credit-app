@@ -1,9 +1,6 @@
 'use client';
 
 import CreateItemPropostaModal from '@/app/components/CreateItemPropostaModal';
-import CreateParecerComercialModal from '@/app/components/CreateParecerComercialModal';
-import ParecerComercial from '@/app/components/ParecerComercial';
-import ProposalItensTable from '@/app/components/ItensPropostaTable';
 import { useQuery } from '@tanstack/react-query';
 import { MoveLeft } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
@@ -70,6 +67,7 @@ export default function ClientePage() {
             <Textbox isHidde={!!!data?.regTrib} title='Regime de Tributação' data={data?.regTrib} />
             <Textbox isHidde={!!!data?.dataNascimento} title='Data de Nascimento' data={data?.regTrib} />
             <Textbox isHidde={!!!data?.estadoCivil} title='Estado Civil' data={data?.estadoCivil} />
+            <Textbox title='RTV' data={`${data?.rtv?.nome} - ${data?.rtv?.matricula}`} />
           </div>
         </div>
 
