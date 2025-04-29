@@ -13,6 +13,7 @@ import { Cliente } from '@/app/types/Cliente';
 import { getShowCliente } from '@/app/services/hooks/getShowCliente';
 import { formatarDataBR } from '@/app/utils/formateDate';
 import EnderecoTable from '@/app/components/EnderecoTable';
+import EmailsClienteTable from '@/app/components/EmailsClienteTable';
 
 export default function ClientePage() {
   const params = useParams();
@@ -32,6 +33,8 @@ export default function ClientePage() {
   const handleClick = () => {
     router.push(`/rtv/clientes`);
   };
+
+  console.log(data)
 
   return (
     <>
@@ -75,6 +78,14 @@ export default function ClientePage() {
             <CreateItemPropostaModal propostaId={id || ''} title="+ Endereço"/>
           </div>
           <EnderecoTable data={data?.enderecos} />
+        </div>
+
+        <div className='mb-15'>
+          <div className='flex flex-row justify-between mb-9'>
+            <h1 className='font-bold text-2xl'>Emails</h1>
+            <CreateItemPropostaModal propostaId={id || ''} title="+ Email"/>
+          </div>
+          <EmailsClienteTable data={data?.emails} />
         </div>
 
       </div>
