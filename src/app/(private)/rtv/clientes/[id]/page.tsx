@@ -12,6 +12,7 @@ import { cpf , cnpj} from "@/app/utils/cpf-cnpj-mask";
 import { Cliente } from '@/app/types/Cliente';
 import { getShowCliente } from '@/app/services/hooks/getShowCliente';
 import { formatarDataBR } from '@/app/utils/formateDate';
+import EnderecoTable from '@/app/components/EnderecoTable';
 
 export default function ClientePage() {
   const params = useParams();
@@ -68,6 +69,13 @@ export default function ClientePage() {
           </div>
         </div>
 
+        <div className='mb-15'>
+          <div className='flex flex-row justify-between mb-9'>
+            <h1 className='font-bold text-2xl'>Informações de Localização</h1>
+            <CreateItemPropostaModal propostaId={id || ''} title="+ Endereço"/>
+          </div>
+          <EnderecoTable data={data?.enderecos} />
+        </div>
 
       </div>
     </>

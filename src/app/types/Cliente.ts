@@ -1,3 +1,4 @@
+import { Endereco } from "./Endereco";
 import { ParecerComercial } from "./ParecerComercial";
 
 export type Cliente = {
@@ -15,4 +16,5 @@ export type Cliente = {
   email?: string;
   senha?: string;
   parecerComercial: ParecerComercial[];
+  enderecos?: Endereco[];
 }
