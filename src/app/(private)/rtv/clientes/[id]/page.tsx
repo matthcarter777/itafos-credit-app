@@ -14,6 +14,7 @@ import { getShowCliente } from '@/app/services/hooks/getShowCliente';
 import { formatarDataBR } from '@/app/utils/formateDate';
 import EnderecoTable from '@/app/components/EnderecoTable';
 import EmailsClienteTable from '@/app/components/EmailsClienteTable';
+import ReferenciasTable from '@/app/components/ReferenciasTable';
 
 export default function ClientePage() {
   const params = useParams();
@@ -100,6 +101,13 @@ export default function ClientePage() {
             <CreateItemPropostaModal propostaId={id || ''} title="+ Email"/>
           </div>
           <EmailsClienteTable data={data?.emails} />
+        </div>
+        <div className='mb-15'>
+          <div className='flex flex-row justify-between mb-9'>
+            <h1 className='font-bold text-2xl'>Referencias</h1>
+            <CreateItemPropostaModal propostaId={id || ''} title="+ Referencia"/>
+          </div>
+          <ReferenciasTable data={data?.referencias} />
         </div>
 
       </div>
