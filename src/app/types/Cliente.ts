@@ -6,7 +6,7 @@ export type Cliente = {
   tipoCliente: string;
   cpfcnpj: string;
   ie?: string;
-  dataConstituicao?: Date;
+  dataConstituicao?: string;
   regTrib?: string;
   telefone?: string;
   dataNascimento?: string;
