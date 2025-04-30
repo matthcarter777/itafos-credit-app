@@ -1,16 +1,34 @@
 "use client";
 
+import { deleteEmailCliente } from "@/app/services/delete/DeleteEmailService";
+import { queryClient } from "@/app/services/queryClient";
 import { Email } from "@/app/types/Email";
+import { useMutation } from "@tanstack/react-query";
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
 
 type EmailTableProps = {
   data?: Email[];
-  onEdit?: (user: Email) => void;
-  onDelete?: (user: Email) => void;
 };
 
-const EmailsClienteTable: React.FC<EmailTableProps> = ({ data, onEdit, onDelete }) => {
+const EmailsClienteTable: React.FC<EmailTableProps> = ({ data }) => {
+
+
+  const mutation = useMutation({
+    mutationFn: deleteEmailCliente,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+    },
+    onError: (error) => {
+      console.error('Erro ao criar email:', error);
+    },
+  });
+
+  const onDelete = async (id: string) => {
+
+    await mutation.mutateAsync({ id });
+  };
+
   return (
     <div className="overflow-x-auto rounded-lg shadow-md">
       <table className="min-w-full divide-y divide-gray-200 bg-white">
@@ -28,7 +46,7 @@ const EmailsClienteTable: React.FC<EmailTableProps> = ({ data, onEdit, onDelete 
               <td className="px-6 py-4 text-sm text-gray-900">{email.email}</td>
               <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
                 <button
-                  onClick={() => onDelete?.(email)}
+                  onClick={() => onDelete?.(email.id)}
                   className="px-3 py-1 text-sm text-white bg-red-600 hover:bg-red-700 rounded"
                 >
                   <Trash2 size="20px" />

@@ -13,6 +13,7 @@ import EnderecoTable from '@/app/components/EnderecoTable';
 import EmailsClienteTable from '@/app/components/EmailsClienteTable';
 import ReferenciasTable from '@/app/components/ReferenciasTable';
 import FazendasContainer from '@/app/components/FazendaContainer';
+import CreateEmailClienteModal from '@/app/components/CreateEmailClienteModal';
 
 export default function ClientePage() {
   const params = useParams();
@@ -97,7 +98,7 @@ export default function ClientePage() {
         <div className='mb-15'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Emails</h1>
-            <CreateItemPropostaModal propostaId={id || ''} title="+ Email"/>
+            <CreateEmailClienteModal clienteId={data?.id || ''} title="+ Email"/>
           </div>
           <EmailsClienteTable data={data?.emails} />
         </div>
