@@ -14,6 +14,7 @@ import EmailsClienteTable from '@/app/components/EmailsClienteTable';
 import ReferenciasTable from '@/app/components/ReferenciasTable';
 import FazendasContainer from '@/app/components/FazendaContainer';
 import CreateEmailClienteModal from '@/app/components/CreateEmailClienteModal';
+import CreateConjugeModal from '@/app/components/CreateConjugeModal';
 
 export default function ClientePage() {
   const params = useParams();
@@ -33,8 +34,6 @@ export default function ClientePage() {
   const handleClick = () => {
     router.push(`/rtv/clientes`);
   };
-
-  console.log(data)
 
   return (
     <>
@@ -76,7 +75,7 @@ export default function ClientePage() {
         <div className='mb-8'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Informações do Conjuge</h1>
-            <CreateItemPropostaModal propostaId={id || ''} title="+ Conjuge"/>
+            <CreateConjugeModal clienteId={data?.id || ''} title="+ Conjuge" isMarried={data?.conjuge ? true : false} />
           </div>
           <div className='grid grid-cols-4 gap-4 mt-4' >
             <Textbox title='Nome' data={data?.conjuge?.nome} />
