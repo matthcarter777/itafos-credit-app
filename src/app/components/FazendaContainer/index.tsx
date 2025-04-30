@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import { Atividade } from "@/app/types/Atividade";
+import React from "react";
 import { Fazenda } from "@/app/types/Fazenda";
 import Textbox from "../Textbox";
 import { formatarDataBR } from "@/app/utils/formateDate";
 import { cnpj, cpf } from "@/app/utils/cpf-cnpj-mask";
 import { X } from "lucide-react";
+import CreateItemPropostaModal from "../CreateItemPropostaModal";
 
 type AtividadeTableProps = {
   data?: Fazenda[];
@@ -49,10 +49,15 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data}) => {
               <Textbox title='Vencimento do Contrato' data={fazenda.vencimentoContrato} mask={formatarDataBR} isHidde={!!!fazenda.vencimentoContrato}/>
               <Textbox title='Tipo de Pagamento' data={fazenda.tipoPagamento} isHidde={!!!fazenda.tipoPagamento}/>
               <Textbox title='Produto' data={fazenda.produto} isHidde={!!!fazenda.produto}/>
-              <Textbox title='Taxa do Contrato' data={fazenda.taxaContrato} isHidde={!!!fazenda.taxaContrato}/>
+              <Textbox title='Taxa do Contrato' data={`${fazenda.taxaContrato} | Sc. 60 kg`} isHidde={!!!fazenda.taxaContrato}/>
             </div>
 
-            <h1 className='font-bold text-xl mb-3'>Atividades</h1>
+            
+            <div className='flex flex-row justify-between mb-9'>
+              <h1 className='font-bold text-xl mb-3'>Atividades</h1>
+              <CreateItemPropostaModal propostaId={ fazenda.id || ''} title="+ Atividade"/>
+            </div>
+
             { fazenda.atividades.map((atividade, index) => {
                return (
                 <div>
