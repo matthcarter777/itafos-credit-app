@@ -12,6 +12,7 @@ import { formatarDataBR } from '@/app/utils/formateDate';
 import EnderecoTable from '@/app/components/EnderecoTable';
 import EmailsClienteTable from '@/app/components/EmailsClienteTable';
 import ReferenciasTable from '@/app/components/ReferenciasTable';
+import FazendasContainer from '@/app/components/FazendaContainer';
 
 export default function ClientePage() {
   const params = useParams();
@@ -111,22 +112,14 @@ export default function ClientePage() {
         <div className='mb-15'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Fazendas</h1>
-            <CreateItemPropostaModal propostaId={id || ''} title="+ Referencia"/>
+            <CreateItemPropostaModal propostaId={id || ''} title="+ Fazenda
+            "/>
           </div>
-
-          <div className='p-2 bg-white rounded-sm mb-4 relative'>
-            <div className='grid grid-cols-4 gap-4 mt-4 mb-6'>
-              <Textbox title='Nome' data={data?.conjuge?.nome} />
-            </div>
-            <div>
-              <h1 className='font-bold text-xl mb-3'>Atividades</h1>
-              <ReferenciasTable data={data?.referencias} />
-            </div>
-          </div>
-          
+          <FazendasContainer data={data?.fazendas} />
         </div>
 
       </div>
     </>
   );
+
 }

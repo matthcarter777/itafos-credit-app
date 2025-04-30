@@ -1,11 +1,11 @@
 type TextboxProps = {
   title?: string;
   isHidde?: boolean;
-  data?: string;
+  data?: string | number;
   mask?: (data: string) => string;
 }
 export default function Textbox({ title, isHidde, data, mask }: TextboxProps) {
-  const maskedData = data && mask ? mask(data) : data;
+  const maskedData = data && mask ? mask(data.toString()) : data;
 
   return (
     <div hidden={isHidde}>

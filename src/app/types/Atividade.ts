@@ -3,14 +3,14 @@ export type Atividade = {
   id: string;
   nome: string;
   tipoCultivo: string;
-  areaPlantada: Number;
+  areaPlantada: number;
   irrigada: boolean;
   suplemento: boolean;
   nivelTecnologico: string;
-  quantAnimais: Number;
+  quantAnimais: number;
   confinamento: string;
-  areaTerra: Number;
-  leite: Number;
-  corte: Number;
+  areaTerra: number;
+  leite: number;
+  corte: number;
   fazendaId: string;
 }
