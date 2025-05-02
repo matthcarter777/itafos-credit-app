@@ -66,7 +66,7 @@ export default function ClientePage() {
             />
             <Textbox isHidde={!!!data?.ie} title='Inscrição Estadual - IE' data={data?.ie} />
             <Textbox isHidde={!!!data?.regTrib} title='Regime de Tributação' data={data?.regTrib} />
-            <Textbox isHidde={!!!data?.dataNascimento} title='Data de Nascimento' data={data?.regTrib} />
+            <Textbox isHidde={!!!data?.dataNascimento} title='Data de Nascimento' data={data?.dataNascimento} />
             <Textbox isHidde={!!!data?.estadoCivil} title='Estado Civil' data={data?.estadoCivil} />
             <Textbox title='RTV' data={`${data?.rtv?.nome} - ${data?.rtv?.matricula}`} />
           </div>
