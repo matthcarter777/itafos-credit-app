@@ -1,0 +1,148 @@
+'use client'
+
+import { z } from 'zod';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Input from '../Input/Input';
+import { useEffect, useState } from 'react'
+import { Toast } from '../Toast/Toast';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { createProduto } from '@/app/services/create/CreateProduto';
+import { getEstados } from '@/app/services/hooks/getEstados';
+import Select from '../Select/Select';
+import { Estado } from '@/app/types/Estado';
+import { Municipio } from '@/app/types/Municipio';
+import { getMunicipios } from '@/app/services/hooks/getMunicipio';
+
+
+
+type CreateParecerComercialModalProps = {
+  title: string;
+  clienteId: string;
+}
+
+const createProdutoSchema = z.object({
+  nome: z.string().nonempty('Nome da regra não pode ser em branco.'),
+  uf: z.string().nonempty('Nome da regra não pode ser em branco.'),
+  cidade: z.string().nonempty('Nome da regra não pode ser em branco.'),
+});
+
+type CreateProdutoSchema = z.infer<typeof createProdutoSchema>;
+export default function CreateEnderecoClienteModal({ title }: CreateParecerComercialModalProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  const estados = useQuery<Estado[]>({ queryKey: ['estados'], queryFn: getEstados });
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: createProduto,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['produtos'] });
+      setShowToast(true);
+      setIsOpen(false);
+    },
+    onError: (error) => {
+      console.error('Erro ao criar RTV:', error);
+    },
+  });
+
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<CreateProdutoSchema>({
+    resolver: zodResolver(createProdutoSchema),
+  });
+
+  const estadoSelect = watch("uf");
+
+  const municipios = useQuery<Municipio[]>({
+    queryKey: ['municipio', estadoSelect],
+    queryFn: async () => {
+      if (!estadoSelect) throw new Error('ID da proposta não definido');
+      return await getMunicipios(estadoSelect);
+    },
+    enabled: !!estadoSelect, 
+  });
+
+  console.log(municipios.data)
+  
+
+  const handleFormSubmit = async (data: CreateProdutoSchema) => {
+    setIsOpen(false); 
+
+    await mutation.mutateAsync(data);
+  };
+  
+
+  return (
+    <div className="">
+      <button
+        onClick={() => setIsOpen(true)}
+        className="
+        bg-emerald-700 
+        text-stone-50 
+        rounded-sm 
+        h-10 
+        font-bold 
+        hover:bg-emerald-800 
+        transition-colors
+        p-3
+        flex
+        items-center
+        justify-center
+      " 
+      >
+        { title }
+      </button>
+
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <form 
+            className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md flex flex-col gap-3" 
+            onSubmit={handleSubmit(handleFormSubmit)} >
+            <h2 className="text-xl font-bold mb-4">{title}</h2>
+              <Input<CreateProdutoSchema>
+                label="Nome"
+                name="nome"
+                register={register}
+                errors={errors}
+                placeholder="Digite o nome do produto"
+              />
+              <Select<CreateProdutoSchema>
+              label="UF"
+              name="uf"
+              register={register}
+              errors={errors}
+              options={estados.data || []}
+            />
+            <Select<CreateProdutoSchema>
+              label="Cidade"
+              name="cidade"
+              register={register}
+              errors={errors}
+              options={municipios.data || []}
+            />
+            <button
+              className="px-4 py-2 bg-emerald-700  text-white rounded hover:bg-emerald-800 transition"
+              type="submit"
+            >
+              Salvar
+            </button>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+            >
+              Fechar
+            </button>
+          </form>
+
+          {showToast && (
+            <Toast
+              message="Usuario salvos com sucesso!"
+              onClose={() => setShowToast(false)}
+            />
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
