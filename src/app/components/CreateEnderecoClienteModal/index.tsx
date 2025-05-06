@@ -4,31 +4,35 @@ import { z } from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createProduto } from '@/app/services/create/CreateProduto';
 import { getEstados } from '@/app/services/hooks/getEstados';
 import Select from '../Select/Select';
 import { Estado } from '@/app/types/Estado';
 import { Municipio } from '@/app/types/Municipio';
 import { getMunicipios } from '@/app/services/hooks/getMunicipio';
+import { createEnderecoCliente } from '@/app/services/create/CreateEnderecoCliente';
 
 
 
-type CreateParecerComercialModalProps = {
+type CreateEnderecoClienteModalProps = {
   title: string;
   clienteId: string;
 }
 
-const createProdutoSchema = z.object({
-  nome: z.string().nonempty('Nome da regra não pode ser em branco.'),
-  uf: z.string().nonempty('Nome da regra não pode ser em branco.'),
-  cidade: z.string().nonempty('Nome da regra não pode ser em branco.'),
+const createEnderecoClienteSchema = z.object({
+  logradouro: z.string().nonempty('O logradouro é obrigatório.'),
+  numero: z.string().nullable().optional(),
+  uf: z.string().nonempty('A UF (estado) é obrigatória.'),
+  cidade: z.string().nonempty('A cidade é obrigatória.'),
+  bairro: z.string().nonempty('O bairro é obrigatório.'),
+  cep: z.string().nonempty('O CEP é obrigatório.'),
+  complemento: z.string().nonempty('O complemento é obrigatório.'),
 });
 
-type CreateProdutoSchema = z.infer<typeof createProdutoSchema>;
-export default function CreateEnderecoClienteModal({ title }: CreateParecerComercialModalProps) {
+type CreateEnderecoClienteSchema = z.infer<typeof createEnderecoClienteSchema>;
+export default function CreateEnderecoClienteModal({ title, clienteId }: CreateEnderecoClienteModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
@@ -37,9 +41,9 @@ export default function CreateEnderecoClienteModal({ title }: CreateParecerComer
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: createProduto,
+    mutationFn: createEnderecoCliente,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['produtos'] });
+      queryClient.invalidateQueries({ queryKey: ['clientes'] });
       setShowToast(true);
       setIsOpen(false);
     },
@@ -48,8 +52,8 @@ export default function CreateEnderecoClienteModal({ title }: CreateParecerComer
     },
   });
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<CreateProdutoSchema>({
-    resolver: zodResolver(createProdutoSchema),
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<CreateEnderecoClienteSchema>({
+    resolver: zodResolver(createEnderecoClienteSchema),
   });
 
   const estadoSelect = watch("uf");
@@ -62,14 +66,21 @@ export default function CreateEnderecoClienteModal({ title }: CreateParecerComer
     },
     enabled: !!estadoSelect, 
   });
-
-  console.log(municipios.data)
   
 
-  const handleFormSubmit = async (data: CreateProdutoSchema) => {
+  const handleFormSubmit = async (data: CreateEnderecoClienteSchema) => {
     setIsOpen(false); 
-
-    await mutation.mutateAsync(data);
+  
+    await mutation.mutateAsync({
+      clienteId,
+      logradouro: data.logradouro,
+      numero: data.numero || null,
+      bairro: data.bairro,
+      cep: data.cep,
+      cidade: data.cidade,
+      uf: data.uf,
+      complemento: data.complemento,
+    });
   };
   
 
@@ -100,26 +111,55 @@ export default function CreateEnderecoClienteModal({ title }: CreateParecerComer
             className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md flex flex-col gap-3" 
             onSubmit={handleSubmit(handleFormSubmit)} >
             <h2 className="text-xl font-bold mb-4">{title}</h2>
-              <Input<CreateProdutoSchema>
-                label="Nome"
-                name="nome"
-                register={register}
-                errors={errors}
-                placeholder="Digite o nome do produto"
-              />
-              <Select<CreateProdutoSchema>
+              <Select<CreateEnderecoClienteSchema>
               label="UF"
               name="uf"
               register={register}
               errors={errors}
               options={estados.data || []}
             />
-            <Select<CreateProdutoSchema>
+            <Select<CreateEnderecoClienteSchema>
               label="Cidade"
               name="cidade"
               register={register}
               errors={errors}
               options={municipios.data || []}
+            />
+            <Input<CreateEnderecoClienteSchema>
+              label="Endereço"
+              name="logradouro"
+              register={register}
+              errors={errors}
+              placeholder="Digite o nome do produto"
+            />
+            <Input<CreateEnderecoClienteSchema>
+              label="CEP"
+              name="cep"
+              register={register}
+              errors={errors}
+              placeholder="Digite o nome do produto"
+            />
+            <Input<CreateEnderecoClienteSchema>
+              label="Bairro"
+              name="bairro"
+              register={register}
+              errors={errors}
+              placeholder="Digite o nome do produto"
+            />
+            <Input<CreateEnderecoClienteSchema>
+              label="Numero"
+              type='number'
+              name="numero"
+              register={register}
+              errors={errors}
+              placeholder="Digite o nome do produto"
+            />
+            <Input<CreateEnderecoClienteSchema>
+              label="Complemento"
+              name="complemento"
+              register={register}
+              errors={errors}
+              placeholder="Digite o nome do produto"
             />
             <button
               className="px-4 py-2 bg-emerald-700  text-white rounded hover:bg-emerald-800 transition"
