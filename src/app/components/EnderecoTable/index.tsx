@@ -16,7 +16,7 @@ const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, onDelete })
       <table className="min-w-full divide-y divide-gray-200 bg-white">
         <thead className="bg-gray-100">
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Logradouro</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Endereco</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Cidade</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">UF</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Bairro</th>
