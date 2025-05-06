@@ -7,11 +7,11 @@ export type Fazenda = {
 	uf: string;
 	quantHectares: number;
 	tipoArea: string;
-	ie: number;
+	ie: string;
 	matricula: string;
 	nomeProprietario: string;
 	tipoProprietario: string;
-	cpfcnpj: number;
+	cpfcnpj: string;
 	vencimentoContrato: string;
 	tipoPagamento: string;
 	produto: string;
