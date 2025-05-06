@@ -16,6 +16,7 @@ import FazendasContainer from '@/app/components/FazendaContainer';
 import CreateEmailClienteModal from '@/app/components/CreateEmailClienteModal';
 import CreateConjugeModal from '@/app/components/CreateConjugeModal';
 import CreateEnderecoClienteModal from '@/app/components/CreateEnderecoClienteModal';
+import CreateReferenciaClienteModal from '@/app/components/CreateReferenciaClienteModal';
 
 export default function ClientePage() {
   const params = useParams();
@@ -105,7 +106,7 @@ export default function ClientePage() {
         <div className='mb-15'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Referencias</h1>
-            <CreateItemPropostaModal propostaId={id || ''} title="+ Referencia"/>
+            <CreateReferenciaClienteModal clienteId={data?.id || ''} title="+ Referencia"/>
           </div>
           <ReferenciasTable data={data?.referencias} />
         </div>
