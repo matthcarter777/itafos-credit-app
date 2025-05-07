@@ -67,7 +67,7 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data}) => {
 
             { fazenda.atividades.map((atividade, index) => {
                return (
-                <div>
+                <div  key={atividade.id}>
                   <div className="p-2 bg-gray-100 rounded-sm mb-4 relative">
                     <button
                         onClick={() => removerParecer(fazenda.id)}
