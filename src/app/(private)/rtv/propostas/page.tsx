@@ -9,14 +9,12 @@ import { useQuery } from "@tanstack/react-query";
 export default function PropostasPage() {
   const { data, isLoading } = useQuery<Proposta[]>({ queryKey: ['propostas'], queryFn: getProposta });
 
-  const handleEdit = (user: any) => {
-    alert(`Editar usuário: ${user.nome}`);
+  const handleEdit = () => {
+
   };
 
-  const handleToggleAtivo = (user: any) => {
-    alert(
-      `${user.ativo ? "Desabilitando" : "Ativando"} usuário: ${user.nome}`
-    );
+  const handleToggleAtivo = () => {
+
   };
 
   return (
@@ -26,7 +24,7 @@ export default function PropostasPage() {
         <CreateProposalModal title="+ Nova Proposta"/>
       </div>
       <div className="p-6">
-        <ProposalTable data={data} onEdit={handleEdit} onDelete={handleToggleAtivo} />
+        <ProposalTable data={data || []} onEdit={handleEdit} onDelete={handleToggleAtivo} />
       </div>
     </div>
   );

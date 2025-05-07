@@ -9,7 +9,7 @@ import { Toast } from '../Toast/Toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Select from '../Select/Select';
 import { createAtividadeFazendaCliente } from '@/app/services/create/CreateAtividadeFazendaCliente';
-
+import toast from 'react-hot-toast';
 
 
 type CreateAtividadeClienteModalProps = {
@@ -402,7 +402,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
 
   const handleFormSubmit = async (data: CreateAtividadeClienteSchema) => {
     setIsOpen(false); 
-  
+
     await mutation.mutateAsync({
       fazendaId,
       nome: data.nome,
@@ -417,6 +417,8 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
       leite: Number(data.leite) ?? undefined,
       corte: Number(data.corte) ?? undefined,
     });
+
+    toast.success('Atividade criada com sucesso.');
   };
 
   const dataMap = {
