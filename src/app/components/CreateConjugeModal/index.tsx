@@ -7,6 +7,7 @@ import Input from '../Input/Input';
 import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createConjuge } from '@/app/services/create/CreateConjuge';
+import toast from 'react-hot-toast';
 
 
 type CreateParecerComercialModalProps = {
@@ -30,19 +31,17 @@ const createConjugeSchema = z.object({
 type CreateConjugeSchema = z.infer<typeof createConjugeSchema>;
 export default function CreateConjugeModal({ title, clienteId, isMarried }: CreateParecerComercialModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: createConjuge,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clientes'] });
-      setShowToast(true);
       setIsOpen(false);
+      toast.success('Conjuge criado com sucesso.');
     },
     onError: (error) => {
-      console.error('Erro ao criar conjuge:', error);
+      toast.error('Erro ao criar conjuge');
     },
   });
 
