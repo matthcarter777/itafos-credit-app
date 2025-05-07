@@ -6,13 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
 import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getEstados } from '@/app/services/hooks/getEstados';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Select from '../Select/Select';
-import { Estado } from '@/app/types/Estado';
-import { Municipio } from '@/app/types/Municipio';
-import { getMunicipios } from '@/app/services/hooks/getMunicipio';
-import { createEnderecoCliente } from '@/app/services/create/CreateEnderecoCliente';
+import { createAtividadeFazendaCliente } from '@/app/services/create/CreateAtividadeFazendaCliente';
 
 
 
@@ -22,8 +18,8 @@ type CreateAtividadeClienteModalProps = {
 }
 
 const createAtividadeClienteSchema = z.object({
-  nome: z.string().nonempty('A ativiade deve ser selecionadada'),
-  tipoCultivo: z.string().nonempty('A UF (estado) é obrigatória.'),
+  nome: z.string().nonempty('A atividade deve ser selecionada.'),
+  tipoCultivo: z.string().nonempty('O tipo de cultivo deve ser selecionado.'),
   areaPlantada: z.string().nullable().optional(),
   quantHectares: z.string().nullable().optional(),
   irrigada: z.string().nullable().optional(),
@@ -34,6 +30,71 @@ const createAtividadeClienteSchema = z.object({
   areaTerra: z.string().nullable().optional(),
   leite: z.string().nullable().optional(),
   corte: z.string().nullable().optional(),
+}).superRefine((data, ctx) => {
+  // Validações baseadas no campo "nome"
+  const nomesQuePrecisamDeArea = [
+    'Culturas Verão',
+    'Culturas de 2ª e 3ª Safra',
+    'Culturas Perenes',
+    'Hortifruti e Outros',
+  ];
+
+  if (nomesQuePrecisamDeArea.includes(data.nome)) {
+    if (!data.areaPlantada || data.areaPlantada.trim() === '') {
+      ctx.addIssue({
+        path: ['areaPlantada'],
+        message: `A área plantada é obrigatória para ${data.nome}.`,
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  }
+
+  // Validações baseadas no tipoCultivo
+  if (data.tipoCultivo === 'Pecuária de Confinamento') {
+    if (!data.quantAnimais || data.quantAnimais.trim() === '') {
+      ctx.addIssue({
+        path: ['quantAnimais'],
+        message: 'A quantidade de animais é obrigatória para Pecuária.',
+        code: z.ZodIssueCode.custom,
+      });
+    }
+
+    if (!data.confinamento || data.confinamento.trim() === '') {
+      ctx.addIssue({
+        path: ['confinamento'],
+        message: 'O confinamento é obrigatório para Pecuária.',
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  }
+
+  if (data.tipoCultivo === 'Pecuária de Leite') {
+    if (!data.leite || data.leite.trim() === '') {
+      ctx.addIssue({
+        path: ['leite'],
+        message: 'A quantidade de leite é obrigatória para Pecuária de leite.',
+        code: z.ZodIssueCode.custom,
+      });
+    }
+
+    if (!data.areaTerra || data.areaTerra.trim() === '') {
+      ctx.addIssue({
+        path: ['areaTerra'],
+        message: 'A área de terra é obrigatória para Pecuária de leite.',
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  }
+
+  if (data.tipoCultivo === 'Pecuária de Corte') {
+    if (!data.corte || data.corte.trim() === '') {
+      ctx.addIssue({
+        path: ['corte'],
+        message: 'A quantidade de corte é obrigatória para Pecuária de Corte.',
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  }
 });
 
 type CreateAtividadeClienteSchema = z.infer<typeof createAtividadeClienteSchema>;
@@ -44,7 +105,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: createEnderecoCliente,
+    mutationFn: createAtividadeFazendaCliente,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clientes'] });
       setShowToast(true);
@@ -342,7 +403,20 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
   const handleFormSubmit = async (data: CreateAtividadeClienteSchema) => {
     setIsOpen(false); 
   
-    //await mutation.mutateAsync();
+    await mutation.mutateAsync({
+      fazendaId,
+      nome: data.nome,
+      tipoCultivo: data.tipoCultivo,
+      areaPlantada: Number(data.areaPlantada) ?? undefined,
+      irrigada: Boolean(data.irrigada) ?? undefined,
+      suplemento: Boolean(data.suplemento) ?? undefined,
+      nivelTecnologico: data.nivelTecnologico ?? undefined,
+      quantAnimais: Number(data.quantAnimais) ?? undefined,
+      confinamento: data.confinamento ?? undefined,
+      areaTerra: Number(data.areaPlantada) ?? undefined,
+      leite: Number(data.leite) ?? undefined,
+      corte: Number(data.corte) ?? undefined,
+    });
   };
 
   const dataMap = {
@@ -419,7 +493,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
                     name="quantHectares"
                     register={register}
                     errors={errors}
-                    placeholder="Digite o nome do produto"
+                    placeholder="Informe a área total da terra em hectares"
                   />
                 )}
 
@@ -431,7 +505,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
                       name="quantAnimais"
                       register={register}
                       errors={errors}
-                      placeholder="Digite o nome do produto"
+                      placeholder="Informe a quantidade total de animais"
                     />
                     <Input<CreateAtividadeClienteSchema>
                       label="Confinamento"
@@ -439,7 +513,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
                       name="confinamento"
                       register={register}
                       errors={errors}
-                      placeholder="Digite o nome do produto"
+                      placeholder="Informe a capacidade de confinamento"
                     />
                   </>
                 )}
@@ -451,7 +525,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
                     name="corte"
                     register={register}
                     errors={errors}
-                    placeholder="Digite o nome do produto"
+                    placeholder="Informe a quantidade destinada ao corte"
                   />
                 )}
 
@@ -462,7 +536,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
                     name="leite"
                     register={register}
                     errors={errors}
-                    placeholder="Digite o nome do produto"
+                    placeholder="Informe a produção média de leite"
                   />
                 )}
               </>
@@ -475,11 +549,11 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
                   name="areaPlantada"
                   register={register}
                   errors={errors}
-                  placeholder="Digite o nome do produto"
+                  placeholder="Informe a área total plantada em hectares"
                 />
                 <Select<CreateAtividadeClienteSchema>
                   label="A plantação é irrigada?"
-                  name="suplemento"
+                  name="irrigada"
                   register={register}
                   errors={errors}
                   options={simNaoOptions || []}
