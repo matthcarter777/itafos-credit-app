@@ -112,7 +112,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
       setIsOpen(false);
     },
     onError: (error) => {
-      console.error('Erro ao criar RTV:', error);
+      toast.error('Errro ao criar atividade.');
     },
   });
 

@@ -9,6 +9,7 @@ import { Toast } from '../Toast/Toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Select from '../Select/Select';
 import { createCliente } from '@/app/services/create/CreateCliente';
+import toast from 'react-hot-toast';
 
 
 type CreateProdutoModalProps = {
@@ -43,6 +44,7 @@ export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
       queryClient.invalidateQueries({ queryKey: ['clientes'] });
       setShowToast(true);
       setIsOpen(false);
+      toast.success('Atividade criada com sucesso.');
     },
     onError: (error) => {
       console.error('Erro ao criar RTV:', error);

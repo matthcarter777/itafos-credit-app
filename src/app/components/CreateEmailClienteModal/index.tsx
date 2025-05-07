@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
 import { useState } from 'react'
-import { Toast } from '../Toast/Toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createEmailCliente } from '@/app/services/create/CreateEmailCliente';
+import toast from 'react-hot-toast';
 
 
 type CreateParecerComercialModalProps = {
@@ -16,14 +16,17 @@ type CreateParecerComercialModalProps = {
 }
 
 const createEmailClienteSchema = z.object({
-  email: z.string().nonempty('Email não pode ser em branco.'),
-  descricao: z.string().nonempty('Descrição do Email não pode ser em branco. Ex: Adminstrativo.'),
+  email: z
+    .string()
+    .nonempty('O e-mail é obrigatório.')
+    .email('Informe um e-mail válido.'),
+  descricao: z
+    .string()
+    .nonempty('A descrição é obrigatória. Ex: Administrativo.'),
 });
-
 type CreateEmailClienteSchema = z.infer<typeof createEmailClienteSchema>;
 export default function CreateEmailClienteModal({ title, clienteId }: CreateParecerComercialModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [showToast, setShowToast] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -31,11 +34,11 @@ export default function CreateEmailClienteModal({ title, clienteId }: CreatePare
     mutationFn: createEmailCliente,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clientes'] });
-      setShowToast(true);
       setIsOpen(false);
+      toast.success('Email criado!');
     },
     onError: (error) => {
-      console.error('Erro ao criar email:', error);
+      toast.error('Erro ao criar email');
     },
   });
 
@@ -81,20 +84,22 @@ export default function CreateEmailClienteModal({ title, clienteId }: CreatePare
             className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md flex flex-col gap-3" 
             onSubmit={handleSubmit(handleFormSubmit)} >
             <h2 className="text-xl font-bold mb-4">{title}</h2>
-              <Input<CreateEmailClienteSchema>
-                label="Email"
-                name="email"
-                register={register}
-                errors={errors}
-                placeholder="Digite o nome do produto"
-              />
-              <Input<CreateEmailClienteSchema>
-                label="Descrição"
-                name="descricao"
-                register={register}
-                errors={errors}
-                placeholder="Digite o nome do produto"
-              />
+            <Input<CreateEmailClienteSchema>
+              label="E-mail"
+              type="email"
+              name="email"
+              register={register}
+              errors={errors}
+              placeholder="Digite o e-mail do cliente"
+            />
+
+            <Input<CreateEmailClienteSchema>
+              label="Descrição"
+              name="descricao"
+              register={register}
+              errors={errors}
+              placeholder="Ex: Administrativo, Financeiro, etc."
+            />
             <button
               className="px-4 py-2 bg-emerald-700  text-white rounded hover:bg-emerald-800 transition"
               type="submit"
@@ -108,13 +113,6 @@ export default function CreateEmailClienteModal({ title, clienteId }: CreatePare
               Fechar
             </button>
           </form>
-
-          {showToast && (
-            <Toast
-              message="Usuario salvos com sucesso!"
-              onClose={() => setShowToast(false)}
-            />
-          )}
         </div>
       )}
     </div>
