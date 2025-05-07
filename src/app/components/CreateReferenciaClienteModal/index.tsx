@@ -5,15 +5,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
 import { useState } from 'react'
-import { Toast } from '../Toast/Toast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getEstados } from '@/app/services/hooks/getEstados';
 import Select from '../Select/Select';
 import { Estado } from '@/app/types/Estado';
 import { Municipio } from '@/app/types/Municipio';
 import { getMunicipios } from '@/app/services/hooks/getMunicipio';
-import { createEnderecoCliente } from '@/app/services/create/CreateEnderecoCliente';
 import { createReferenciaCliente } from '@/app/services/create/CreateReferenciaCliente';
+import toast from 'react-hot-toast';
 
 
 
@@ -24,16 +23,17 @@ type CreateReferenciaClienteModalProps = {
 
 const createReferenciaClienteSchema = z.object({
   nome: z.string().nonempty('O nome é obrigatório.'),
-  cpfcnpj: z.string().nonempty('O CPF ou CNPJ é obrigatório.'),
+  cpfcnpj: z.string().nonempty('CPF não pode ser em branco.')
+  .min(11, 'CPF deve ter 11 dígitos.')
+  .max(11, 'CPF deve ter 11 dígitos.'),
   uf: z.string().nonempty('A UF (estado) é obrigatória.'),
   cidade: z.string().nonempty('A cidade é obrigatória.'),
-  telefone: z.string().nonempty('O CEP é obrigatório.'),
+  telefone: z.string().nonempty('O telefone é obrigatório.'),
 });
 
 type CreateReferenciaClienteSchema = z.infer<typeof createReferenciaClienteSchema>;
 export default function CreateReferenciaClienteModal({ title, clienteId }: CreateReferenciaClienteModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [showToast, setShowToast] = useState(false);
 
   const estados = useQuery<Estado[]>({ queryKey: ['estados'], queryFn: getEstados });
 
@@ -43,11 +43,11 @@ export default function CreateReferenciaClienteModal({ title, clienteId }: Creat
     mutationFn: createReferenciaCliente,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clientes'] });
-      setShowToast(true);
       setIsOpen(false);
+      toast.success('Referencia cadastrada com sucesso.')
     },
     onError: (error) => {
-      console.error('Erro ao criar RTV:', error);
+      toast.error('Erro ao criar Referencia');
     },
   });
 
@@ -108,27 +108,27 @@ export default function CreateReferenciaClienteModal({ title, clienteId }: Creat
             className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md flex flex-col gap-3" 
             onSubmit={handleSubmit(handleFormSubmit)} >
             <h2 className="text-xl font-bold mb-4">{title}</h2>
-            <Input<CreateReferenciaClienteSchema>
-              label="Nome"
-              name="nome"
-              register={register}
-              errors={errors}
-              placeholder="Digite o nome"
-            />
-            <Input<CreateReferenciaClienteSchema>
-              label="CPF | CNPJ"
-              name="cpfcnpj"
-              register={register}
-              errors={errors}
-              placeholder="Digite o nome do produto"
-            />
-            <Input<CreateReferenciaClienteSchema>
-              label="Telefone"
-              name="telefone"
-              register={register}
-              errors={errors}
-              placeholder="Digite o nome do produto"
-            />
+              <Input<CreateReferenciaClienteSchema>
+                label="Nome"
+                name="nome"
+                register={register}
+                errors={errors}
+                placeholder="Digite o nome"
+              />
+              <Input<CreateReferenciaClienteSchema>
+                label="CPF | CNPJ"
+                name="cpfcnpj"
+                register={register}
+                errors={errors}
+                placeholder="Digite o CPF ou CNPJ"
+              />
+              <Input<CreateReferenciaClienteSchema>
+                label="Telefone"
+                name="telefone"
+                register={register}
+                errors={errors}
+                placeholder="Digite o telefone"
+              />
               <Select<CreateReferenciaClienteSchema>
               label="UF"
               name="uf"
@@ -156,13 +156,6 @@ export default function CreateReferenciaClienteModal({ title, clienteId }: Creat
               Fechar
             </button>
           </form>
-
-          {showToast && (
-            <Toast
-              message="Usuario salvos com sucesso!"
-              onClose={() => setShowToast(false)}
-            />
-          )}
         </div>
       )}
     </div>
