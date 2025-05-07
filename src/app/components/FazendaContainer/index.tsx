@@ -6,7 +6,7 @@ import Textbox from "../Textbox";
 import { formatarDataBR } from "@/app/utils/formateDate";
 import { cnpj, cpf } from "@/app/utils/cpf-cnpj-mask";
 import { X } from "lucide-react";
-import CreateItemPropostaModal from "../CreateItemPropostaModal";
+import CreateAtividadeClienteModal from "../CreateAtividadeClienteModal";
 
 type AtividadeTableProps = {
   data?: Fazenda[];
@@ -62,7 +62,7 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data}) => {
             
             <div className='flex flex-row justify-between mb-9'>
               <h1 className='font-bold text-xl mb-3'>Atividades</h1>
-              <CreateItemPropostaModal propostaId={ fazenda.id || ''} title="+ Atividade"/>
+              <CreateAtividadeClienteModal fazendaId={ fazenda.id || ''} title="+ Atividade"/>
             </div>
 
             { fazenda.atividades.map((atividade, index) => {
