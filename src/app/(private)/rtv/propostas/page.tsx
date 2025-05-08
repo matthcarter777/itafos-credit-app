@@ -9,14 +9,6 @@ import { useQuery } from "@tanstack/react-query";
 export default function PropostasPage() {
   const { data, isLoading } = useQuery<Proposta[]>({ queryKey: ['propostas'], queryFn: getProposta });
 
-  const handleEdit = () => {
-
-  };
-
-  const handleToggleAtivo = () => {
-
-  };
-
   return (
     <div className="p-10">
       <div className="flex flex-row justify-between">
@@ -24,7 +16,7 @@ export default function PropostasPage() {
         <CreateProposalModal title="+ Nova Proposta"/>
       </div>
       <div className="p-6">
-        <ProposalTable data={data || []} onEdit={handleEdit} onDelete={handleToggleAtivo} />
+        <ProposalTable data={data || []} />
       </div>
     </div>
   );

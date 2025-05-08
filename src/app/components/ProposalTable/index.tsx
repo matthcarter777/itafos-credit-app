@@ -2,17 +2,16 @@
 
 import { Proposta } from "@/app/types/Proposta";
 import { formatarDataBR } from "@/app/utils/formateDate";
-import { BookmarkPlus, Pencil, Trash2 } from "lucide-react";
+import { BookmarkPlus } from "lucide-react";
 import React from "react";
 import { useRouter } from 'next/navigation';
+import DeletePropostaModal from "../DeletePropostaModal";
 
 type ProposalTableProps = {
   data?: Proposta[];
-  onEdit?: (proposal: Proposta) => void;
-  onDelete?: (proposal: Proposta) => void;
 };
 
-const ProposalTable: React.FC<ProposalTableProps> = ({ data, onEdit, onDelete }) => {
+const ProposalTable: React.FC<ProposalTableProps> = ({ data }) => {
   const router = useRouter();
 
 
@@ -37,31 +36,23 @@ const ProposalTable: React.FC<ProposalTableProps> = ({ data, onEdit, onDelete })
         <tbody className="divide-y divide-gray-100">
           {data?.map((proposal, index) => (
             <tr key={index} className="hover:bg-gray-50">
-              <td className="px-6 py-4 text-sm text-gray-900">{proposal.nome}</td>
-              <td className="px-6 py-4 text-sm text-gray-900">{formatarDataBR(proposal.data)}</td>
-              <td className="px-6 py-4 text-sm text-gray-900">{formatarDataBR(proposal.validade)}</td>
-              <td className="px-6 py-4 text-sm text-gray-900">{proposal.status ? "Finalizada" : "Aberta"}</td>
-              <td className="px-6 py-4 text-sm text-gray-900">{proposal.cliente.nomeCliente}</td>
-              <td className="px-6 py-4 text-sm text-gray-900">{proposal.rtv.nome}</td>
+              <td className="px-6 py-4 text-sm text-gray-900">{proposal?.nome}</td>
+              <td className="px-6 py-4 text-sm text-gray-900">{formatarDataBR(proposal?.data)}</td>
+              <td className="px-6 py-4 text-sm text-gray-900">{formatarDataBR(proposal?.validade)}</td>
+              <td className="px-6 py-4 text-sm text-gray-900">{proposal?.status ? "Finalizada" : "Aberta"}</td>
+              <td className="px-6 py-4 text-sm text-gray-900">{proposal?.cliente?.nomeCliente}</td>
+              <td className="px-6 py-4 text-sm text-gray-900">{proposal?.rtv?.nome}</td>
               <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
                 <button
-                  onClick={() => onEdit?.(proposal)}
-                  className="px-3 py-1 text-sm text-white bg-yellow-700 hover:bg-yellow-800 rounded"
-                >
-                  <Pencil size="15px" />
-                </button>
-                <button
-                  onClick={() => handleClick?.(proposal.id)}
+                  onClick={() => handleClick?.(proposal?.id)}
                   className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
                 >
                   <BookmarkPlus size="15px" />
                 </button>
-                <button
-                  onClick={() => onDelete?.(proposal)}
-                  className="px-3 py-1 text-sm text-white bg-red-600 hover:bg-red-700 rounded"
-                >
-                  <Trash2 size="15px" />
-                </button>
+                <DeletePropostaModal 
+                  id={proposal?.id}
+                  title="Tem certeza que deseja remover a proposta ?"
+                />
               </td>
             </tr>
           ))}
