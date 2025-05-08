@@ -18,6 +18,7 @@ import CreateConjugeModal from '@/app/components/CreateConjugeModal';
 import CreateEnderecoClienteModal from '@/app/components/CreateEnderecoClienteModal';
 import CreateReferenciaClienteModal from '@/app/components/CreateReferenciaClienteModal';
 import CreateFazendaClienteModal from '@/app/components/CreateFazendaClienteModal';
+import DeleteConjugeModal from '@/app/components/DeleteConjugeModal';
 
 export default function ClientePage() {
   const params = useParams();
@@ -78,8 +79,15 @@ export default function ClientePage() {
         <div className='mb-8'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Informações do Conjuge</h1>
-            <CreateConjugeModal clienteId={data?.id || ''} title="+ Conjuge" isMarried={data?.conjuge ? true : false} />
+            <>
+              <CreateConjugeModal clienteId={data?.id || ''} title="+ Conjuge" isMarried={data?.conjuge ? true : false} />
+            </>
           </div>
+          <DeleteConjugeModal 
+            id={data?.conjuge?.id || ''}
+            title="Teste"
+            isDisabled={data?.conjuge === null ? true : false}
+          />
           <div className='grid grid-cols-4 gap-4 mt-4' >
             <Textbox title='Nome' data={data?.conjuge?.nome} />
             <Textbox title='CPF' data={data?.conjuge?.cpf} />
