@@ -5,6 +5,7 @@ import { Produto } from "@/app/types/Produto";
 import { formatarDataBR } from "@/app/utils/formateDate";
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
+import DeleteItemPropostaModal from "../DeleteItemPropostaModal";
 
 type ProposalItensTableProps = {
   data?: ItemProposta[];
@@ -49,12 +50,10 @@ const ProposalItensTable: React.FC<ProposalItensTableProps> = ({ data, onEdit, o
                 >
                   <Pencil size="20px" />
                 </button>
-                <button
-                  onClick={() => onDelete?.(item)}
-                  className="px-3 py-1 text-sm text-white bg-red-600 hover:bg-red-700 rounded"
-                >
-                  <Trash2 size="20px" />
-                </button>
+                <DeleteItemPropostaModal
+                  id={item.id}
+                  title="Tem certeza que deseja remover o Item"
+                />
               </td>
             </tr>
           ))}
