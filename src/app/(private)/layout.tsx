@@ -30,9 +30,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Header />
-        <QueryProvider>
-          <AuthProvider>
+        <AuthProvider>
+          <Header />
+          <QueryProvider>
             <div className="flex h-[calc(100vh-64px)] lg:flex-row flex-col overflow-hidden">
               <Navbar />
               <main className="flex-1 bg-gray-100 p-4 overflow-y-scroll scrollbar-hide">
@@ -40,9 +40,10 @@ export default function RootLayout({
                 {children}
               </main>
             </div>
-          </AuthProvider>
-        </QueryProvider>
+          </QueryProvider>
+        </AuthProvider>
       </body>
     </html>
   );
 }
+

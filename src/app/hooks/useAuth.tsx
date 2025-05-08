@@ -36,7 +36,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   function signOut() {
     destroyCookie(undefined, 'nextauth.token');
+    router.push('/login');
   }
+  
 
   async function signIn({ email, senha }: SignInCredentials): Promise<boolean> {
     try {

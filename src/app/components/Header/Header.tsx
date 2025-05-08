@@ -5,7 +5,7 @@ import { LogOut } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Header() {
-  const { signOut } = useAuth();
+  const { signOut } = useAuth(); 
   
   const handleSignOut = () => {
     signOut()
@@ -24,7 +24,7 @@ export default function Header() {
       </div>
       <div className="flex items-center justify-between gap-2.5">
         <button
-          className='hover:text-gray-200'
+          className='hover:text-red-700'
           onClick={handleSignOut}
         >
           <LogOut />
