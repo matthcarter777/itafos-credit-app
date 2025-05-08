@@ -1,15 +1,14 @@
 "use client";
 
 import { Referencia } from "@/app/types/Referencia";
-import { Trash2 } from "lucide-react";
 import React from "react";
+import DeleteReferenciaModal from "../DeleteReferenciaModal";
 
 type ReferenciaTableProps = {
   data?: Referencia[];
-  onDelete?: (user: Referencia) => void;
 };
 
-const ReferenciasTable: React.FC<ReferenciaTableProps> = ({ data, onDelete }) => {
+const ReferenciasTable: React.FC<ReferenciaTableProps> = ({ data }) => {
   return (
     <div className="overflow-x-auto rounded-lg shadow-md">
       <table className="min-w-full divide-y divide-gray-200 bg-white">
@@ -32,12 +31,10 @@ const ReferenciasTable: React.FC<ReferenciaTableProps> = ({ data, onDelete }) =>
               <td className="px-6 py-4 text-sm text-gray-900">{referencia.uf}</td>
               <td className="px-6 py-4 text-sm text-gray-900">{referencia.telefone}</td>
               <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
-                <button
-                  onClick={() => onDelete?.(referencia)}
-                  className="px-3 py-1 text-sm text-white bg-red-600 hover:bg-red-700 rounded"
-                >
-                  <Trash2 size="20px" />
-                </button>
+                <DeleteReferenciaModal 
+                  id={referencia.id}
+                  title={`Tem certeza que deseja remover a referencia: ${referencia.nome} - ${referencia.cpfcnpj}`}
+                />
               </td>
             </tr>
           ))}
