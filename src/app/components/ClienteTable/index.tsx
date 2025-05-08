@@ -4,6 +4,7 @@ import { Cliente } from "@/app/types/Cliente";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import DeleteClienteModal from "../DeleteClienteModal";
 
 type ProdutoTableProps = {
   data?: Cliente[];
@@ -36,23 +37,15 @@ const ClienteTable: React.FC<ProdutoTableProps> = ({ data, onEdit, onDelete }) =
               <td className="px-6 py-4 text-sm text-gray-900">{cliente.cpfcnpj}</td>
               <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
                 <button
-                  onClick={() => onEdit?.(cliente)}
-                  className="px-3 py-1 text-sm text-white bg-orange-700 hover:bg-emerald-800 rounded"
-                >
-                  <Pencil size="20px" />
-                </button>
-                <button
                   onClick={() => handleClick?.(cliente.id)}
                   className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
                 >
                   <Eye size="20px" />
                 </button>
-                <button
-                  onClick={() => onDelete?.(cliente)}
-                  className="px-3 py-1 text-sm text-white bg-red-600 hover:bg-red-700 rounded"
-                >
-                  <Trash2 size="20px" />
-                </button>
+                <DeleteClienteModal 
+                  id={cliente.id}
+                  title="Tem certeza que deseja excluir o cliente ?"
+                />
               </td>
             </tr>
           ))}

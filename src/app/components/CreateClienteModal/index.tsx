@@ -19,7 +19,9 @@ type CreateProdutoModalProps = {
 const createClienteSchema = z.object({
   nomeCliente: z.string().nonempty('O Nome do cliente não pode ser em branco.'),
   tipoCliente: z.string().nonempty('O tipo de cliente não pode ser em branco.'),
-  cpfcnpj: z.string().nonempty('O CPF/CNPJ não pode ser em branco.'),
+  cpfcnpj: z.string().nonempty('O CPF/CNPJ não pode ser em branco.')
+    .min(11, 'CPF/CNPJ deve ter 11 dígitos.')
+    .max(11, 'CPF/CNPJ deve ter 11 dígitos.'),
   idRtv: z.string().nonempty('O Cliente deve ter um RTV responsável.'),
   ie: z.string().nullable().optional(),
   dataConstituicao: z.string().nullable().optional(),
