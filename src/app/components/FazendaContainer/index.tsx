@@ -8,6 +8,7 @@ import { cnpj, cpf } from "@/app/utils/cpf-cnpj-mask";
 import { X } from "lucide-react";
 import CreateAtividadeClienteModal from "../CreateAtividadeClienteModal";
 import DeleteAtividadeClienteModal from "../DeleteAtividadeClienteModal";
+import DeleteFazendaModal from "../DeleteFazendaModal";
 
 type AtividadeTableProps = {
   data?: Fazenda[];
@@ -26,13 +27,10 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data}) => {
       {data?.map((fazenda, index) => {
         return (
           <div key={fazenda.id} className='p-2 bg-white rounded-sm mb-4 relative'>
-            <button
-              onClick={() => removerParecer(fazenda.id)}
-              className="absolute top-2 right-2 text-gray-400 hover:text-red-500"
-              aria-label="Remover parecer"
-            >
-              <X size={18} />
-            </button>
+            <DeleteFazendaModal
+              id={fazenda.id}
+              title="Tem certeza que deseja remover a fazenda ?"
+            />
             <div className='grid grid-cols-4 gap-4 mt-4 mb-6'>
               <Textbox title='Nome' data={fazenda.nome} isHidde={!!!fazenda.nome}/>
               <Textbox title='Cidade' data={fazenda.cidade} isHidde={!!!fazenda.cidade}/>
