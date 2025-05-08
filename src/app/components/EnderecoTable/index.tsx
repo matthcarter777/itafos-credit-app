@@ -3,6 +3,7 @@
 import { Endereco } from "@/app/types/Endereco";
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
+import DeleteEnderecoClienteModal from "../DeleteEnderecoClienteModal";
 
 type EnderecoTableProps = {
   data?: Endereco[];
@@ -43,12 +44,10 @@ const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, onDelete })
                 >
                   <Pencil size="20px" />
                 </button>
-                <button
-                  onClick={() => onDelete?.(endereco)}
-                  className="px-3 py-1 text-sm text-white bg-red-600 hover:bg-red-700 rounded"
-                >
-                  <Trash2 size="20px" />
-                </button>
+                <DeleteEnderecoClienteModal 
+                  id={endereco.id}
+                  title="Tem certeza que deseja remover o endereço ?"
+                />
               </td>
             </tr>
           ))}
