@@ -6,6 +6,7 @@ import { Email } from "@/app/types/Email";
 import { useMutation } from "@tanstack/react-query";
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
+import DeleteEmailClienteModal from "../DeleteEmailClienteModal";
 
 type EmailTableProps = {
   data?: Email[];
@@ -45,12 +46,10 @@ const EmailsClienteTable: React.FC<EmailTableProps> = ({ data }) => {
               <td className="px-6 py-4 text-sm text-gray-900">{email.descricao}</td>
               <td className="px-6 py-4 text-sm text-gray-900">{email.email}</td>
               <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
-                <button
-                  onClick={() => onDelete?.(email.id)}
-                  className="px-3 py-1 text-sm text-white bg-red-600 hover:bg-red-700 rounded"
-                >
-                  <Trash2 size="20px" />
-                </button>
+                <DeleteEmailClienteModal
+                  id={email.id}
+                  title={`Tem certeza que deseja remover o email: ${email.email}`} 
+                />
               </td>
             </tr>
           ))}
