@@ -7,6 +7,7 @@ import { formatarDataBR } from "@/app/utils/formateDate";
 import { cnpj, cpf } from "@/app/utils/cpf-cnpj-mask";
 import { X } from "lucide-react";
 import CreateAtividadeClienteModal from "../CreateAtividadeClienteModal";
+import DeleteAtividadeClienteModal from "../DeleteAtividadeClienteModal";
 
 type AtividadeTableProps = {
   data?: Fazenda[];
@@ -69,13 +70,10 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data}) => {
                return (
                 <div  key={atividade.id}>
                   <div className="p-2 bg-gray-100 rounded-sm mb-4 relative">
-                    <button
-                        onClick={() => removerParecer(fazenda.id)}
-                        className="absolute top-2 right-2 text-gray-400 hover:text-red-500"
-                        aria-label="Remover parecer"
-                      >
-                        <X size={18} />
-                    </button>
+                    <DeleteAtividadeClienteModal 
+                      id={atividade.id} 
+                      title="Tem certeza que deseja remover a atividade ?"
+                    />
                     <div className='grid grid-cols-3 gap-4 mt-4'>
                       <Textbox title='Atividade' data={atividade.nome} isHidde={!!!atividade.nome}/>
                       <Textbox 
