@@ -1,6 +1,10 @@
+import { deleteParecerComercial } from "@/app/services/delete/DeleteParecerComercialService";
+import { queryClient } from "@/app/services/queryClient";
 import { ParecerComercial as ParecerComercialType } from "@/app/types/ParecerComercial"
 import { formatarAno } from "@/app/utils/formateAno";
-import { X } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import toast from 'react-hot-toast';
+import DeleteParecerComercialModal from "../DeleteParecerComercialModal";
 
 type ParecerComercialProps = {
   data: ParecerComercialType[];
@@ -14,21 +18,30 @@ export default function ParecerComercial({ data }: ParecerComercialProps) {
     return date.toLocaleDateString('pt-BR');
   };
 
-  const removerParecer = (id: string) => {
-    alert('Remover')
+  const mutation = useMutation({
+    mutationFn: deleteParecerComercial,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['propostas'] });
+      toast.success('Parecer comercial excluido.');
+    },
+    onError: (error) => {
+      toast.error('Erro remover parecer comercial');
+    },
+  });
+
+  const removerParecer = async (id: string) => {
+    await mutation.mutateAsync({ id });
   }
+
 
   return (
     <>
       {data?.map((parecer, index) => (
         <div key={index} className="p-2 bg-white rounded-sm mb-4 relative">
-          <button
-            onClick={() => removerParecer(parecer.id)}
-            className="absolute top-2 right-2 text-gray-400 hover:text-red-500"
-            aria-label="Remover parecer"
-          >
-            <X size={18} />
-          </button>
+          <DeleteParecerComercialModal 
+            id={parecer.id} 
+            title="Tem certeza que deseja remover o parecer comercial ?"
+          />
           
           <div className='grid grid-cols-3 gap-4 mt-4'>
             <div>
@@ -61,4 +74,5 @@ export default function ParecerComercial({ data }: ParecerComercialProps) {
         </div>
       ))}
     </>
-  )}
+  )
+}
