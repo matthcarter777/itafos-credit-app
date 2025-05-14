@@ -6,6 +6,8 @@ import Image from 'next/image';
 
 export default function Header() {
   const { signOut, user } = useAuth(); 
+
+  console.log(user)
   
   const handleSignOut = () => {
     signOut()
@@ -31,10 +33,11 @@ export default function Header() {
         </button>
         <h1>|</h1>
         <div>
-          <h3 className='font-bold'>{ user?.name }</h3>
+          <h3 className='font-bold'>{ user?.nome }</h3>
           <p className='font-thin text-xs text-gray-200'>{ user?.email }</p>
         </div>
       </div>
     </header>
+    
   );
 }

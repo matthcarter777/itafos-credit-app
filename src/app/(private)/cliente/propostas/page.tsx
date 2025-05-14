@@ -1,7 +1,6 @@
 "use client";
 
-import CreateProposalModal from "@/app/components/CreateProposalModal";
-import ProposalTable from "@/app/components/ProposalTable";
+import ProposalClienteTable from "@/app/components/ProposalClienteTable";
 import { getProposta } from "@/app/services/hooks/getProposta";
 import { Proposta } from "@/app/types/Proposta";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +14,7 @@ export default function PropostasPage() {
         <h1 className="font-bold text-xl">Propostas</h1>
       </div>
       <div className="p-6">
-        <ProposalTable data={data || []} />
+        <ProposalClienteTable data={data || []} />
       </div>
     </div>
   );
