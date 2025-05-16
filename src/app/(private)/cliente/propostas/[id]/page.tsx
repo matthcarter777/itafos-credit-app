@@ -27,7 +27,7 @@ export default function PropostasPage() {
   });
 
   const handleClick = () => {
-    router.push(`/rtv/propostas`);
+    router.push(`/cliente/propostas`);
   };
 
   return (
@@ -77,7 +77,6 @@ export default function PropostasPage() {
         <div className='mb-15'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Itens da Proposta</h1>
-            <CreateItemPropostaModal propostaId={id || ''} title="+ Item da Proposta"/>
           </div>
           <ProposalItensTable data={data?.itensProposta} />
         </div>
@@ -85,7 +84,6 @@ export default function PropostasPage() {
         <div className='mb-8'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Parecer Comercial</h1>
-            <CreateParecerComercialModal clientId={data?.cliente.id || ''} title="+ Parecer Comercial"/>
           </div>
           <ParecerComercial data={data?.cliente.parecerComercial || []} />
         </div>

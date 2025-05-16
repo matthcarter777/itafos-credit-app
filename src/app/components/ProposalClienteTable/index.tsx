@@ -1,11 +1,11 @@
 "use client";
+import { BookmarkPlus } from "lucide-react";
+import React from "react";
 
 import { Proposta } from "@/app/types/Proposta";
 import { formatarDataBR } from "@/app/utils/formateDate";
-import { BookmarkPlus } from "lucide-react";
-import React from "react";
 import { useRouter } from 'next/navigation';
-import DeletePropostaModal from "../DeletePropostaModal";
+
 
 type ProposalTableProps = {
   data?: Proposta[];
@@ -49,10 +49,6 @@ const ProposalClienteTable: React.FC<ProposalTableProps> = ({ data }) => {
                 >
                   <BookmarkPlus size="15px" />
                 </button>
-                <DeletePropostaModal 
-                  id={proposal?.id}
-                  title="Tem certeza que deseja remover a proposta ?"
-                />
               </td>
             </tr>
           ))}

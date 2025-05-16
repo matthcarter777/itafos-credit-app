@@ -2,11 +2,12 @@
 
 import ProposalClienteTable from "@/app/components/ProposalClienteTable";
 import { getProposta } from "@/app/services/hooks/getProposta";
+import { getPropostasCliente } from "@/app/services/hooks/getPropostarCliente";
 import { Proposta } from "@/app/types/Proposta";
 import { useQuery } from "@tanstack/react-query";
 
 export default function PropostasPage() {
-  const { data, isLoading } = useQuery<Proposta[]>({ queryKey: ['propostas'], queryFn: getProposta });
+  const { data, isLoading } = useQuery<Proposta[]>({ queryKey: ['propostas'], queryFn: getPropostasCliente });
 
   return (
     <div className="p-10">
