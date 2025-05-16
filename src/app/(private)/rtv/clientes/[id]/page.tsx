@@ -112,6 +112,7 @@ export default function ClientePage() {
           </div>
           <EmailsClienteTable data={data?.emails} />
         </div>
+        
         <div className='mb-15'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Referencias</h1>
