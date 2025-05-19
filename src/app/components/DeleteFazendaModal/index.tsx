@@ -10,9 +10,10 @@ import { deleteFazenda } from '@/app/services/delete/DeleteFazenda';
 type ModalProps = {
   title: string;
   id: string;
+  queryId: string;
 }
 
-export default function DeleteFazendaModal({ title, id }: ModalProps) {
+export default function DeleteFazendaModal({ title, id, queryId }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false);
  
   const queryClient = useQueryClient();
@@ -20,7 +21,7 @@ export default function DeleteFazendaModal({ title, id }: ModalProps) {
   const mutation = useMutation({
     mutationFn: deleteFazenda,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setIsOpen(false);
       toast.success('Fazenda excluido.');
     },

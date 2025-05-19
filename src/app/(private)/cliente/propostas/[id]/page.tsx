@@ -131,9 +131,9 @@ export default function PropostasPage() {
       <div className='mb-15'>
         <div className='flex flex-row justify-between mb-9'>
           <h1 className='font-bold text-2xl'>Fazendas</h1>
-          <CreateFazendaClienteModal clienteId={data?.id || ''} title="+ Fazenda"/>
+          <CreateFazendaClienteModal clienteId={data?.cliente?.id || ''} title="+ Fazenda" queryId='propostas'/>
         </div>
-        <FazendasContainer data={data?.cliente?.fazendas} />
+        <FazendasContainer data={data?.cliente?.fazendas} queryId='propostas'/>
       </div>
 
       <div className='p-2'>

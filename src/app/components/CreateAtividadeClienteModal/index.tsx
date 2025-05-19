@@ -15,6 +15,7 @@ import toast from 'react-hot-toast';
 type CreateAtividadeClienteModalProps = {
   title: string;
   fazendaId: string;
+  queryId: string;
 }
 
 const createAtividadeClienteSchema = z.object({
@@ -98,7 +99,7 @@ const createAtividadeClienteSchema = z.object({
 });
 
 type CreateAtividadeClienteSchema = z.infer<typeof createAtividadeClienteSchema>;
-export default function CreateAtividadeClienteModal({ title, fazendaId }: CreateAtividadeClienteModalProps) {
+export default function CreateAtividadeClienteModal({ title, fazendaId, queryId }: CreateAtividadeClienteModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
@@ -107,7 +108,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId }: Create
   const mutation = useMutation({
     mutationFn: createAtividadeFazendaCliente,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setShowToast(true);
       setIsOpen(false);
     },

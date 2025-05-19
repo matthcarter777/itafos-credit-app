@@ -5,14 +5,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
 import { useState } from 'react'
-import { Toast } from '../Toast/Toast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getEstados } from '@/app/services/hooks/getEstados';
 import Select from '../Select/Select';
 import { Estado } from '@/app/types/Estado';
 import { Municipio } from '@/app/types/Municipio';
 import { getMunicipios } from '@/app/services/hooks/getMunicipio';
-import { createEnderecoCliente } from '@/app/services/create/CreateEnderecoCliente';
 import { createFazendaCliente } from '@/app/services/create/CreateFazendaCliente';
 
 
@@ -20,6 +18,7 @@ import { createFazendaCliente } from '@/app/services/create/CreateFazendaCliente
 type CreateFazendaClienteModalProps = {
   title: string;
   clienteId: string;
+  queryId: string;
 }
 
 const createEnderecoClienteSchema = z.object({
@@ -48,7 +47,7 @@ const createEnderecoClienteSchema = z.object({
 
 
 type CreateEnderecoClienteSchema = z.infer<typeof createEnderecoClienteSchema>;
-export default function CreateFazendaClienteModal({ title, clienteId }: CreateFazendaClienteModalProps) {
+export default function CreateFazendaClienteModal({ title, clienteId, queryId }: CreateFazendaClienteModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
@@ -59,7 +58,7 @@ export default function CreateFazendaClienteModal({ title, clienteId }: CreateFa
   const mutation = useMutation({
     mutationFn: createFazendaCliente,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setShowToast(true);
       setIsOpen(false);
     },
@@ -109,8 +108,6 @@ export default function CreateFazendaClienteModal({ title, clienteId }: CreateFa
 
   const handleFormSubmit = async (data: CreateEnderecoClienteSchema) => {
     setIsOpen(false); 
-
-    console.log(data)
   
     await mutation.mutateAsync({
       clienteId,

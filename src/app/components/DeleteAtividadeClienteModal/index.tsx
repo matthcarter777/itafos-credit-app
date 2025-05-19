@@ -10,9 +10,10 @@ import { deleteAtividadeCliente } from '@/app/services/delete/DeleteAtividadeCli
 type ModalProps = {
   title: string;
   id: string;
+  queryId: string;
 }
 
-export default function DeleteAtividadeClienteModal({ title, id }: ModalProps) {
+export default function DeleteAtividadeClienteModal({ title, id, queryId }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false);
  
   const queryClient = useQueryClient();
@@ -20,7 +21,7 @@ export default function DeleteAtividadeClienteModal({ title, id }: ModalProps) {
   const mutation = useMutation({
     mutationFn: deleteAtividadeCliente,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setIsOpen(false);
       toast.success('Ativiade fazenda excluido.');
     },

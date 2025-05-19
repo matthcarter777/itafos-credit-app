@@ -5,22 +5,16 @@ import { Fazenda } from "@/app/types/Fazenda";
 import Textbox from "../Textbox";
 import { formatarDataBR } from "@/app/utils/formateDate";
 import { cnpj, cpf } from "@/app/utils/cpf-cnpj-mask";
-import { X } from "lucide-react";
 import CreateAtividadeClienteModal from "../CreateAtividadeClienteModal";
 import DeleteAtividadeClienteModal from "../DeleteAtividadeClienteModal";
 import DeleteFazendaModal from "../DeleteFazendaModal";
 
 type AtividadeTableProps = {
   data?: Fazenda[];
+  queryId: string;
 };
 
-const FazendasContainer: React.FC<AtividadeTableProps> = ({data}) => {
-
-  
-  const removerParecer = (id: string) => {
-    alert('Remover')
-  }
-
+const FazendasContainer: React.FC<AtividadeTableProps> = ({data, queryId}) => {
 
   return (
     <>
@@ -30,6 +24,7 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data}) => {
             <DeleteFazendaModal
               id={fazenda.id}
               title="Tem certeza que deseja remover a fazenda ?"
+              queryId={queryId}
             />
             <div className='grid grid-cols-4 gap-4 mt-4 mb-6'>
               <Textbox title='Nome' data={fazenda.nome} isHidde={!!!fazenda.nome}/>
@@ -61,7 +56,7 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data}) => {
             
             <div className='flex flex-row justify-between mb-9'>
               <h1 className='font-bold text-xl mb-3'>Atividades</h1>
-              <CreateAtividadeClienteModal fazendaId={ fazenda.id || ''} title="+ Atividade"/>
+              <CreateAtividadeClienteModal fazendaId={ fazenda.id || ''} title="+ Atividade" queryId={queryId}/>
             </div>
 
             { fazenda.atividades.map((atividade, index) => {
@@ -71,6 +66,7 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data}) => {
                     <DeleteAtividadeClienteModal 
                       id={atividade.id} 
                       title="Tem certeza que deseja remover a atividade ?"
+                      queryId={queryId}
                     />
                     <div className='grid grid-cols-3 gap-4 mt-4'>
                       <Textbox title='Atividade' data={atividade.nome} isHidde={!!!atividade.nome}/>
