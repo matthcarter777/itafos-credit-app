@@ -6,9 +6,10 @@ import DeleteReferenciaModal from "../DeleteReferenciaModal";
 
 type ReferenciaTableProps = {
   data?: Referencia[];
+  queryId: string;
 };
 
-const ReferenciasTable: React.FC<ReferenciaTableProps> = ({ data }) => {
+const ReferenciasTable: React.FC<ReferenciaTableProps> = ({ data, queryId }) => {
   return (
     <div className="overflow-x-auto rounded-lg shadow-md">
       <table className="min-w-full divide-y divide-gray-200 bg-white">
@@ -34,6 +35,7 @@ const ReferenciasTable: React.FC<ReferenciaTableProps> = ({ data }) => {
                 <DeleteReferenciaModal 
                   id={referencia.id}
                   title={`Tem certeza que deseja remover a referencia: ${referencia.nome} - ${referencia.cpfcnpj}`}
+                  queryId={queryId}
                 />
               </td>
             </tr>

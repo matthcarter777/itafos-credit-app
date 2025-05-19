@@ -10,9 +10,10 @@ import { deleteReferencia } from '@/app/services/delete/DeleteReferencia';
 type CreateParecerComercialModalProps = {
   title: string;
   id: string;
+  queryId: string
 }
 
-export default function DeleteReferenciaModal({ title, id }: CreateParecerComercialModalProps) {
+export default function DeleteReferenciaModal({ title, id, queryId }: CreateParecerComercialModalProps) {
   const [isOpen, setIsOpen] = useState(false);
  
   const queryClient = useQueryClient();
@@ -20,7 +21,7 @@ export default function DeleteReferenciaModal({ title, id }: CreateParecerComerc
   const mutation = useMutation({
     mutationFn: deleteReferencia,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setIsOpen(false);
       toast.success('Referencia excluida.');
     },

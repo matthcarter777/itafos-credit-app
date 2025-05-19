@@ -123,9 +123,9 @@ export default function PropostasPage() {
       <div className='mb-15'>
         <div className='flex flex-row justify-between mb-9'>
           <h1 className='font-bold text-2xl'>Referencias</h1>
-          <CreateReferenciaClienteModal clienteId={data?.id || ''} title="+ Referencia"/>
+          <CreateReferenciaClienteModal clienteId={data?.cliente?.id || ''} title="+ Referencia" queryId='propostas'/>
         </div>
-        <ReferenciasTable data={data?.cliente?.referencias} />
+        <ReferenciasTable data={data?.cliente?.referencias} queryId='propostas'/>
       </div>
 
       <div className='mb-15'>
@@ -172,13 +172,6 @@ export default function PropostasPage() {
             <h1 className='font-bold text-2xl'>Itens da Proposta</h1>
           </div>
           <ProposalItensTable data={data?.itensProposta} />
-        </div>
-
-        <div className='mb-8'>
-          <div className='flex flex-row justify-between mb-9'>
-            <h1 className='font-bold text-2xl'>Parecer Comercial</h1>
-          </div>
-          <ParecerComercial data={data?.cliente.parecerComercial || []} />
         </div>
       </div>
     </>

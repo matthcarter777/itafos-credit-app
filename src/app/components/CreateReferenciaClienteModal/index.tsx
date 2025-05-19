@@ -19,6 +19,7 @@ import toast from 'react-hot-toast';
 type CreateReferenciaClienteModalProps = {
   title: string;
   clienteId: string;
+  queryId: string;
 }
 
 const createReferenciaClienteSchema = z.object({
@@ -32,7 +33,7 @@ const createReferenciaClienteSchema = z.object({
 });
 
 type CreateReferenciaClienteSchema = z.infer<typeof createReferenciaClienteSchema>;
-export default function CreateReferenciaClienteModal({ title, clienteId }: CreateReferenciaClienteModalProps) {
+export default function CreateReferenciaClienteModal({ title, clienteId, queryId }: CreateReferenciaClienteModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const estados = useQuery<Estado[]>({ queryKey: ['estados'], queryFn: getEstados });
@@ -42,7 +43,7 @@ export default function CreateReferenciaClienteModal({ title, clienteId }: Creat
   const mutation = useMutation({
     mutationFn: createReferenciaCliente,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setIsOpen(false);
       toast.success('Referencia cadastrada com sucesso.')
     },
