@@ -11,9 +11,10 @@ type ModalProps = {
   title: string;
   id: string;
   isDisabled: boolean;
+  queryId: string;
 }
 
-export default function DeleteConjugeModal({ title, id, isDisabled }: ModalProps) {
+export default function DeleteConjugeModal({ title, id, isDisabled, queryId }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false);
  
   const queryClient = useQueryClient();
@@ -21,7 +22,7 @@ export default function DeleteConjugeModal({ title, id, isDisabled }: ModalProps
   const mutation = useMutation({
     mutationFn: deleteConjuge,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setIsOpen(false);
       toast.success('Conjuge excluido.');
     },

@@ -18,6 +18,7 @@ import toast from 'react-hot-toast';
 type CreateEnderecoClienteModalProps = {
   title: string;
   clienteId: string;
+  queryId: string;
 }
 
 const createEnderecoClienteSchema = z.object({
@@ -32,7 +33,7 @@ const createEnderecoClienteSchema = z.object({
 
 
 type CreateEnderecoClienteSchema = z.infer<typeof createEnderecoClienteSchema>;
-export default function CreateEnderecoClienteModal({ title, clienteId }: CreateEnderecoClienteModalProps) {
+export default function CreateEnderecoClienteModal({ title, clienteId, queryId }: CreateEnderecoClienteModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const estados = useQuery<Estado[]>({ queryKey: ['estados'], queryFn: getEstados });
@@ -42,7 +43,7 @@ export default function CreateEnderecoClienteModal({ title, clienteId }: CreateE
   const mutation = useMutation({
     mutationFn: createEnderecoCliente,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setIsOpen(false);
       toast.success('Endereço cadastrado com sucesso!');
     },

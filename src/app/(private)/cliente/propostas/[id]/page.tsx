@@ -81,13 +81,19 @@ export default function PropostasPage() {
         <div className='flex flex-row justify-between mb-9'>
           <h1 className='font-bold text-2xl'>Informações do Conjuge</h1>
           <>
-            <CreateConjugeModal clienteId={data?.cliente?.id || ''} title="+ Conjuge" isMarried={data?.cliente.conjuge ? true : false} />
+            <CreateConjugeModal 
+              clienteId={data?.cliente?.id || ''} 
+              title="+ Conjuge" 
+              isMarried={data?.cliente.conjuge ? true : false} 
+              queryId='propostas'
+            />
           </>
         </div>
         <DeleteConjugeModal 
           id={data?.cliente?.conjuge?.id || ''}
           title="Teste"
           isDisabled={data?.cliente?.conjuge === null ? true : false}
+          queryId='propostas'
         />
         <div className='grid grid-cols-4 gap-4 mt-4' >
           <Textbox title='Nome' data={data?.cliente?.conjuge?.nome} />
@@ -101,7 +107,7 @@ export default function PropostasPage() {
       <div className='mb-15'>
         <div className='flex flex-row justify-between mb-9'>
           <h1 className='font-bold text-2xl'>Informações de Localização</h1>
-          <CreateEnderecoClienteModal clienteId={id || ''} title="+ Endereço"/>
+          <CreateEnderecoClienteModal clienteId={id || ''} title="+ Endereço" queryId='propostas'/>
         </div>
         <EnderecoTable data={data?.cliente?.enderecos} />
       </div>

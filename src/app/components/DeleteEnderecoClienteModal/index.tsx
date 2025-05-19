@@ -4,16 +4,16 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Trash2, X } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { deleteReferencia } from '@/app/services/delete/DeleteReferencia';
 import { deleteEnderecoCliente } from '@/app/services/delete/DeleteEnderecoCliente';
 
 
 type CreateParecerComercialModalProps = {
   title: string;
   id: string;
+  queryId: string;
 }
 
-export default function DeleteEnderecoClienteModal({ title, id }: CreateParecerComercialModalProps) {
+export default function DeleteEnderecoClienteModal({ title, id, queryId }: CreateParecerComercialModalProps) {
   const [isOpen, setIsOpen] = useState(false);
  
   const queryClient = useQueryClient();
@@ -21,7 +21,7 @@ export default function DeleteEnderecoClienteModal({ title, id }: CreateParecerC
   const mutation = useMutation({
     mutationFn: deleteEnderecoCliente,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setIsOpen(false);
       toast.success('Endereço excluido.');
     },

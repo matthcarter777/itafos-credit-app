@@ -14,6 +14,7 @@ type CreateParecerComercialModalProps = {
   title: string;
   clienteId: string;
   isMarried: boolean;
+  queryId: string;
 }
 
 const createConjugeSchema = z.object({
@@ -29,14 +30,14 @@ const createConjugeSchema = z.object({
 
 
 type CreateConjugeSchema = z.infer<typeof createConjugeSchema>;
-export default function CreateConjugeModal({ title, clienteId, isMarried }: CreateParecerComercialModalProps) {
+export default function CreateConjugeModal({ title, clienteId, isMarried, queryId }: CreateParecerComercialModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: createConjuge,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setIsOpen(false);
       toast.success('Conjuge criado com sucesso.');
     },
