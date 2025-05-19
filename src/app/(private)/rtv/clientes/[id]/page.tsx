@@ -108,7 +108,7 @@ export default function ClientePage() {
         <div className='mb-15'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Emails</h1>
-            <CreateEmailClienteModal clienteId={data?.id || ''} title="+ Email"/>
+            <CreateEmailClienteModal clienteId={data?.id || ''} title="+ Email" queryId='clientes'/>
           </div>
           <EmailsClienteTable data={data?.emails} />
         </div>

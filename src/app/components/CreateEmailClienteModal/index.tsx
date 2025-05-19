@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 type CreateParecerComercialModalProps = {
   title: string;
   clienteId: string;
+  queryId: string;
 }
 
 const createEmailClienteSchema = z.object({
@@ -25,7 +26,7 @@ const createEmailClienteSchema = z.object({
     .nonempty('A descrição é obrigatória. Ex: Administrativo.'),
 });
 type CreateEmailClienteSchema = z.infer<typeof createEmailClienteSchema>;
-export default function CreateEmailClienteModal({ title, clienteId }: CreateParecerComercialModalProps) {
+export default function CreateEmailClienteModal({ title, clienteId, queryId }: CreateParecerComercialModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const queryClient = useQueryClient();
@@ -33,7 +34,7 @@ export default function CreateEmailClienteModal({ title, clienteId }: CreatePare
   const mutation = useMutation({
     mutationFn: createEmailCliente,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`]});
       setIsOpen(false);
       toast.success('Email criado!');
     },

@@ -81,7 +81,7 @@ export default function PropostasPage() {
         <div className='flex flex-row justify-between mb-9'>
           <h1 className='font-bold text-2xl'>Informações do Conjuge</h1>
           <>
-            <CreateConjugeModal clienteId={data?.id || ''} title="+ Conjuge" isMarried={data?.cliente.conjuge ? true : false} />
+            <CreateConjugeModal clienteId={data?.cliente?.id || ''} title="+ Conjuge" isMarried={data?.cliente.conjuge ? true : false} />
           </>
         </div>
         <DeleteConjugeModal 
@@ -109,7 +109,7 @@ export default function PropostasPage() {
       <div className='mb-15'>
         <div className='flex flex-row justify-between mb-9'>
           <h1 className='font-bold text-2xl'>Emails</h1>
-          <CreateEmailClienteModal clienteId={data?.id || ''} title="+ Email"/>
+          <CreateEmailClienteModal clienteId={data?.cliente?.id || ''} title="+ Email" queryId='propostas'/>
         </div>
         <EmailsClienteTable data={data?.cliente?.emails} />
       </div>
