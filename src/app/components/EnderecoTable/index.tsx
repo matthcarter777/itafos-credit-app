@@ -8,10 +8,10 @@ import DeleteEnderecoClienteModal from "../DeleteEnderecoClienteModal";
 type EnderecoTableProps = {
   data?: Endereco[];
   onEdit?: (user: Endereco) => void;
-  onDelete?: (user: Endereco) => void;
+  queryId: string;
 };
 
-const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, onDelete }) => {
+const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, queryId }) => {
   return (
     <div className="overflow-x-auto rounded-lg shadow-md">
       <table className="min-w-full divide-y divide-gray-200 bg-white">
@@ -47,6 +47,7 @@ const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, onDelete })
                 <DeleteEnderecoClienteModal 
                   id={endereco.id}
                   title="Tem certeza que deseja remover o endereço ?"
+                  queryId={queryId}
                 />
               </td>
             </tr>

@@ -107,9 +107,9 @@ export default function PropostasPage() {
       <div className='mb-15'>
         <div className='flex flex-row justify-between mb-9'>
           <h1 className='font-bold text-2xl'>Informações de Localização</h1>
-          <CreateEnderecoClienteModal clienteId={id || ''} title="+ Endereço" queryId='propostas'/>
+          <CreateEnderecoClienteModal clienteId={data?.cliente?.id || ''} title="+ Endereço" queryId='propostas'/>
         </div>
-        <EnderecoTable data={data?.cliente?.enderecos} />
+        <EnderecoTable data={data?.cliente?.enderecos} queryId='propostas'/>
       </div>
 
       <div className='mb-15'>

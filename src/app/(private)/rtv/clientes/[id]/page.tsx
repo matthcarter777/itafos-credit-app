@@ -1,6 +1,5 @@
 'use client';
 
-import CreateItemPropostaModal from '@/app/components/CreateItemPropostaModal';
 import { useQuery } from '@tanstack/react-query';
 import { MoveLeft } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
@@ -80,13 +79,14 @@ export default function ClientePage() {
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Informações do Conjuge</h1>
             <>
-              <CreateConjugeModal clienteId={data?.id || ''} title="+ Conjuge" isMarried={data?.conjuge ? true : false} />
+              <CreateConjugeModal clienteId={data?.id || ''} title="+ Conjuge" isMarried={data?.conjuge ? true : false} queryId='clientes' />
             </>
           </div>
           <DeleteConjugeModal 
             id={data?.conjuge?.id || ''}
             title="Teste"
             isDisabled={data?.conjuge === null ? true : false}
+            queryId='clientes'
           />
           <div className='grid grid-cols-4 gap-4 mt-4' >
             <Textbox title='Nome' data={data?.conjuge?.nome} />
@@ -100,7 +100,7 @@ export default function ClientePage() {
         <div className='mb-15'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Informações de Localização</h1>
-            <CreateEnderecoClienteModal clienteId={id || ''} title="+ Endereço"/>
+            <CreateEnderecoClienteModal clienteId={id || ''} title="+ Endereço" queryId='clientes'/>
           </div>
           <EnderecoTable data={data?.enderecos} />
         </div>
