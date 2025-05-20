@@ -9,9 +9,10 @@ type EnderecoTableProps = {
   data?: Endereco[];
   onEdit?: (user: Endereco) => void;
   queryId: string;
+  isAction?: boolean;
 };
 
-const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, queryId }) => {
+const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, queryId, isAction = true }) => {
   return (
     <div className="overflow-x-auto rounded-lg shadow-md">
       <table className="min-w-full divide-y divide-gray-200 bg-white">
@@ -24,7 +25,7 @@ const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, queryId }) 
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Numero</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">CEP</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Complemento</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Ações</th>
+            { isAction && <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Ações</th> }
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
@@ -37,19 +38,22 @@ const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, queryId }) 
               <td className="px-6 py-4 text-sm text-gray-900">{endereco.numero}</td>
               <td className="px-6 py-4 text-sm text-gray-900">{endereco.cep}</td>
               <td className="px-6 py-4 text-sm text-gray-900">{endereco.complemento}</td>
-              <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
-                <button
-                  onClick={() => onEdit?.(endereco)}
-                  className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
-                >
-                  <Pencil size="20px" />
-                </button>
-                <DeleteEnderecoClienteModal 
-                  id={endereco.id}
-                  title="Tem certeza que deseja remover o endereço ?"
-                  queryId={queryId}
-                />
-              </td>
+              { isAction && (
+                <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
+                  <button
+                    onClick={() => onEdit?.(endereco)}
+                    className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
+                  >
+                    <Pencil size="20px" />
+                  </button>
+      
+                  <DeleteEnderecoClienteModal 
+                    id={endereco.id}
+                    title="Tem certeza que deseja remover o endereço ?"
+                    queryId={queryId}
+                  />
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

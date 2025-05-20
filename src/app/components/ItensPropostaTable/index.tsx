@@ -10,10 +10,10 @@ import DeleteItemPropostaModal from "../DeleteItemPropostaModal";
 type ProposalItensTableProps = {
   data?: ItemProposta[];
   onEdit?: (user: ItemProposta) => void;
-  onDelete?: (user: ItemProposta) => void;
+  isAction?: boolean;
 };
 
-const ProposalItensTable: React.FC<ProposalItensTableProps> = ({ data, onEdit, onDelete }) => {
+const ProposalItensTable: React.FC<ProposalItensTableProps> = ({ data, onEdit, isAction = true }) => {
   return (
     <div className="overflow-x-auto rounded-lg shadow-md">
       <table className="min-w-full divide-y divide-gray-200 bg-white">
@@ -27,7 +27,7 @@ const ProposalItensTable: React.FC<ProposalItensTableProps> = ({ data, onEdit, o
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Valor Credito</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Tipo Operação</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Vencimento</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Ações</th>
+            { isAction && <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Ações</th> }
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
@@ -43,18 +43,20 @@ const ProposalItensTable: React.FC<ProposalItensTableProps> = ({ data, onEdit, o
               <td className="px-6 py-4 text-sm text-gray-900">
                 {item?.vencimento && formatarDataBR(item.vencimento)}
               </td>
-              <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
-                <button
-                  onClick={() => onEdit?.(item)}
-                  className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
-                >
-                  <Pencil size="20px" />
-                </button>
-                <DeleteItemPropostaModal
-                  id={item.id}
-                  title="Tem certeza que deseja remover o Item"
-                />
-              </td>
+              { isAction && (
+                <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
+                  <button
+                    onClick={() => onEdit?.(item)}
+                    className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
+                  >
+                    <Pencil size="20px" />
+                  </button>
+                  <DeleteItemPropostaModal
+                    id={item.id}
+                    title="Tem certeza que deseja remover o Item"
+                  />
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -7,9 +7,10 @@ import DeleteReferenciaModal from "../DeleteReferenciaModal";
 type ReferenciaTableProps = {
   data?: Referencia[];
   queryId: string;
+  isAction?: boolean;
 };
 
-const ReferenciasTable: React.FC<ReferenciaTableProps> = ({ data, queryId }) => {
+const ReferenciasTable: React.FC<ReferenciaTableProps> = ({ data, queryId, isAction = true }) => {
   return (
     <div className="overflow-x-auto rounded-lg shadow-md">
       <table className="min-w-full divide-y divide-gray-200 bg-white">
@@ -20,7 +21,7 @@ const ReferenciasTable: React.FC<ReferenciaTableProps> = ({ data, queryId }) => 
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Cidade</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">UF</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Telefone</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Ações</th>
+            { isAction && <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Ações</th> }
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
@@ -31,13 +32,15 @@ const ReferenciasTable: React.FC<ReferenciaTableProps> = ({ data, queryId }) => 
               <td className="px-6 py-4 text-sm text-gray-900">{referencia.cidade}</td>
               <td className="px-6 py-4 text-sm text-gray-900">{referencia.uf}</td>
               <td className="px-6 py-4 text-sm text-gray-900">{referencia.telefone}</td>
-              <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
-                <DeleteReferenciaModal 
-                  id={referencia.id}
-                  title={`Tem certeza que deseja remover a referencia: ${referencia.nome} - ${referencia.cpfcnpj}`}
-                  queryId={queryId}
-                />
-              </td>
+              { isAction && (
+                <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
+                  <DeleteReferenciaModal 
+                    id={referencia.id}
+                    title={`Tem certeza que deseja remover a referencia: ${referencia.nome} - ${referencia.cpfcnpj}`}
+                    queryId={queryId}
+                  />
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

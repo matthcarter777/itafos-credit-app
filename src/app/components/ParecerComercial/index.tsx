@@ -8,9 +8,10 @@ import DeleteParecerComercialModal from "../DeleteParecerComercialModal";
 
 type ParecerComercialProps = {
   data: ParecerComercialType[];
+  isAction?: boolean;
 } 
 
-export default function ParecerComercial({ data }: ParecerComercialProps) {
+export default function ParecerComercial({ data, isAction = true }: ParecerComercialProps) {
 
   const formatarDataBR = (dateString: string) => {
     if (!dateString) return '';
@@ -38,10 +39,12 @@ export default function ParecerComercial({ data }: ParecerComercialProps) {
     <>
       {data?.map((parecer, index) => (
         <div key={index} className="p-2 bg-white rounded-sm mb-4 relative">
-          <DeleteParecerComercialModal 
-            id={parecer.id} 
-            title="Tem certeza que deseja remover o parecer comercial ?"
-          />
+          { isAction && (
+            <DeleteParecerComercialModal 
+              id={parecer.id} 
+              title="Tem certeza que deseja remover o parecer comercial ?"
+            />
+          )}
           
           <div className='grid grid-cols-3 gap-4 mt-4'>
             <div>

@@ -88,7 +88,7 @@ export default function PropostasPage() {
         <div className='flex flex-row justify-between mb-9'>
           <h1 className='font-bold text-2xl'>Informações de Localização</h1>
         </div>
-        <EnderecoTable data={data?.cliente?.enderecos} queryId='propostas'/>
+        <EnderecoTable data={data?.cliente?.enderecos} queryId='propostas' isAction={false} />
       </div>
 
       <div className='mb-15'>
@@ -102,14 +102,14 @@ export default function PropostasPage() {
         <div className='flex flex-row justify-between mb-9'>
           <h1 className='font-bold text-2xl'>Referencias</h1>
         </div>
-        <ReferenciasTable data={data?.cliente?.referencias} queryId='propostas'/>
+        <ReferenciasTable data={data?.cliente?.referencias} queryId='propostas' isAction={false} />
       </div>
 
       <div className='mb-15'>
         <div className='flex flex-row justify-between mb-9'>
           <h1 className='font-bold text-2xl'>Fazendas</h1>
         </div>
-        <FazendasContainer data={data?.cliente?.fazendas} queryId='propostas'/>
+        <FazendasContainer data={data?.cliente?.fazendas} queryId='propostas' isAction={false} />
       </div>
 
       <div className='p-2'>
@@ -147,14 +147,14 @@ export default function PropostasPage() {
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Itens da Proposta</h1>
           </div>
-          <ProposalItensTable data={data?.itensProposta} />
+          <ProposalItensTable data={data?.itensProposta} isAction={false} />
         </div>
 
         <div className='mb-8'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Parecer Comercial</h1>
           </div>
-          <ParecerComercial data={data?.cliente.parecerComercial || []} />
+          <ParecerComercial data={data?.cliente.parecerComercial || []} isAction={false} />
         </div>
       </div>
     </>

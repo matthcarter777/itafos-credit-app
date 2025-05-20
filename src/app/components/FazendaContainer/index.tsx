@@ -12,20 +12,23 @@ import DeleteFazendaModal from "../DeleteFazendaModal";
 type AtividadeTableProps = {
   data?: Fazenda[];
   queryId: string;
+  isAction?: boolean;
 };
 
-const FazendasContainer: React.FC<AtividadeTableProps> = ({data, queryId}) => {
+const FazendasContainer: React.FC<AtividadeTableProps> = ({data, queryId, isAction = true}) => {
 
   return (
     <>
       {data?.map((fazenda, index) => {
         return (
           <div key={fazenda.id} className='p-2 bg-white rounded-sm mb-4 relative'>
-            <DeleteFazendaModal
-              id={fazenda.id}
-              title="Tem certeza que deseja remover a fazenda ?"
-              queryId={queryId}
-            />
+            { isAction && (
+              <DeleteFazendaModal
+                id={fazenda.id}
+                title="Tem certeza que deseja remover a fazenda ?"
+                queryId={queryId}
+              />
+            )}
             <div className='grid grid-cols-4 gap-4 mt-4 mb-6'>
               <Textbox title='Nome' data={fazenda.nome} isHidde={!!!fazenda.nome}/>
               <Textbox title='Cidade' data={fazenda.cidade} isHidde={!!!fazenda.cidade}/>
@@ -56,18 +59,20 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data, queryId}) => {
             
             <div className='flex flex-row justify-between mb-9'>
               <h1 className='font-bold text-xl mb-3'>Atividades</h1>
-              <CreateAtividadeClienteModal fazendaId={ fazenda.id || ''} title="+ Atividade" queryId={queryId}/>
+              { isAction && <CreateAtividadeClienteModal fazendaId={ fazenda.id || ''} title="+ Atividade" queryId={queryId}/> }
             </div>
 
             { fazenda.atividades.map((atividade, index) => {
                return (
                 <div  key={atividade.id}>
                   <div className="p-2 bg-gray-100 rounded-sm mb-4 relative">
-                    <DeleteAtividadeClienteModal 
-                      id={atividade.id} 
-                      title="Tem certeza que deseja remover a atividade ?"
-                      queryId={queryId}
-                    />
+                    { isAction && (
+                      <DeleteAtividadeClienteModal 
+                        id={atividade.id} 
+                        title="Tem certeza que deseja remover a atividade ?"
+                        queryId={queryId}
+                      />
+                    )}
                     <div className='grid grid-cols-3 gap-4 mt-4'>
                       <Textbox title='Atividade' data={atividade.nome} isHidde={!!!atividade.nome}/>
                       <Textbox 
