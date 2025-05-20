@@ -31,7 +31,7 @@ export default function PropostasPage() {
   });
 
   const handleClick = () => {
-    router.push(`/cliente/propostas`);
+    router.push(`/financeiro/propostas`);
   };
 
   return (

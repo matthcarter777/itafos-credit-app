@@ -171,7 +171,7 @@ export default function PropostasPage() {
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Itens da Proposta</h1>
           </div>
-          <ProposalItensTable data={data?.itensProposta} />
+          <ProposalItensTable data={data?.itensProposta} isAction={false} />
         </div>
       </div>
     </>
