@@ -66,8 +66,8 @@ export default function CreateItemPropostaModal({ title, propostaId }: CreateIte
   ]
 
   const tipoOperacaoOptions = [
-    {id: "CIF", nome: "CIF"},
-    {id: "FOB", nome: "FOB"},
+    {id: "Curto Prazo", nome: "Curto Prazo"},
+    {id: "Longo Prazo", nome: "Longo Prazo"},
   ]
 
   const { register, handleSubmit, formState: { errors } } = useForm<CreateItemPropostaSchema>({

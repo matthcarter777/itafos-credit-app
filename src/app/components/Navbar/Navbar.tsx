@@ -123,6 +123,22 @@ const Navbar = () => {
             </ul>
           </>
         )}
+
+        { role === 'Financeiro' && (
+          <>
+            <div className="text-2xl font-bold text-gray-800 mb-8 mt-4">
+              <Link href="/home">Financeiro</Link>
+            </div>
+
+            <ul className="flex flex-col gap-4 text-gray-700 font-medium">
+              <li>
+                <Link href="/financeiro/propostas" className="flex items-center gap-2 hover:text-green-600 transition">
+                  <CircleDollarSign size={20} /> Propostas
+                </Link>
+              </li>
+            </ul>
+          </>
+        )}
       </nav>
     </aside>
   );
