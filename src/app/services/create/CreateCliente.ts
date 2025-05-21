@@ -11,7 +11,6 @@ export const createCliente = async (data: {
   telefone?: string;
   dataNascimento?: string;
   estadoCivil?: string;
-  idRtv?: string;
   senha: string;
   email: string;
  }) => {
@@ -26,7 +25,6 @@ export const createCliente = async (data: {
       telefone: data.telefone, 
       dataNascimento: data.dataNascimento,
       estadoCivil: data.estadoCivil,
-      idRtv: data.idRtv,
       senha: data.senha,
       email: data.email
     });

@@ -3,8 +3,7 @@ import { api } from "../apiClient";
 export const createProposta = async (data: { 
   nome: string, 
   validade: string,
-  clienteId: string,
-  rtvId: string,
+  clienteId: string
 }) => {
   try {
     const today = new Date();
@@ -16,7 +15,6 @@ export const createProposta = async (data: {
       validade: data.validade,
       data: actualDate,
       status: false,
-      rtvId: data.rtvId, 
       clienteId: data.clienteId, 
     });
     return response.data;

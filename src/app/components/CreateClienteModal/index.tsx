@@ -22,7 +22,6 @@ const createClienteSchema = z.object({
   cpfcnpj: z.string().nonempty('O CPF/CNPJ não pode ser em branco.')
     .min(11, 'CPF/CNPJ deve ter 11 dígitos.')
     .max(11, 'CPF/CNPJ deve ter 11 dígitos.'),
-  idRtv: z.string().nonempty('O Cliente deve ter um RTV responsável.'),
   ie: z.string().nullable().optional(),
   dataConstituicao: z.string().nullable().optional(),
   regTrib: z.string().nullable().optional(),
@@ -189,14 +188,6 @@ export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
                   options={estadoCivilOptions}
                 />
               )}
-
-              <Input<CreateClienteSchema>
-                label="RTV"
-                name="idRtv"
-                register={register}
-                errors={errors}
-                placeholder="Digite o nome do produto"
-              />
 
               <h2 className="text-xl font-bold mb-4">Login</h2>
               
