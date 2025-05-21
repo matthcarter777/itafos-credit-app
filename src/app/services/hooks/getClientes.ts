@@ -6,7 +6,7 @@ import { parseCookies } from 'nookies';
 export async function getClientes(): Promise<ClienteOptions[]> {
   let cookies = parseCookies();
 
-  const { data } = await api.get(`/rtv/cliente`, {
+  const { data } = await api.get(`/rtv/cliente/rtv/all`, {
     headers: {
       Authorization: `Bearer ${cookies['nextauth.token']}`
     }

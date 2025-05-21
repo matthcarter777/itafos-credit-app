@@ -48,6 +48,7 @@ export default function Home() {
 
         <Input<LoginSchema>
           label="Senha"
+          type="password"
           name="senha"
           register={register}
           errors={errors}
