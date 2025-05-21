@@ -14,6 +14,7 @@ import toast from 'react-hot-toast';
 
 type CreateProdutoModalProps = {
   title: string;
+  queryId: string;
 }
 
 const createClienteSchema = z.object({
@@ -33,7 +34,7 @@ const createClienteSchema = z.object({
 });
 
 type CreateClienteSchema = z.infer<typeof createClienteSchema>;
-export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
+export default function CreateProdutoModal({ title, queryId }: CreateProdutoModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
@@ -42,7 +43,7 @@ export default function CreateProdutoModal({ title }: CreateProdutoModalProps) {
   const mutation = useMutation({
     mutationFn: createCliente,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clientes'] });
+      queryClient.invalidateQueries({ queryKey: [`${queryId}`] });
       setShowToast(true);
       setIsOpen(false);
       toast.success('Atividade criada com sucesso.');

@@ -2,12 +2,12 @@
 
 import ClienteTable from "@/app/components/ClienteTable";
 import CreateClienteModal from "@/app/components/CreateClienteModal";
-import { getClientes } from "@/app/services/hooks/getClientesRTV";
+import { getClientesByRTV } from "@/app/services/hooks/getClientesByRTV";
 import { Cliente } from "@/app/types/Cliente";
 import { useQuery } from "@tanstack/react-query";
 
 export default function ClientesPage() {
-  const { data, isLoading } = useQuery<Cliente[]>({ queryKey: ['clientes'], queryFn: getClientes });
+  const { data, isLoading } = useQuery<Cliente[]>({ queryKey: ['clientes-rtv'], queryFn: getClientesByRTV });
 
   const handleEdit = (user: any) => {
     alert(`Editar usuário: ${user.nome}`);
@@ -23,7 +23,7 @@ export default function ClientesPage() {
     <div className="p-10">
       <div className="flex flex-row justify-between">
         <h1 className="font-bold text-xl">Clientes</h1>
-        <CreateClienteModal title="+ Novo Cliente"/>
+        <CreateClienteModal title="+ Novo Cliente" queryId="clientes-rtv"/>
       </div>
       <div className="p-6">
         <ClienteTable data={data} onEdit={handleEdit} onDelete={handleToggleAtivo} />
