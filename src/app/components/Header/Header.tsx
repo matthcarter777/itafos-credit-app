@@ -6,8 +6,6 @@ import Image from 'next/image';
 
 export default function Header() {
   const { signOut, user } = useAuth(); 
-
-  console.log(user)
   
   const handleSignOut = () => {
     signOut()
@@ -15,15 +13,14 @@ export default function Header() {
 
   return (
     <header className="w-full h-16 bg-gray-700 text-white flex items-center justify-between px-6 shadow-md">
-      <div className="text-lg font-bold">
+
         <Image 
-          src="/images/logo-itf.png" 
+          src="/images/new-logo.png" 
           alt="Logo" 
-          width={120} 
-          height={150} 
+          width={100} 
+          height={100} 
           className="transition-transform duration-500 transform scale-100 hover:scale-110"
         />
-      </div>
       <div className="flex items-center justify-between gap-2.5">
         <button
           className='hover:text-red-500'
