@@ -3,6 +3,7 @@
 import { User } from "@/app/types/User";
 import { Lock, LockOpen, Pencil } from "lucide-react";
 import React from "react";
+import DisableUserModal from "../DisableUserModal";
 
 type UserTableProps = {
   data?: User[];
@@ -41,14 +42,12 @@ const UserTable: React.FC<UserTableProps> = ({ data, onEdit, onToggleAtivo }) =>
                 >
                   <Pencil size="20px" />
                 </button>
-                <button
-                  onClick={() => onToggleAtivo?.(user)}
-                  className={`px-3 py-1 text-sm text-white ${
-                    user.ativo ? "bg-green-600 hover:bg-green-700" : "bg-red-600 hover:bg-red-700"  
-                  } rounded`}
-                >
-                  {user.ativo ? <LockOpen size="20px" /> : <Lock size="20px" />}
-                </button>
+                <DisableUserModal 
+                  id={user.id}
+                  ativo={user.ativo}
+                  queryId="users"
+                  isDisabled={false}
+                />
               </td>
             </tr>
           ))}
