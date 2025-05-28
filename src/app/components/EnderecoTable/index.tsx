@@ -2,14 +2,16 @@
 
 import { Endereco } from "@/app/types/Endereco";
 import { Pencil, Trash2 } from "lucide-react";
-import React from "react";
+import React, { ReactNode } from "react";
 import DeleteEnderecoClienteModal from "../DeleteEnderecoClienteModal";
+import CreateEnderecoClienteModal from "../CreateEnderecoClienteModal";
 
 type EnderecoTableProps = {
   data?: Endereco[];
   onEdit?: (user: Endereco) => void;
   queryId: string;
   isAction?: boolean;
+  icon?: ReactNode;
 };
 
 const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, queryId, isAction = true }) => {
@@ -46,6 +48,8 @@ const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, queryId, is
                   >
                     <Pencil size="20px" />
                   </button>
+
+                  <CreateEnderecoClienteModal clienteId={''} title="+ Endereço" queryId='propostas' data={endereco} />
       
                   <DeleteEnderecoClienteModal 
                     id={endereco.id}

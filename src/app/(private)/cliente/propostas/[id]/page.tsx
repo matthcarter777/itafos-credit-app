@@ -1,6 +1,5 @@
 'use client';
 
-import ParecerComercial from '@/app/components/ParecerComercial';
 import ProposalItensTable from '@/app/components/ItensPropostaTable';
 import { getShowProposta } from '@/app/services/hooks/getShowProposta';
 import { Proposta } from '@/app/types/Proposta';

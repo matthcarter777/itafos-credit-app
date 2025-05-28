@@ -13,12 +13,14 @@ import { Municipio } from '@/app/types/Municipio';
 import { getMunicipios } from '@/app/services/hooks/getMunicipio';
 import { createEnderecoCliente } from '@/app/services/create/CreateEnderecoCliente';
 import toast from 'react-hot-toast';
+import { Endereco } from '@/app/types/Endereco';
 
 
 type CreateEnderecoClienteModalProps = {
   title: string;
   clienteId: string;
   queryId: string;
+  data?: Endereco;
 }
 
 const createEnderecoClienteSchema = z.object({
@@ -33,7 +35,7 @@ const createEnderecoClienteSchema = z.object({
 
 
 type CreateEnderecoClienteSchema = z.infer<typeof createEnderecoClienteSchema>;
-export default function CreateEnderecoClienteModal({ title, clienteId, queryId }: CreateEnderecoClienteModalProps) {
+export default function CreateEnderecoClienteModal({ title, clienteId, queryId, data }: CreateEnderecoClienteModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const estados = useQuery<Estado[]>({ queryKey: ['estados'], queryFn: getEstados });
@@ -114,6 +116,7 @@ export default function CreateEnderecoClienteModal({ title, clienteId, queryId }
             <Select<CreateEnderecoClienteSchema>
               label="Estado (UF)"
               name="uf"
+              value={data?.uf}
               register={register}
               errors={errors}
               options={estados.data || []}
