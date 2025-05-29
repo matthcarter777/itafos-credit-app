@@ -26,4 +26,5 @@ export type Cliente = {
   referencias: Referencia[];
   rtv: RTV;
   fazendas: Fazenda[];
+  email?: string;
 }

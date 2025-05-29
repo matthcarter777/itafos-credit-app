@@ -39,7 +39,18 @@ export default function DeleteEnderecoClienteModal({ title, id, queryId }: Creat
       <div className="">
         <button
           onClick={() => setIsOpen(true)}
-          className="px-3 py-1 text-sm text-white bg-red-600 hover:bg-red-700 rounded"
+          className="
+          text-stone-50 
+          h-10 
+          font-bold 
+          transition-colors
+          p-3
+          flex
+          items-center
+          justify-center
+          mb-1
+          bg-red-600 
+          hover:bg-red-700 rounded"
         >
            <Trash2 size="20px" />
         </button>

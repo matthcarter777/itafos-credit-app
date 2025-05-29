@@ -42,14 +42,7 @@ const EnderecoTable: React.FC<EnderecoTableProps> = ({ data, onEdit, queryId, is
               <td className="px-6 py-4 text-sm text-gray-900">{endereco.complemento}</td>
               { isAction && (
                 <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
-                  <button
-                    onClick={() => onEdit?.(endereco)}
-                    className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
-                  >
-                    <Pencil size="20px" />
-                  </button>
-
-                  <CreateEnderecoClienteModal clienteId={''} title="+ Endereço" queryId='propostas' data={endereco} />
+                  <CreateEnderecoClienteModal clienteId={''} queryId='propostas' data={endereco} icon={<Pencil size="20px" />}/>
       
                   <DeleteEnderecoClienteModal 
                     id={endereco.id}

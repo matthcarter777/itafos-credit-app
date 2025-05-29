@@ -5,7 +5,7 @@ import { getShowProposta } from '@/app/services/hooks/getShowProposta';
 import { Proposta } from '@/app/types/Proposta';
 import { formatarDataBR } from '@/app/utils/formateDate';
 import { useQuery } from '@tanstack/react-query';
-import { MoveLeft } from 'lucide-react';
+import { MoveLeft, Pencil } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import Textbox from '@/app/components/Textbox';
 import { cnpj, cpf } from '@/app/utils/cpf-cnpj-mask';
@@ -19,6 +19,8 @@ import CreateReferenciaClienteModal from '@/app/components/CreateReferenciaClien
 import ReferenciasTable from '@/app/components/ReferenciasTable';
 import CreateFazendaClienteModal from '@/app/components/CreateFazendaClienteModal';
 import FazendasContainer from '@/app/components/FazendaContainer';
+import CreateClienteModal from '@/app/components/CreateClienteModal';
+import UpdateClienteModal from '@/app/components/UpdateClienteModal';
 
 export default function PropostasPage() {
   const params = useParams();
@@ -53,7 +55,14 @@ export default function PropostasPage() {
 
       <div className='p-2'>
         <div className='mb-8'>
-          <h1 className='font-bold text-2xl'>Dados do Cliente</h1>
+          <div className='flex flex-row justify-between mb-9'>
+            <h1 className='font-bold text-2xl'>Dados do Cliente</h1>
+            <UpdateClienteModal 
+              queryId='propostas' 
+              data={data?.cliente}
+              icon={<Pencil size="20px"/>} 
+            />
+          </div>
           <div className='grid grid-cols-4 gap-4 mt-4'>
             <Textbox title='Nome' data={data?.cliente?.nomeCliente} />
             <Textbox title='Tipo de Cliente' data={data?.cliente?.tipoCliente} />

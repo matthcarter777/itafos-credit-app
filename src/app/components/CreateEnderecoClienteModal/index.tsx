@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from '../Input/Input';
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getEstados } from '@/app/services/hooks/getEstados';
 import Select from '../Select/Select';
@@ -17,10 +17,11 @@ import { Endereco } from '@/app/types/Endereco';
 
 
 type CreateEnderecoClienteModalProps = {
-  title: string;
+  title?: string;
   clienteId: string;
   queryId: string;
   data?: Endereco;
+  icon?: ReactNode;
 }
 
 const createEnderecoClienteSchema = z.object({
@@ -35,7 +36,7 @@ const createEnderecoClienteSchema = z.object({
 
 
 type CreateEnderecoClienteSchema = z.infer<typeof createEnderecoClienteSchema>;
-export default function CreateEnderecoClienteModal({ title, clienteId, queryId, data }: CreateEnderecoClienteModalProps) {
+export default function CreateEnderecoClienteModal({ title, clienteId, queryId, data, icon }: CreateEnderecoClienteModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const estados = useQuery<Estado[]>({ queryKey: ['estados'], queryFn: getEstados });
@@ -102,9 +103,11 @@ export default function CreateEnderecoClienteModal({ title, clienteId, queryId, 
         flex
         items-center
         justify-center
+        mb-1
       " 
       >
         { title }
+        { icon }
       </button>
 
       {isOpen && (
@@ -125,6 +128,7 @@ export default function CreateEnderecoClienteModal({ title, clienteId, queryId, 
             <Select<CreateEnderecoClienteSchema>
               label="Cidade"
               name="cidade"
+              value={data?.cidade}
               register={register}
               errors={errors}
               options={municipios.data || []}
@@ -133,6 +137,7 @@ export default function CreateEnderecoClienteModal({ title, clienteId, queryId, 
             <Input<CreateEnderecoClienteSchema>
               label="Endereço"
               name="logradouro"
+              value={data?.logradouro}
               register={register}
               errors={errors}
               placeholder="Ex: Rua das Flores, Avenida Brasil"
@@ -141,6 +146,7 @@ export default function CreateEnderecoClienteModal({ title, clienteId, queryId, 
             <Input<CreateEnderecoClienteSchema>
               label="CEP"
               name="cep"
+              value={data?.cep}
               register={register}
               errors={errors}
               placeholder="Digite o CEP (somente números)"
@@ -149,6 +155,7 @@ export default function CreateEnderecoClienteModal({ title, clienteId, queryId, 
             <Input<CreateEnderecoClienteSchema>
               label="Bairro"
               name="bairro"
+              value={data?.bairro}
               register={register}
               errors={errors}
               placeholder="Digite o nome do bairro"
@@ -158,6 +165,7 @@ export default function CreateEnderecoClienteModal({ title, clienteId, queryId, 
               label="Número"
               type="number"
               name="numero"
+              value={data?.numero}
               register={register}
               errors={errors}
               placeholder="Número da residência (opcional)"
@@ -166,6 +174,7 @@ export default function CreateEnderecoClienteModal({ title, clienteId, queryId, 
             <Input<CreateEnderecoClienteSchema>
               label="Complemento"
               name="complemento"
+              value={data?.complemento}
               register={register}
               errors={errors}
               placeholder="Ex: Apto 101, Fundos, Bloco B"
