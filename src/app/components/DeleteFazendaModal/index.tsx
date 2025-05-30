@@ -37,12 +37,15 @@ export default function DeleteFazendaModal({ title, id, queryId }: ModalProps) {
 
     return (
       <div className="">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="absolute top-2 right-2 text-gray-400 hover:text-red-500"
-        >
-          <X size={18} />
-        </button>
+        <div className="relative">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="text-gray-400 hover:text-red-500"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
   
         {isOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">

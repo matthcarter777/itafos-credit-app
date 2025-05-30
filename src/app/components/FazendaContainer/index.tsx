@@ -8,6 +8,8 @@ import { cnpj, cpf } from "@/app/utils/cpf-cnpj-mask";
 import CreateAtividadeClienteModal from "../CreateAtividadeClienteModal";
 import DeleteAtividadeClienteModal from "../DeleteAtividadeClienteModal";
 import DeleteFazendaModal from "../DeleteFazendaModal";
+import UpdateFazendaModal from "../UpdateFazendaModal";
+import { Pencil } from "lucide-react";
 
 type AtividadeTableProps = {
   data?: Fazenda[];
@@ -23,11 +25,18 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data, queryId, isActi
         return (
           <div key={fazenda.id} className='p-2 bg-white rounded-sm mb-4 relative'>
             { isAction && (
-              <DeleteFazendaModal
-                id={fazenda.id}
-                title="Tem certeza que deseja remover a fazenda ?"
-                queryId={queryId}
-              />
+              <div className="flex gap-2 mb-2 z-10 relative p-1">
+                <UpdateFazendaModal 
+                  queryId={queryId}
+                  data={fazenda}
+                  icon={<Pencil size="18px"/>}
+                />
+                <DeleteFazendaModal
+                  id={fazenda.id}
+                  title="Tem certeza que deseja remover a fazenda ?"
+                  queryId={queryId}
+                />
+              </div>
             )}
             <div className='grid grid-cols-4 gap-4 mt-4 mb-6'>
               <Textbox title='Nome' data={fazenda.nome} isHidde={!!!fazenda.nome}/>
