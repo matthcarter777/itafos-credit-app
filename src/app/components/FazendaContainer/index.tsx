@@ -10,6 +10,7 @@ import DeleteAtividadeClienteModal from "../DeleteAtividadeClienteModal";
 import DeleteFazendaModal from "../DeleteFazendaModal";
 import UpdateFazendaModal from "../UpdateFazendaModal";
 import { Pencil } from "lucide-react";
+import UpdateAtividadeModal from "../UpdateAtividadeModal";
 
 type AtividadeTableProps = {
   data?: Fazenda[];
@@ -76,11 +77,17 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data, queryId, isActi
                 <div  key={atividade.id}>
                   <div className="p-2 bg-gray-100 rounded-sm mb-4 relative">
                     { isAction && (
-                      <DeleteAtividadeClienteModal 
-                        id={atividade.id} 
-                        title="Tem certeza que deseja remover a atividade ?"
-                        queryId={queryId}
-                      />
+                      <div className="flex gap-2 mb-2 z-10 relative p-1">
+                        <UpdateAtividadeModal 
+                          queryId={queryId}
+                          icon={<Pencil size="18px"/>}
+                        />
+                        <DeleteAtividadeClienteModal 
+                          id={atividade.id} 
+                          title="Tem certeza que deseja remover a atividade ?"
+                          queryId={queryId}
+                        />
+                      </div>
                     )}
                     <div className='grid grid-cols-3 gap-4 mt-4'>
                       <Textbox title='Atividade' data={atividade.nome} isHidde={!!!atividade.nome}/>

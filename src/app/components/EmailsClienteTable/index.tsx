@@ -1,9 +1,6 @@
 "use client";
 
-import { deleteEmailCliente } from "@/app/services/delete/DeleteEmailService";
-import { queryClient } from "@/app/services/queryClient";
 import { Email } from "@/app/types/Email";
-import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import DeleteEmailClienteModal from "../DeleteEmailClienteModal";
 
