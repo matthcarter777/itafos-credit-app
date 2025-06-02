@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Select from '../Select/Select';
 import { createAtividadeFazendaCliente } from '@/app/services/create/CreateAtividadeFazendaCliente';
 import toast from 'react-hot-toast';
+import { stringToBoolean } from '@/app/utils/toBoolean';
 
 
 type CreateAtividadeClienteModalProps = {
@@ -409,8 +410,8 @@ export default function CreateAtividadeClienteModal({ title, fazendaId, queryId 
       nome: data.nome,
       tipoCultivo: data.tipoCultivo,
       areaPlantada: Number(data.areaPlantada) ?? undefined,
-      irrigada: Boolean(data.irrigada) ?? undefined,
-      suplemento: Boolean(data.suplemento) ?? undefined,
+      irrigada: stringToBoolean(data.irrigada) ?? undefined,
+      suplemento: stringToBoolean(data.suplemento) ?? undefined,
       nivelTecnologico: data.nivelTecnologico ?? undefined,
       quantAnimais: Number(data.quantAnimais) ?? undefined,
       confinamento: data.confinamento ?? undefined,
@@ -472,7 +473,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId, queryId 
             className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md flex flex-col gap-3" 
             onSubmit={handleSubmit(handleFormSubmit)} >
             <h2 className="text-xl font-bold mb-4">{title}</h2>
-              <Select<CreateAtividadeClienteSchema>
+            <Select<CreateAtividadeClienteSchema>
               label="Qual é a Atividade?"
               name="nome"
               register={register}

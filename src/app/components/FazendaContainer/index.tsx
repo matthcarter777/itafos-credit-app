@@ -81,6 +81,7 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data, queryId, isActi
                         <UpdateAtividadeModal 
                           queryId={queryId}
                           icon={<Pencil size="18px"/>}
+                          data={atividade}
                         />
                         <DeleteAtividadeClienteModal 
                           id={atividade.id} 
