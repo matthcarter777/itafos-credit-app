@@ -26,7 +26,7 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data, queryId, isActi
         return (
           <div key={fazenda.id} className='p-2 bg-white rounded-sm mb-4 relative'>
             { isAction && (
-              <div className="flex gap-2 mb-2 z-10 relative p-1">
+              <div className="flex gap-2 mb-2 relative p-1">
                 <UpdateFazendaModal 
                   queryId={queryId}
                   data={fazenda}
@@ -77,7 +77,7 @@ const FazendasContainer: React.FC<AtividadeTableProps> = ({data, queryId, isActi
                 <div  key={atividade.id}>
                   <div className="p-2 bg-gray-100 rounded-sm mb-4 relative">
                     { isAction && (
-                      <div className="flex gap-2 mb-2 z-10 relative p-1">
+                      <div className="flex gap-2 mb-2 relative p-1">
                         <UpdateAtividadeModal 
                           queryId={queryId}
                           icon={<Pencil size="18px"/>}

@@ -164,7 +164,7 @@ export default function UpdateFazendaModal({ queryId, data, icon }: UpdateFazend
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-[9999]">
           <form
             className="bg-gray-300 p-6 rounded shadow-lg w-full max-w-md flex flex-col gap-3 max-h-[90vh] overflow-y-auto scrollbar-hide"
             onSubmit={handleSubmit(handleFormSubmit)}
