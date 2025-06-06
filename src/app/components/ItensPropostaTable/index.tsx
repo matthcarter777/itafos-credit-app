@@ -1,19 +1,18 @@
 "use client";
 
 import { ItemProposta } from "@/app/types/ItemProposta";
-import { Produto } from "@/app/types/Produto";
 import { formatarDataBR } from "@/app/utils/formateDate";
 import { Pencil, Trash2 } from "lucide-react";
 import React from "react";
 import DeleteItemPropostaModal from "../DeleteItemPropostaModal";
+import UpdateItemPropostaModal from "../UpdateItemPropostaModal";
 
 type ProposalItensTableProps = {
   data?: ItemProposta[];
-  onEdit?: (user: ItemProposta) => void;
   isAction?: boolean;
 };
 
-const ProposalItensTable: React.FC<ProposalItensTableProps> = ({ data, onEdit, isAction = true }) => {
+const ProposalItensTable: React.FC<ProposalItensTableProps> = ({ data, isAction = true }) => {
   return (
     <div className="overflow-x-auto rounded-lg shadow-md">
       <table className="min-w-full divide-y divide-gray-200 bg-white">
@@ -45,12 +44,11 @@ const ProposalItensTable: React.FC<ProposalItensTableProps> = ({ data, onEdit, i
               </td>
               { isAction && (
                 <td className="px-6 py-4 text-sm text-gray-900 space-x-2">
-                  <button
-                    onClick={() => onEdit?.(item)}
-                    className="px-3 py-1 text-sm text-white bg-emerald-700 hover:bg-emerald-800 rounded"
-                  >
-                    <Pencil size="20px" />
-                  </button>
+                  <UpdateItemPropostaModal 
+                    queryId={""}
+                    icon={<Pencil size="20px" />}
+                    data={item}
+                  />
                   <DeleteItemPropostaModal
                     id={item.id}
                     title="Tem certeza que deseja remover o Item"
