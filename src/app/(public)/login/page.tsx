@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from 'zod';
+import toast from 'react-hot-toast';
 
 const loginSchema = z.object({
   email: z.string().email("E-mail inválido"),
@@ -21,9 +22,19 @@ export default function Home() {
 
   const { signIn } = useAuth();
 
-  function handleFormSubmit(data: LoginSchema) {
-    signIn(data)
+async function handleFormSubmit(data: LoginSchema) {
+  const {response} = await signIn(data); 
+
+  if (response.status == 401) {
+    toast.error('Usuario ou senha errado.');
   }
+
+  if (response.status == 200) {
+    toast.success('Bem-vindo!');
+  }
+
+}
+
 
   return (
     <div className="w-screen h-screen flex flex-col items-center gap-4 justify-center bg-stone-50">

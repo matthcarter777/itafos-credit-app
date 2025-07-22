@@ -158,13 +158,6 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
               Fechar
             </button>
           </form>
-
-          {showToast && (
-            <Toast
-              message="Usuario salvos com sucesso!"
-              onClose={() => setShowToast(false)}
-            />
-          )}
         </div>
       )}
     </div>

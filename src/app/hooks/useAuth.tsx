@@ -26,7 +26,7 @@ type SignInCredentials = {
 };
 
 type AuthContextData = {
-  signIn(credentials: SignInCredentials): Promise<boolean>;
+  signIn(credentials: SignInCredentials): Promise<any>;
   signOut(): void;
   isAuthenticated: boolean;
   user: User | undefined;
@@ -64,9 +64,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     router.push('/login');
   }
 
-  async function signIn({ email, senha }: SignInCredentials): Promise<boolean> {
+  async function signIn({ email, senha }: SignInCredentials): Promise<any> {
     try {
       const response = await api.post('login', { email, senha });
+
+      console.log('response')
 
       const { token, user: userData } = response.data;
 
@@ -86,9 +88,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       router.push('/home');
 
-      return true;
+      return response;
     } catch (err) {
-      return false;
+      return err;
     }
   }
 
