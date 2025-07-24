@@ -9,6 +9,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Select from '../Select/Select';
 import { createCliente } from '@/app/services/create/CreateCliente';
 import toast from 'react-hot-toast';
+import { Plus } from 'lucide-react';
 
 
 type CreateProdutoModalProps = {
@@ -109,7 +110,7 @@ export default function CreateProdutoModal({ title, queryId }: CreateProdutoModa
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

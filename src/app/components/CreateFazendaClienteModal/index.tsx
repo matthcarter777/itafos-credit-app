@@ -12,6 +12,7 @@ import { Estado } from '@/app/types/Estado';
 import { Municipio } from '@/app/types/Municipio';
 import { getMunicipios } from '@/app/services/hooks/getMunicipio';
 import { createFazendaCliente } from '@/app/services/create/CreateFazendaCliente';
+import { Plus } from 'lucide-react';
 
 
 
@@ -145,7 +146,7 @@ export default function CreateFazendaClienteModal({ title, clienteId, queryId }:
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

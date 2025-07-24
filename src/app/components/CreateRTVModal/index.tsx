@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createRTV } from '@/app/services/create/CreateRTV';
+import { Plus } from 'lucide-react';
 
 
 type CreateRTVModalProps = {
@@ -71,7 +72,7 @@ export default function CreateUserModal({ title }: CreateRTVModalProps) {
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

@@ -1,10 +1,8 @@
 "use client";
 
 import { Endereco } from "@/app/types/Endereco";
-import { Pencil, Trash2 } from "lucide-react";
 import React, { ReactNode } from "react";
 import DeleteEnderecoClienteModal from "../DeleteEnderecoClienteModal";
-import CreateEnderecoClienteModal from "../CreateEnderecoClienteModal";
 
 type EnderecoTableProps = {
   data?: Endereco[];

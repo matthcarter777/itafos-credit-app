@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createRegra } from '@/app/services/create/CreateRegra';
+import { Plus } from 'lucide-react';
 
 
 type CreateUserModalProps = {
@@ -66,7 +67,7 @@ export default function CreateUserModal({ title }: CreateUserModalProps) {
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

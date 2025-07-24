@@ -12,6 +12,7 @@ import Select from '../Select/Select';
 import { Produto } from '@/app/types/Produto';
 import { getProdutos } from '@/app/services/hooks/getProdutos';
 import { createItemProposta } from '@/app/services/create/CreateItemProposta';
+import { Plus } from 'lucide-react';
 
 
 type CreateItemPropostaModalProps = {
@@ -109,7 +110,7 @@ export default function CreateItemPropostaModal({ title, propostaId }: CreateIte
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

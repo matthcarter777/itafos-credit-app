@@ -11,6 +11,7 @@ import Select from '../Select/Select';
 import { createAtividadeFazendaCliente } from '@/app/services/create/CreateAtividadeFazendaCliente';
 import toast from 'react-hot-toast';
 import { stringToBoolean } from '@/app/utils/toBoolean';
+import { Plus } from 'lucide-react';
 
 
 type CreateAtividadeClienteModalProps = {
@@ -464,7 +465,7 @@ export default function CreateAtividadeClienteModal({ title, fazendaId, queryId 
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

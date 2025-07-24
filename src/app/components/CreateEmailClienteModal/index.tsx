@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createEmailCliente } from '@/app/services/create/CreateEmailCliente';
 import toast from 'react-hot-toast';
+import { Plus } from 'lucide-react';
 
 
 type CreateParecerComercialModalProps = {
@@ -76,7 +77,7 @@ export default function CreateEmailClienteModal({ title, clienteId, queryId }: C
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Select from '../Select/Select';
 import Textarea from '../Textarea/intex';
 import { createParecerComercial } from '@/app/services/create/CreateParecerComercial';
+import { Plus } from 'lucide-react';
 
 
 type CreateParecerComercialModalProps = {
@@ -100,7 +101,7 @@ export default function CreateProdutoModal({ title, clientId }: CreateParecerCom
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

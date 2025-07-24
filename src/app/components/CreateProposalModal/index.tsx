@@ -10,6 +10,7 @@ import Select from '../Select/Select';
 import { ClienteOptions } from '@/app/types/ClienteOptions';
 import { getClientes } from '@/app/services/hooks/getClientes';
 import { createProposta } from '@/app/services/create/CreateProposta';
+import { Plus } from 'lucide-react';
 
 
 type CreateProposalModalProps = {
@@ -71,7 +72,7 @@ export default function CreateProposalModal({ title }: CreateProposalModalProps)
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

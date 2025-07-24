@@ -102,7 +102,7 @@ export default function ClientePage() {
             <h1 className='font-bold text-2xl'>Informações de Localização</h1>
             <CreateEnderecoClienteModal clienteId={id || ''} title="+ Endereço" queryId='clientes'/>
           </div>
-          <EnderecoTable data={data?.enderecos} />
+          <EnderecoTable data={data?.enderecos} queryId='clientes' />
         </div>
 
         <div className='mb-15'>
@@ -116,17 +116,17 @@ export default function ClientePage() {
         <div className='mb-15'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Referencias</h1>
-            <CreateReferenciaClienteModal clienteId={data?.id || ''} title="+ Referencia"/>
+            <CreateReferenciaClienteModal clienteId={data?.id || ''} title="+ Referencia" queryId='clientes'/>
           </div>
-          <ReferenciasTable data={data?.referencias} />
+          <ReferenciasTable data={data?.referencias} queryId='clientes'/>
         </div>
 
         <div className='mb-15'>
           <div className='flex flex-row justify-between mb-9'>
             <h1 className='font-bold text-2xl'>Fazendas</h1>
-            <CreateFazendaClienteModal clienteId={data?.id || ''} title="+ Fazenda"/>
+            <CreateFazendaClienteModal clienteId={data?.id || ''} title="+ Fazenda" queryId='clientes'/>
           </div>
-          <FazendasContainer data={data?.fazendas} />
+          <FazendasContainer data={data?.fazendas} queryId='clientes'/>
         </div>
 
       </div>

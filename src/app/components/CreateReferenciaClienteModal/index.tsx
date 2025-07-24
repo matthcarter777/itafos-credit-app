@@ -13,6 +13,7 @@ import { Municipio } from '@/app/types/Municipio';
 import { getMunicipios } from '@/app/services/hooks/getMunicipio';
 import { createReferenciaCliente } from '@/app/services/create/CreateReferenciaCliente';
 import toast from 'react-hot-toast';
+import { Plus } from 'lucide-react';
 
 
 
@@ -100,7 +101,7 @@ export default function CreateReferenciaClienteModal({ title, clienteId, queryId
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

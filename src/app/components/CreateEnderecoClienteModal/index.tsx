@@ -13,6 +13,7 @@ import { Municipio } from '@/app/types/Municipio';
 import { getMunicipios } from '@/app/services/hooks/getMunicipio';
 import { createEnderecoCliente } from '@/app/services/create/CreateEnderecoCliente';
 import toast from 'react-hot-toast';
+import { Plus } from 'lucide-react';
 
 
 type CreateEnderecoClienteModalProps = {
@@ -104,8 +105,7 @@ export default function CreateEnderecoClienteModal({ title, clienteId, queryId, 
         mb-1
       " 
       >
-        { title }
-        { icon }
+        <Plus />
       </button>
 
       {isOpen && (

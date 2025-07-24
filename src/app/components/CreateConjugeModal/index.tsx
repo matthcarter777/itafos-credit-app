@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createConjuge } from '@/app/services/create/CreateConjuge';
 import toast from 'react-hot-toast';
+import { Plus } from 'lucide-react';
 
 
 type CreateParecerComercialModalProps = {
@@ -83,7 +84,7 @@ export default function CreateConjugeModal({ title, clienteId, isMarried, queryI
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (

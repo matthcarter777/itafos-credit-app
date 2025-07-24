@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { Toast } from '../Toast/Toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createProduto } from '@/app/services/create/CreateProduto';
+import { Plus } from 'lucide-react';
 
 
 type CreateParecerComercialModalProps = {
@@ -66,7 +67,7 @@ export default function CreateParecerComercialModal({ title }: CreateParecerCome
         justify-center
       " 
       >
-        { title }
+        <Plus />
       </button>
 
       {isOpen && (
